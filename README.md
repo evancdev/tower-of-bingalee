@@ -1,4 +1,3 @@
 # cs3110-finalproject
-NetIDs:
-
-cjj43
+Madelyn Leon mkl78
+Carly Jiang cjj43
