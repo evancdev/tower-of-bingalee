@@ -1,9 +1,10 @@
 # dune build
 # OCAMLPARAM: unset
 # Shared cache: disabled
-# Workspace root: /home/ec723/cs3110/cs3110-finalproject
-# Auto-detected concurrency: 16
-$ /home/ec723/.opam/cs3110-2023sp/bin/ocamlc.opt -config > /tmp/dune_82c5f4_output
+# Workspace root:
+# /Users/carlyjiang/Documents/3110/finalproject/cs3110-finalproject
+# Auto-detected concurrency: 4
+$ /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -config > /var/folders/bd/lcqm15xx5gbgzrmqbp5m5nqr0000gn/T/dune_e07ba2_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -13,64 +14,69 @@ $ /home/ec723/.opam/cs3110-2023sp/bin/ocamlc.opt -config > /tmp/dune_82c5f4_outp
 #  ; fdo_target_exe = None
 #  ; build_dir = In_build_dir "default"
 #  ; toplevel_path =
-#      Some External "/home/ec723/.opam/cs3110-2023sp/lib/toplevel"
-#  ; ocaml_bin = External "/home/ec723/.opam/cs3110-2023sp/bin"
-#  ; ocaml = Ok External "/home/ec723/.opam/cs3110-2023sp/bin/ocaml"
-#  ; ocamlc = External "/home/ec723/.opam/cs3110-2023sp/bin/ocamlc.opt"
-#  ; ocamlopt = Ok External "/home/ec723/.opam/cs3110-2023sp/bin/ocamlopt.opt"
-#  ; ocamldep = Ok External "/home/ec723/.opam/cs3110-2023sp/bin/ocamldep.opt"
+#      Some External "/Users/carlyjiang/.opam/cs3110-2023sp/lib/toplevel"
+#  ; ocaml_bin = External "/Users/carlyjiang/.opam/cs3110-2023sp/bin"
+#  ; ocaml = Ok External "/Users/carlyjiang/.opam/cs3110-2023sp/bin/ocaml"
+#  ; ocamlc = External "/Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt"
+#  ; ocamlopt =
+#      Ok External "/Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlopt.opt"
+#  ; ocamldep =
+#      Ok External "/Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamldep.opt"
 #  ; ocamlmklib =
-#      Ok External "/home/ec723/.opam/cs3110-2023sp/bin/ocamlmklib.opt"
+#      Ok External "/Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlmklib.opt"
 #  ; env =
 #      map
-#        { "DUNE_OCAML_HARDCODED" : "/home/ec723/.opam/cs3110-2023sp/lib"
-#        ; "DUNE_OCAML_STDLIB" : "/home/ec723/.opam/cs3110-2023sp/lib/ocaml"
-#        ; "DUNE_SOURCEROOT" : "/home/ec723/cs3110/cs3110-finalproject"
+#        { "DUNE_OCAML_HARDCODED" : "/Users/carlyjiang/.opam/cs3110-2023sp/lib"
+#        ; "DUNE_OCAML_STDLIB" :
+#            "/Users/carlyjiang/.opam/cs3110-2023sp/lib/ocaml"
+#        ; "DUNE_SOURCEROOT" :
+#            "/Users/carlyjiang/Documents/3110/finalproject/cs3110-finalproject"
 #        ; "INSIDE_DUNE" :
-#            "/home/ec723/cs3110/cs3110-finalproject/_build/default"
+#            "/Users/carlyjiang/Documents/3110/finalproject/cs3110-finalproject/_build/default"
+#        ; "MANPATH" :
+#            "/Users/carlyjiang/Documents/3110/finalproject/cs3110-finalproject/_build/install/default/bin"
 #        ; "OCAMLFIND_IGNORE_DUPS_IN" :
-#            "/home/ec723/cs3110/cs3110-finalproject/_build/install/default/lib"
+#            "/Users/carlyjiang/Documents/3110/finalproject/cs3110-finalproject/_build/install/default/lib"
 #        ; "OCAMLPATH" :
-#            "/home/ec723/cs3110/cs3110-finalproject/_build/install/default/lib"
+#            "/Users/carlyjiang/Documents/3110/finalproject/cs3110-finalproject/_build/install/default/lib"
 #        ; "OCAMLTOP_INCLUDE_PATH" :
-#            "/home/ec723/cs3110/cs3110-finalproject/_build/install/default/lib/toplevel"
+#            "/Users/carlyjiang/Documents/3110/finalproject/cs3110-finalproject/_build/install/default/lib/toplevel"
 #        ; "OCAML_COLOR" : "always"
 #        ; "OPAMCOLOR" : "always"
 #        }
-#  ; findlib_paths = [ External "/home/ec723/.opam/cs3110-2023sp/lib" ]
+#  ; findlib_paths = [ External "/Users/carlyjiang/.opam/cs3110-2023sp/lib" ]
 #  ; arch_sixtyfour = true
 #  ; natdynlink_supported = true
 #  ; supports_shared_libraries = true
 #  ; ocaml_config =
 #      { version = "4.14.0"
-#      ; standard_library_default = "/home/ec723/.opam/cs3110-2023sp/lib/ocaml"
-#      ; standard_library = "/home/ec723/.opam/cs3110-2023sp/lib/ocaml"
+#      ; standard_library_default =
+#          "/Users/carlyjiang/.opam/cs3110-2023sp/lib/ocaml"
+#      ; standard_library = "/Users/carlyjiang/.opam/cs3110-2023sp/lib/ocaml"
 #      ; standard_runtime = "the_standard_runtime_variable_was_deleted"
 #      ; ccomp_type = "cc"
-#      ; c_compiler = "gcc"
+#      ; c_compiler = "cc"
 #      ; ocamlc_cflags =
-#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-pthread"; "-fPIC" ]
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-pthread" ]
 #      ; ocamlc_cppflags = [ "-D_FILE_OFFSET_BITS=64" ]
 #      ; ocamlopt_cflags =
-#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-pthread"; "-fPIC" ]
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-pthread" ]
 #      ; ocamlopt_cppflags = [ "-D_FILE_OFFSET_BITS=64" ]
 #      ; bytecomp_c_compiler =
-#          [ "gcc"
+#          [ "cc"
 #          ; "-O2"
 #          ; "-fno-strict-aliasing"
 #          ; "-fwrapv"
 #          ; "-pthread"
-#          ; "-fPIC"
 #          ; "-D_FILE_OFFSET_BITS=64"
 #          ]
 #      ; bytecomp_c_libraries = [ "-lm"; "-lpthread" ]
 #      ; native_c_compiler =
-#          [ "gcc"
+#          [ "cc"
 #          ; "-O2"
 #          ; "-fno-strict-aliasing"
 #          ; "-fwrapv"
 #          ; "-pthread"
-#          ; "-fPIC"
 #          ; "-D_FILE_OFFSET_BITS=64"
 #          ]
 #      ; native_c_libraries = [ "-lm" ]
@@ -80,8 +86,8 @@ $ /home/ec723/.opam/cs3110-2023sp/bin/ocamlc.opt -config > /tmp/dune_82c5f4_outp
 #      ; model = "default"
 #      ; int_size = 63
 #      ; word_size = 64
-#      ; system = "linux"
-#      ; asm = [ "as" ]
+#      ; system = "macosx"
+#      ; asm = [ "cc"; "-c"; "-Wno-trigraphs" ]
 #      ; asm_cfi_supported = true
 #      ; with_frame_pointers = false
 #      ; ext_exe = ""
@@ -92,8 +98,8 @@ $ /home/ec723/.opam/cs3110-2023sp/bin/ocamlc.opt -config > /tmp/dune_82c5f4_outp
 #      ; os_type = "Unix"
 #      ; default_executable_name = "a.out"
 #      ; systhread_supported = true
-#      ; host = "x86_64-pc-linux-gnu"
-#      ; target = "x86_64-pc-linux-gnu"
+#      ; host = "x86_64-apple-darwin22.1.0"
+#      ; target = "x86_64-apple-darwin22.1.0"
 #      ; profiling = false
 #      ; flambda = false
 #      ; spacetime = false
@@ -113,21 +119,134 @@ $ /home/ec723/.opam/cs3110-2023sp/bin/ocamlc.opt -config > /tmp/dune_82c5f4_outp
 #      ; windows_unicode = false
 #      }
 #  }
-$ (cd _build/default && /home/ec723/.opam/cs3110-2023sp/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.game.objs/byte -I /home/ec723/.opam/cs3110-2023sp/lib/ANSITerminal -I /home/ec723/.opam/cs3110-2023sp/lib/seq -I /home/ec723/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/byte/game__Card.cmo -c -impl src/card.ml)
-> File "src/card.ml", line 1:
-> Error: The implementation src/card.ml
->        does not match the interface src/.game.objs/byte/game__Card.cmi: 
->        The type `t' is required but not provided
->        File "src/card.mli", line 1, characters 0-6: Expected declaration
->        The value `play' is required but not provided
->        File "src/card.mli", line 3, characters 0-19: Expected declaration
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamldep.opt -modules -intf src/state.mli) > _build/default/src/.game.objs/game__State.intf.d
+> File "src/state.mli", line 10, characters 4-7:
+> 10 | val end: string -> t
+>          ^^^
+> Error: Syntax error
 [2]
-$ (cd _build/default && /home/ec723/.opam/cs3110-2023sp/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I src/.game.objs/byte -I src/.game.objs/native -I /home/ec723/.opam/cs3110-2023sp/lib/ANSITerminal -I /home/ec723/.opam/cs3110-2023sp/lib/seq -I /home/ec723/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/native/game__Card.cmx -c -impl src/card.ml)
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.game.objs/byte -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/byte/game__Author.cmo -c -impl src/author.ml)
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.game.objs/byte -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/byte/game__Card.cmo -c -impl src/card.ml)
 > File "src/card.ml", line 1:
 > Error: The implementation src/card.ml
 >        does not match the interface src/.game.objs/byte/game__Card.cmi: 
 >        The type `t' is required but not provided
 >        File "src/card.mli", line 1, characters 0-6: Expected declaration
->        The value `play' is required but not provided
->        File "src/card.mli", line 3, characters 0-19: Expected declaration
+>        The type `effect' is required but not provided
+>        File "src/card.mli", line 4, characters 0-11: Expected declaration
+>        The value `create_card' is required but not provided
+>        File "src/card.mli", line 7, characters 0-37: Expected declaration
+>        The exception `UnknownCard' is required but not provided
+>        The value `description' is required but not provided
+>        File "src/card.mli", line 15, characters 0-39: Expected declaration
+>        The value `get_dmg' is required but not provided
+>        File "src/card.mli", line 20, characters 0-32: Expected declaration
+>        The value `get_energy' is required but not provided
+>        File "src/card.mli", line 22, characters 0-35: Expected declaration
+>        The value `get_block' is required but not provided
+>        File "src/card.mli", line 24, characters 0-34: Expected declaration
+>        The value `get_effect' is required but not provided
+>        File "src/card.mli", line 26, characters 0-38: Expected declaration
+[2]
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I src/.game.objs/byte -I src/.game.objs/native -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/native/game__Card.cmx -c -impl src/card.ml)
+> File "src/card.ml", line 1:
+> Error: The implementation src/card.ml
+>        does not match the interface src/.game.objs/byte/game__Card.cmi: 
+>        The type `t' is required but not provided
+>        File "src/card.mli", line 1, characters 0-6: Expected declaration
+>        The type `effect' is required but not provided
+>        File "src/card.mli", line 4, characters 0-11: Expected declaration
+>        The value `create_card' is required but not provided
+>        File "src/card.mli", line 7, characters 0-37: Expected declaration
+>        The exception `UnknownCard' is required but not provided
+>        The value `description' is required but not provided
+>        File "src/card.mli", line 15, characters 0-39: Expected declaration
+>        The value `get_dmg' is required but not provided
+>        File "src/card.mli", line 20, characters 0-32: Expected declaration
+>        The value `get_energy' is required but not provided
+>        File "src/card.mli", line 22, characters 0-35: Expected declaration
+>        The value `get_block' is required but not provided
+>        File "src/card.mli", line 24, characters 0-34: Expected declaration
+>        The value `get_effect' is required but not provided
+>        File "src/card.mli", line 26, characters 0-38: Expected declaration
+[2]
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.game.objs/byte -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/byte/game__Command.cmo -c -impl src/command.ml)
+> File "src/command.ml", line 1:
+> Error: The implementation src/command.ml
+>        does not match the interface src/.game.objs/byte/game__Command.cmi: 
+>        The type `card_name' is required but not provided
+>        File "src/command.mli", line 1, characters 0-23: Expected declaration
+>        The type `command' is required but not provided
+>        File "src/command.mli", lines 3-5, characters 0-7:
+>          Expected declaration
+>        The exception `Empty' is required but not provided
+>        The exception `Malformed' is required but not provided
+>        The value `parse' is required but not provided
+>        File "src/command.mli", line 13, characters 0-29: Expected declaration
+[2]
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I src/.game.objs/byte -I src/.game.objs/native -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/native/game__Command.cmx -c -impl src/command.ml)
+> File "src/command.ml", line 1:
+> Error: The implementation src/command.ml
+>        does not match the interface src/.game.objs/byte/game__Command.cmi: 
+>        The type `card_name' is required but not provided
+>        File "src/command.mli", line 1, characters 0-23: Expected declaration
+>        The type `command' is required but not provided
+>        File "src/command.mli", lines 3-5, characters 0-7:
+>          Expected declaration
+>        The exception `Empty' is required but not provided
+>        The exception `Malformed' is required but not provided
+>        The value `parse' is required but not provided
+>        File "src/command.mli", line 13, characters 0-29: Expected declaration
+[2]
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.game.objs/byte -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/byte/game__Enemy.cmo -c -impl src/enemy.ml)
+> File "src/enemy.ml", line 1:
+> Error: The implementation src/enemy.ml
+>        does not match the interface src/.game.objs/byte/game__Enemy.cmi: 
+>        The type `t' is required but not provided
+>        File "src/enemy.mli", line 1, characters 0-6: Expected declaration
+>        The value `enemy_health' is required but not provided
+>        File "src/enemy.mli", line 4, characters 0-26: Expected declaration
+>        The value `enemy_block' is required but not provided
+>        File "src/enemy.mli", line 7, characters 0-25: Expected declaration
+[2]
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I src/.game.objs/byte -I src/.game.objs/native -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/native/game__Enemy.cmx -c -impl src/enemy.ml)
+> File "src/enemy.ml", line 1:
+> Error: The implementation src/enemy.ml
+>        does not match the interface src/.game.objs/byte/game__Enemy.cmi: 
+>        The type `t' is required but not provided
+>        File "src/enemy.mli", line 1, characters 0-6: Expected declaration
+>        The value `enemy_health' is required but not provided
+>        File "src/enemy.mli", line 4, characters 0-26: Expected declaration
+>        The value `enemy_block' is required but not provided
+>        File "src/enemy.mli", line 7, characters 0-25: Expected declaration
+[2]
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.game.objs/byte -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/byte/game__Player.cmo -c -impl src/player.ml)
+> File "src/player.ml", line 1:
+> Error: The implementation src/player.ml
+>        does not match the interface src/.game.objs/byte/game__Player.cmi: 
+>        The type `t' is required but not provided
+>        File "src/player.mli", line 1, characters 0-6: Expected declaration
+>        The value `player_health' is required but not provided
+>        File "src/player.mli", line 4, characters 0-27: Expected declaration
+>        The value `player_block' is required but not provided
+>        File "src/player.mli", line 7, characters 0-26: Expected declaration
+>        The value `player_hand' is required but not provided
+>        File "src/player.mli", line 10, characters 0-33: Expected declaration
+>        The value `player_energy' is required but not provided
+>        File "src/player.mli", line 13, characters 0-27: Expected declaration
+[2]
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I src/.game.objs/byte -I src/.game.objs/native -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/native/game__Player.cmx -c -impl src/player.ml)
+> File "src/player.ml", line 1:
+> Error: The implementation src/player.ml
+>        does not match the interface src/.game.objs/byte/game__Player.cmi: 
+>        The type `t' is required but not provided
+>        File "src/player.mli", line 1, characters 0-6: Expected declaration
+>        The value `player_health' is required but not provided
+>        File "src/player.mli", line 4, characters 0-27: Expected declaration
+>        The value `player_block' is required but not provided
+>        File "src/player.mli", line 7, characters 0-26: Expected declaration
+>        The value `player_hand' is required but not provided
+>        File "src/player.mli", line 10, characters 0-33: Expected declaration
+>        The value `player_energy' is required but not provided
+>        File "src/player.mli", line 13, characters 0-27: Expected declaration
 [2]

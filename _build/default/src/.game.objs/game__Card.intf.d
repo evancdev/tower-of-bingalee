@@ -1,1 +1,1 @@
-src/card.mli:
+src/card.mli: Yojson

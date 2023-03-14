@@ -4,8 +4,12 @@
 (files
  (lib
   (META
+   author.ml
+   author.mli
    card.ml
    card.mli
+   command.ml
+   command.mli
    dune-package
    enemy.ml
    enemy.mli
@@ -16,10 +20,18 @@
    game.cmx
    game.cmxa
    game.ml
+   game__Author.cmi
+   game__Author.cmt
+   game__Author.cmti
+   game__Author.cmx
    game__Card.cmi
    game__Card.cmt
    game__Card.cmti
    game__Card.cmx
+   game__Command.cmi
+   game__Command.cmt
+   game__Command.cmti
+   game__Command.cmx
    game__Enemy.cmi
    game__Enemy.cmt
    game__Enemy.cmti
@@ -59,9 +71,20 @@
     (name Game)
     (modules
      (module
+      (obj_name game__Author)
+      (visibility public)
+      (source (path Author) (intf (path author.mli)) (impl (path author.ml))))
+     (module
       (obj_name game__Card)
       (visibility public)
       (source (path Card) (intf (path card.mli)) (impl (path card.ml))))
+     (module
+      (obj_name game__Command)
+      (visibility public)
+      (source
+       (path Command)
+       (intf (path command.mli))
+       (impl (path command.ml))))
      (module
       (obj_name game__Enemy)
       (visibility public)
