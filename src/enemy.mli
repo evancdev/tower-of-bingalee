@@ -1,9 +1,8 @@
-type t 
-(**Enemy*)
+type t
+(**player*)
 
-val enemy_health: t -> int
-(**get player health*)
+val enemy_health : t -> int
+(**get enemy health*)
 
-val enemy_block: t -> int
-(**get palyer block*)
-
+val enemy_block : t -> int
+(**get enemy block*)
