@@ -7,8 +7,8 @@ val init_state : Enemy.t -> t
 val play : string -> t -> t
 (**plays the card*)
 
-val end: string -> t
+val end_turn : string -> t
 (**ends the turn*)
 
-val checkhand : t -> string list 
+val checkhand : t -> string list
 (**returns player hand*)

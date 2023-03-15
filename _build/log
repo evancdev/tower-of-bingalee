@@ -4,7 +4,7 @@
 # Workspace root:
 # /Users/carlyjiang/Documents/3110/finalproject/cs3110-finalproject
 # Auto-detected concurrency: 4
-$ /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -config > /var/folders/bd/lcqm15xx5gbgzrmqbp5m5nqr0000gn/T/dune_e07ba2_output
+$ /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -config > /var/folders/bd/lcqm15xx5gbgzrmqbp5m5nqr0000gn/T/dune_871f84_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -119,134 +119,13 @@ $ /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -config > /var/folders/bd
 #      ; windows_unicode = false
 #      }
 #  }
-$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamldep.opt -modules -intf src/state.mli) > _build/default/src/.game.objs/game__State.intf.d
-> File "src/state.mli", line 10, characters 4-7:
-> 10 | val end: string -> t
->          ^^^
-> Error: Syntax error
-[2]
-$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.game.objs/byte -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/byte/game__Author.cmo -c -impl src/author.ml)
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamldep.opt -modules -intf src/card.mli) > _build/default/src/.game.objs/game__Card.intf.d
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.game.objs/byte -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -no-alias-deps -opaque -open Game -o src/.game.objs/byte/game__Card.cmi -c -intf src/card.mli)
 $ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.game.objs/byte -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/byte/game__Card.cmo -c -impl src/card.ml)
-> File "src/card.ml", line 1:
-> Error: The implementation src/card.ml
->        does not match the interface src/.game.objs/byte/game__Card.cmi: 
->        The type `t' is required but not provided
->        File "src/card.mli", line 1, characters 0-6: Expected declaration
->        The type `effect' is required but not provided
->        File "src/card.mli", line 4, characters 0-11: Expected declaration
->        The value `create_card' is required but not provided
->        File "src/card.mli", line 7, characters 0-37: Expected declaration
->        The exception `UnknownCard' is required but not provided
->        The value `description' is required but not provided
->        File "src/card.mli", line 15, characters 0-39: Expected declaration
->        The value `get_dmg' is required but not provided
->        File "src/card.mli", line 20, characters 0-32: Expected declaration
->        The value `get_energy' is required but not provided
->        File "src/card.mli", line 22, characters 0-35: Expected declaration
->        The value `get_block' is required but not provided
->        File "src/card.mli", line 24, characters 0-34: Expected declaration
->        The value `get_effect' is required but not provided
->        File "src/card.mli", line 26, characters 0-38: Expected declaration
-[2]
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I test/.main.eobjs/byte -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ounit2 -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ounit2/advanced -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/stdlib-shims -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -I src/.game.objs/byte -no-alias-deps -opaque -o test/.main.eobjs/byte/dune__exe__Main.cmi -c -intf test/main.mli)
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o src/game.cma src/.game.objs/byte/game.cmo src/.game.objs/byte/game__State.cmo src/.game.objs/byte/game__Player.cmo src/.game.objs/byte/game__Enemy.cmo src/.game.objs/byte/game__Command.cmo src/.game.objs/byte/game__Card.cmo src/.game.objs/byte/game__Author.cmo)
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I test/.main.eobjs/byte -I test/.main.eobjs/native -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ounit2 -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ounit2/advanced -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/stdlib-shims -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -I src/.game.objs/byte -I src/.game.objs/native -intf-suffix .ml -no-alias-deps -opaque -o test/.main.eobjs/native/dune__exe__Main.cmx -c -impl test/main.ml)
 $ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I src/.game.objs/byte -I src/.game.objs/native -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/native/game__Card.cmx -c -impl src/card.ml)
-> File "src/card.ml", line 1:
-> Error: The implementation src/card.ml
->        does not match the interface src/.game.objs/byte/game__Card.cmi: 
->        The type `t' is required but not provided
->        File "src/card.mli", line 1, characters 0-6: Expected declaration
->        The type `effect' is required but not provided
->        File "src/card.mli", line 4, characters 0-11: Expected declaration
->        The value `create_card' is required but not provided
->        File "src/card.mli", line 7, characters 0-37: Expected declaration
->        The exception `UnknownCard' is required but not provided
->        The value `description' is required but not provided
->        File "src/card.mli", line 15, characters 0-39: Expected declaration
->        The value `get_dmg' is required but not provided
->        File "src/card.mli", line 20, characters 0-32: Expected declaration
->        The value `get_energy' is required but not provided
->        File "src/card.mli", line 22, characters 0-35: Expected declaration
->        The value `get_block' is required but not provided
->        File "src/card.mli", line 24, characters 0-34: Expected declaration
->        The value `get_effect' is required but not provided
->        File "src/card.mli", line 26, characters 0-38: Expected declaration
-[2]
-$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.game.objs/byte -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/byte/game__Command.cmo -c -impl src/command.ml)
-> File "src/command.ml", line 1:
-> Error: The implementation src/command.ml
->        does not match the interface src/.game.objs/byte/game__Command.cmi: 
->        The type `card_name' is required but not provided
->        File "src/command.mli", line 1, characters 0-23: Expected declaration
->        The type `command' is required but not provided
->        File "src/command.mli", lines 3-5, characters 0-7:
->          Expected declaration
->        The exception `Empty' is required but not provided
->        The exception `Malformed' is required but not provided
->        The value `parse' is required but not provided
->        File "src/command.mli", line 13, characters 0-29: Expected declaration
-[2]
-$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I src/.game.objs/byte -I src/.game.objs/native -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/native/game__Command.cmx -c -impl src/command.ml)
-> File "src/command.ml", line 1:
-> Error: The implementation src/command.ml
->        does not match the interface src/.game.objs/byte/game__Command.cmi: 
->        The type `card_name' is required but not provided
->        File "src/command.mli", line 1, characters 0-23: Expected declaration
->        The type `command' is required but not provided
->        File "src/command.mli", lines 3-5, characters 0-7:
->          Expected declaration
->        The exception `Empty' is required but not provided
->        The exception `Malformed' is required but not provided
->        The value `parse' is required but not provided
->        File "src/command.mli", line 13, characters 0-29: Expected declaration
-[2]
-$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.game.objs/byte -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/byte/game__Enemy.cmo -c -impl src/enemy.ml)
-> File "src/enemy.ml", line 1:
-> Error: The implementation src/enemy.ml
->        does not match the interface src/.game.objs/byte/game__Enemy.cmi: 
->        The type `t' is required but not provided
->        File "src/enemy.mli", line 1, characters 0-6: Expected declaration
->        The value `enemy_health' is required but not provided
->        File "src/enemy.mli", line 4, characters 0-26: Expected declaration
->        The value `enemy_block' is required but not provided
->        File "src/enemy.mli", line 7, characters 0-25: Expected declaration
-[2]
-$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I src/.game.objs/byte -I src/.game.objs/native -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/native/game__Enemy.cmx -c -impl src/enemy.ml)
-> File "src/enemy.ml", line 1:
-> Error: The implementation src/enemy.ml
->        does not match the interface src/.game.objs/byte/game__Enemy.cmi: 
->        The type `t' is required but not provided
->        File "src/enemy.mli", line 1, characters 0-6: Expected declaration
->        The value `enemy_health' is required but not provided
->        File "src/enemy.mli", line 4, characters 0-26: Expected declaration
->        The value `enemy_block' is required but not provided
->        File "src/enemy.mli", line 7, characters 0-25: Expected declaration
-[2]
-$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.game.objs/byte -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/byte/game__Player.cmo -c -impl src/player.ml)
-> File "src/player.ml", line 1:
-> Error: The implementation src/player.ml
->        does not match the interface src/.game.objs/byte/game__Player.cmi: 
->        The type `t' is required but not provided
->        File "src/player.mli", line 1, characters 0-6: Expected declaration
->        The value `player_health' is required but not provided
->        File "src/player.mli", line 4, characters 0-27: Expected declaration
->        The value `player_block' is required but not provided
->        File "src/player.mli", line 7, characters 0-26: Expected declaration
->        The value `player_hand' is required but not provided
->        File "src/player.mli", line 10, characters 0-33: Expected declaration
->        The value `player_energy' is required but not provided
->        File "src/player.mli", line 13, characters 0-27: Expected declaration
-[2]
-$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I src/.game.objs/byte -I src/.game.objs/native -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/seq -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson -intf-suffix .ml -no-alias-deps -opaque -open Game -o src/.game.objs/native/game__Player.cmx -c -impl src/player.ml)
-> File "src/player.ml", line 1:
-> Error: The implementation src/player.ml
->        does not match the interface src/.game.objs/byte/game__Player.cmi: 
->        The type `t' is required but not provided
->        File "src/player.mli", line 1, characters 0-6: Expected declaration
->        The value `player_health' is required but not provided
->        File "src/player.mli", line 4, characters 0-27: Expected declaration
->        The value `player_block' is required but not provided
->        File "src/player.mli", line 7, characters 0-26: Expected declaration
->        The value `player_hand' is required but not provided
->        File "src/player.mli", line 10, characters 0-33: Expected declaration
->        The value `player_energy' is required but not provided
->        File "src/player.mli", line 13, characters 0-27: Expected declaration
-[2]
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o src/game.cmxa src/.game.objs/native/game.cmx src/.game.objs/native/game__State.cmx src/.game.objs/native/game__Player.cmx src/.game.objs/native/game__Enemy.cmx src/.game.objs/native/game__Command.cmx src/.game.objs/native/game__Card.cmx src/.game.objs/native/game__Author.cmx)
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o test/main.exe /Users/carlyjiang/.opam/cs3110-2023sp/lib/yojson/yojson.cmxa /Users/carlyjiang/.opam/cs3110-2023sp/lib/ocaml/unix.cmxa -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ocaml -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ocaml /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal/ANSITerminal.cmxa -I /Users/carlyjiang/.opam/cs3110-2023sp/lib/ANSITerminal src/game.cmxa /Users/carlyjiang/.opam/cs3110-2023sp/lib/stdlib-shims/stdlib_shims.cmxa /Users/carlyjiang/.opam/cs3110-2023sp/lib/ounit2/advanced/oUnitAdvanced.cmxa /Users/carlyjiang/.opam/cs3110-2023sp/lib/ounit2/oUnit.cmxa test/.main.eobjs/native/dune__exe__Main.cmx)
+$ (cd _build/default && /Users/carlyjiang/.opam/cs3110-2023sp/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -shared -linkall -I src -o src/game.cmxs src/game.cmxa)
