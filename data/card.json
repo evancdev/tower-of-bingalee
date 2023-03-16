@@ -1,0 +1,12 @@
+{
+  "cards": [
+    {
+      "id": "OMEGA attack",
+      "description": "Deals 1000 DMG to the enemy",
+      "damage": 0,
+      "energy": 0,
+      "effect": 0,
+      "block": 0
+    }
+  ]
+}

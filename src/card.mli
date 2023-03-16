@@ -4,7 +4,7 @@ type t
 type effect
 (**effect*)
 
-val create_card : Yojson.Basic.t -> t
+val create_cards : Yojson.Basic.t -> t
 (** [create_card j] is the adventure that [j] represents. Requires: [j] is a
     valid JSON card representation. *)
 
