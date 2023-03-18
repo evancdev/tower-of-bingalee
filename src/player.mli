@@ -8,7 +8,7 @@ val player_health : t -> int
 val player_block : t -> int
 (**[player_block] returns the player's current block*)
 
-val player_hand : t -> Card.card list
+val player_hand : t -> string list
 (**[player_hand] returns the player's current hand*)
 
 val player_energy : t -> int

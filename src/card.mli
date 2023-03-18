@@ -22,3 +22,4 @@ val get_dmg : t -> string -> int
 val get_energy : t -> string -> int
 val get_block : t -> string -> int
 val get_effect : t -> string -> effect
+val get_id : card -> string

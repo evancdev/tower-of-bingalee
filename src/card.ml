@@ -50,4 +50,5 @@ let description (set : t) (card : string) = set.cards |> card_description card
 let get_dmg (set : t) (card : string) = set.cards |> card_dmg card
 let get_energy (set : t) (card : string) = set.cards |> card_energy card
 let get_block (set : t) (card : string) = set.cards |> card_block card
+let get_id (card : card) = card.id
 let get_effect = raise (Failure "unimplemented")
