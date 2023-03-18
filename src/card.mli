@@ -1,6 +1,8 @@
 type t
 (** The abstract type of values representing cards. *)
 
+type card 
+
 type effect
 (**effect*)
 
