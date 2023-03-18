@@ -14,5 +14,5 @@ val player_block : t -> int
 val player_energy : t -> int
 (**[player_energy] returns the player's current energy*)
 
-val add_card: Card.t -> t
+(**val add_card: Card.t -> t*)
 (**[add_card] adds card [c] to the player's deck*)
