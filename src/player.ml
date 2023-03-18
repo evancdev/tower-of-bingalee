@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 open Card
 type t = {
   name : string; 
@@ -56,4 +55,3 @@ let player_energy (p : t) : int = p.energy
 (**[add_card] adds card [c] to the player's deck*)
 
 (**let add_card (c : Card.t) = { t with deck = deck @ [ c ] }*)
->>>>>>> 1d5aa64b7f4b66927c7ec1fe7b9aec4aecb2aa7f

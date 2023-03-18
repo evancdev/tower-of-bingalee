@@ -1,9 +1,6 @@
 open Game
-<<<<<<< HEAD
 open Yojson.Basic.Util
 open OUnit2
-=======
->>>>>>> 1d5aa64b7f4b66927c7ec1fe7b9aec4aecb2aa7f
 open Card
 open Command
 open Enemy
@@ -14,16 +11,7 @@ let data_dir_prefix = "data" ^ Filename.dir_sep
 let card_json = Yojson.Basic.from_file (data_dir_prefix ^ "card.json")
 let enemy_json = Yojson.Basic.from_file (data_dir_prefix ^ "enemy.json")
 
-<<<<<<< HEAD
 (** (TODO) create a starting_deck for the player*)
-=======
-let enemy_health_test (name : string) enemy (expected_output : int) : test =
-  name >:: fun _ ->
-  assert_equal expected_output (enemy_health enemy_json)
-
-(* * (TODO) create a starting_deck for the player *)
-let player = {name = "Player1"; health = 50; energy = 3; block = 0; hand = []; deck = []}
->>>>>>> 1d5aa64b7f4b66927c7ec1fe7b9aec4aecb2aa7f
 let card_tests = []
 let command_tests = []
 let enemy_tests = []
