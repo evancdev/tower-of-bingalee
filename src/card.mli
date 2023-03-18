@@ -1,6 +1,14 @@
 type t
 (** The abstract type of values representing cards. *)
 
+type card = {
+  id : string;
+  description : string;
+  energy : int;
+  damage : int;
+  block : int;
+}
+
 type effect
 (**effect*)
 
@@ -20,3 +28,4 @@ val get_dmg : t -> string -> int
 val get_energy : t -> string -> int
 val get_block : t -> string -> int
 val get_effect : t -> string -> effect
+val get_id : card -> string
