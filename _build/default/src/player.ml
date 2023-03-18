@@ -1,5 +1,6 @@
-type t
-(**player*)
+open Yojson.Basic.Util
+
+type t = unit
 
 (**get player health*)
 let player_health (p : t) : int = raise (Failure "unimplemented player_health")

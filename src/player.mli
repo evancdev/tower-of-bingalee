@@ -1,6 +1,9 @@
 type t
 (**player*)
 
+
+val init_player Card.t -> t
+
 val player_health: t -> int
 (**get player health*)
 

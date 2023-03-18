@@ -1,19 +1,14 @@
 open Yojson.Basic.Util
+open Card
 
 type t = {
   health : int;
   block : int;
   energy : int;
-  player_hand : list;
+  player_hand : string list;
 }
 
-let player_health pl = pl.health
-let player_block pl = raise (Failure "Unimplemented: Player.player_block")
-let player_hand pl = raise (Failure "Unimplemented: Player.player_hand")
-let player_energy pl = raise (Failure "Unimplemented: Player.player_health")
-
-type t
-(**player*)
+let init_player card = Failure "unimplemented init_player"
 
 (**get player health*)
 let player_health (p : t) : int = raise (Failure "unimplemented player_health")

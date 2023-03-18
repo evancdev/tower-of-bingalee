@@ -1,4 +1,4 @@
-(lang dune 3.7)
+(lang dune 3.6)
 (name Game)
 (sections (lib .) (libexec .) (doc ../../doc/Game))
 (files
@@ -62,39 +62,22 @@
  (modes byte native)
  (modules
   (wrapped
-   (group
-    (alias
-     (obj_name game)
+   (main_module_name Game)
+   (modules
+    ((name Author) (obj_name game__Author) (visibility public) (impl) (intf))
+    ((name Card) (obj_name game__Card) (visibility public) (impl) (intf))
+    ((name Command)
+     (obj_name game__Command)
      (visibility public)
-     (kind alias)
-     (source (path Game) (impl (path game.ml-gen))))
+     (impl)
+     (intf))
+    ((name Enemy) (obj_name game__Enemy) (visibility public) (impl) (intf))
+    ((name Player) (obj_name game__Player) (visibility public) (impl) (intf))
+    ((name State) (obj_name game__State) (visibility public) (impl) (intf)))
+   (alias_module
     (name Game)
-    (modules
-     (module
-      (obj_name game__Author)
-      (visibility public)
-      (source (path Author) (intf (path author.mli)) (impl (path author.ml))))
-     (module
-      (obj_name game__Card)
-      (visibility public)
-      (source (path Card) (intf (path card.mli)) (impl (path card.ml))))
-     (module
-      (obj_name game__Command)
-      (visibility public)
-      (source
-       (path Command)
-       (intf (path command.mli))
-       (impl (path command.ml))))
-     (module
-      (obj_name game__Enemy)
-      (visibility public)
-      (source (path Enemy) (intf (path enemy.mli)) (impl (path enemy.ml))))
-     (module
-      (obj_name game__Player)
-      (visibility public)
-      (source (path Player) (intf (path player.mli)) (impl (path player.ml))))
-     (module
-      (obj_name game__State)
-      (visibility public)
-      (source (path State) (intf (path state.mli)) (impl (path state.ml))))))
+    (obj_name game)
+    (visibility public)
+    (kind alias)
+    (impl))
    (wrapped true))))
