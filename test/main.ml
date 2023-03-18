@@ -1,10 +1,10 @@
-open OUnit2
+open Game
 open Card
-open Player
 open Command
 open Enemy
 open Player
 open State
+open OUnit2
 
 let data_dir_prefix = "data" ^ Filename.dir_sep
 let card_json = Yojson.Basic.from_file (data_dir_prefix ^ "card.json")

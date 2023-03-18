@@ -18,5 +18,5 @@ let enemy_of_json j =
 let all_enemies_of_json j =
   { enemies = j |> member "enemies" |> to_list |> List.map enemy_of_json }
 
-let enemy_health e = e.health
-let enemy_block e = e.block
+let enemy_health t = 1
+let enemy_block t = 1
