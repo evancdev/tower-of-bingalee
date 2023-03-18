@@ -7,6 +7,16 @@ type t = {
   deck : Card.card list; 
 }
 
+let create_player (name : string) = 
+  {
+  name = name; 
+  health = 50; 
+  energy = 3;
+  block = 0;
+  hand = [];
+  deck = [];
+  }
+
 (**[player_health] returns the player's current health*)
 let player_health (p : t) : int = p.health
 

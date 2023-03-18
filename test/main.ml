@@ -3,6 +3,7 @@ open Yojson.Basic.Util
 open OUnit2
 open Card
 open Command
+open Player
 open Enemy
 open State
 open OUnit2
@@ -12,6 +13,7 @@ let card_json = Yojson.Basic.from_file (data_dir_prefix ^ "card.json")
 let enemy_json = Yojson.Basic.from_file (data_dir_prefix ^ "enemy.json")
 
 (** (TODO) create a starting_deck for the player*)
+let player = create_player "Player1"
 let card_tests = []
 let command_tests = []
 let enemy_tests = []

@@ -2,6 +2,7 @@ type t
 (** The abstract type of values representing player. *)
 (**val init_player : Card.t -> t*)
 
+val create_player : string -> t
 val player_health : t -> int
 (**[player_health] returns the player's current health*)
 
