@@ -1,24 +1,27 @@
-open Yojson.Basic.Util
 open Card
 
 type t = {
+  name : string;
   health : int;
-  block : int;
   energy : int;
-  player_hand : string list;
+  block : int;
+  hand : Card.t list;
+  deck : Card.t list;
 }
 
-let init_player card = Failure "unimplemented init_player"
+(**[player_health] returns the player's current health*)
+let player_health (p : t) : int = p.health
 
-(**get player health*)
-let player_health (p : t) : int = raise (Failure "unimplemented player_health")
+(**[player_block] returns the player's current block*)
+let player_block (p : t) : int = p.block
 
-(**get palyer block*)
-let player_block (p : t) : int = raise (Failure "unimplemented player_block")
+let add_card_name (card : Card.t) lst = card.id :: lst
 
-(**name of cards player is holding*)
-let player_hand (p : t) : string list =
-  raise (Failure "unimplemented player_hand")
+(**[player_hand] returns the player's current hand*)
+let player_hand (p : t) : string list = List.fold_right add_card_name p.hand []
 
-(**player energy*)
-let player_energy (p : t) : int = raise (Failure "unimplemented player_health")
+(**[player_energy] returns the player's current energy*)
+let player_energy (p : t) : int = p.energy
+
+(**[add_card] adds card [c] to the player's deck*)
+let add_card (c : Card.t) = { t with deck = deck @ [ c ] }
