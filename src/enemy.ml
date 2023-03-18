@@ -1,8 +1,22 @@
-type t = unit
-(**Enemy*)
+open Yojson.Basic.Util
 
-(**get player health*)
-let enemy_health = raise (Failure "unimplemented")
+type enemy = {
+  name : string;
+  health : int;
+  block : int;
+}
 
-(**get palyer block*)
-let enemy_block = raise (Failure "unimplemented")
+type t = { enemies : enemy list }
+
+let enemy_of_json j =
+  {
+    name = j |> member "name" |> to_string;
+    health = j |> member "health" |> to_int;
+    block = j |> member "block" |> to_int;
+  }
+
+let all_enemies_of_json j =
+  { enemies = j |> member "enemies" |> to_list |> List.map enemy_of_json }
+
+let enemy_health t = 1
+let enemy_block t = 1
