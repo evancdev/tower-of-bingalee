@@ -1,0 +1,9 @@
+{
+  "enemies": [
+    {
+      "name": "slime",
+      "health": 10,
+      "block": 0
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 type t
-(**player*)
+(** The abstract type representing an enemy *)
 
 val enemy_health : t -> int
-(**get enemy health*)
+(**[enemy block e] is the amount of health [e] has *)
 
 val enemy_block : t -> int
-(**get enemy block*)
+(** [enemy block e] is the amount of damage [e] can block*)
