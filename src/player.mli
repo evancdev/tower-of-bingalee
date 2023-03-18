@@ -13,5 +13,5 @@ val player_hand: t -> string list
 val player_energy: t -> int
 (**[player_energy] returns the player's current energy*)
 
-val add_card: c -> t
+val add_card: Card.t -> t
 (**[add_card] adds card [c] to the player's deck*)
