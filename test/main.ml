@@ -3,6 +3,7 @@ open Yojson.Basic.Util
 open OUnit2
 open Card
 open Command
+open Player
 open Enemy
 open State
 open OUnit2

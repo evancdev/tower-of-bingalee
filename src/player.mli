@@ -3,6 +3,7 @@ type t
 (**val init_player : Card.t -> t*)
 
 val create_player : string -> t
+
 val player_health : t -> int
 (**[player_health] returns the player's current health*)
 
@@ -15,5 +16,5 @@ val player_hand : t -> string list
 val player_energy : t -> int
 (**[player_energy] returns the player's current energy*)
 
-val add_card: t -> Card.card -> t
+val add_card: t -> string -> t
 (**[add_card] adds card [c] to the player's deck*)
