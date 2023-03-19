@@ -3,7 +3,7 @@
     {
       "id": "OMEGA attack",
       "description": "Deals 1000 DMG to the enemy",
-      "damage": 0,
+      "damage": 1000,
       "energy": 0,
       "effect": 0,
       "block": 0
