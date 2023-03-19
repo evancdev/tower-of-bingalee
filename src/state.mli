@@ -1,14 +1,25 @@
 type t
+
+exception CardNotInHand of string
 (** The abstract type of values representing the game state. *)
 
-val init_state : Enemy.t -> t
+val init_state : string -> string -> t
 (***)
 
-val play : string -> t -> t
+val play_card : Card.t -> string -> t -> t
 (**plays the card*)
 
-val end_turn : string -> t
-(**ends the turn*)
-
 val checkhand : t -> string list
+
+type status =
+  | Alive
+  | PlayerDead
+  | EnemyDead
+
+val game_state : t -> status
+(**returns player hand*)
+
+val enemy_attacks : t -> t
+
+val get_healths : t -> int * int
 (**returns player hand*)

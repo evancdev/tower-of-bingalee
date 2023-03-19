@@ -2,6 +2,7 @@ type card_name = string list
 
 type command =
   | Play of card_name
+  | CheckHand
   | End
 
 exception Empty
@@ -22,6 +23,7 @@ let object_list (lst : string list) =
   | h :: t ->
       if h = "play" && t != [] then Play t
       else if h = "end" && t = [] then End
+      else if h = "check" && t = [] then CheckHand
       else raise Malformed
 
 let parse str =
