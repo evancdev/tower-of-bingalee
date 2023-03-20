@@ -4,6 +4,11 @@
       "name": "slime",
       "health": 10,
       "block": 0
+    },
+    {
+      "name": "golbin",
+      "health": 20,
+      "block": 5
     }
   ]
 }

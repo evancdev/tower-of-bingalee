@@ -2,6 +2,7 @@ type card_name = string list
 
 type command =
   | Play of card_name
+  | CheckHand
   | End
 
 exception Empty
