@@ -13,7 +13,7 @@ let create_player (name : string) =
     health = 50;
     energy = 3;
     block = 0;
-    hand = [ "OMEGA attack"; "OMEGA attack"; "OMEGA attack"; "OMEGA attack" ];
+    hand = [ "OMEGA attack"; "baby attack"; "OMEGA attack"; "OMEGA attack" ];
     deck = [ "OMEGA attack"; "OMEGA attack"; "OMEGA attack"; "OMEGA attack" ];
   }
 
