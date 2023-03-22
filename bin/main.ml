@@ -79,15 +79,19 @@ and match_cmd (state : State.t) (input : string) =
             (c ^ " not in hand.\n");
           cmd_loop state)
   | CheckHand ->
-      display_battle_field state;
+      print_endline "Unimplemented check hand.";
       cmd_loop state
   | End -> ()
   | exception exn ->
-      print_endline "Invalid command.";
+      ANSITerminal.print_string
+        [ ANSITerminal.red; ANSITerminal.Bold ]
+        "\n\nInvalid command.\n";
       cmd_loop state
 
 let main () =
-  ANSITerminal.print_string [ ANSITerminal.cyan ] "\n\nWelcome to the game!\n";
+  ANSITerminal.print_string
+    [ ANSITerminal.red; ANSITerminal.Bold ]
+    "\n\nA slime approaches...\n";
   cmd_loop (init_state "Player1" "slime")
 
 let () = main ()
