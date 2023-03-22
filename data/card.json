@@ -17,6 +17,14 @@
       "block": 3
     },
     {
+      "id": "zero attack",
+      "description": "Deals 0 DMG ",
+      "damage": 0,
+      "energy": 0,
+      "effect": 0,
+      "block": 0
+    },
+    {
       "id": "OMEGA attack",
       "description": "Deals 9 DMG",
       "damage": 9,
