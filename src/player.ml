@@ -14,9 +14,14 @@ let create_player (name : string) =
     health = 50;
     energy = 3;
     block = 0;
+<<<<<<< HEAD
     hand = [];
     deck = ["OMEGA attack"; "OMEGA attack"; "OMEGA attack"; "OMEGA attack"];
     used_cards = [];
+=======
+    hand = [ "OMEGA attack"; "baby attack"; "zero attack"; "OMEGA attack" ];
+    deck = [ "OMEGA attack"; "OMEGA attack"; "OMEGA attack"; "OMEGA attack" ];
+>>>>>>> b8a38cf134a962095684a68966308a665236fa68
   }
 
 (**[player_health] returns the player's current health*)
