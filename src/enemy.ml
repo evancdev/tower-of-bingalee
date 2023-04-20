@@ -6,6 +6,8 @@ type t = {
   name : string;
   health : int;
   block : int;
+  damage : int;
+  cards : string list;
 }
 
 (* type t = { enemies : enemy list } *)
@@ -15,6 +17,8 @@ let enemy_of_json j =
     name = j |> member "name" |> to_string;
     health = j |> member "health" |> to_int;
     block = j |> member "block" |> to_int;
+    damage = j |> member "damage" |> to_int;
+    cards = [];
   }
 
 let enemy_database =
