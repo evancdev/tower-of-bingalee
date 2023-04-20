@@ -9,26 +9,26 @@
       "block": 0
     },
     {
-      "id": "Defense attack",
+      "id": "basic attack",
       "description": "Deals 2 DMG to the enemy and blocks 3",
-      "damage": 2,
-      "energy": 0,
+      "damage": 3,
+      "energy": 1,
       "effect": 0,
-      "block": 3
+      "block": 5
     },
     {
-      "id": "zero attack",
-      "description": "Deals 0 DMG ",
+      "id": "defense attack",
+      "description": "Blocks 10 DMG ",
       "damage": 0,
-      "energy": 0,
+      "energy": 2,
       "effect": 0,
-      "block": 0
+      "block": 10
     },
     {
       "id": "OMEGA attack",
       "description": "Deals 9 DMG",
       "damage": 9,
-      "energy": 0,
+      "energy": 2,
       "effect": 0,
       "block": 0
     }
