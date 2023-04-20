@@ -34,3 +34,4 @@ let change_health t damage = { t with health = t.health - damage }
 let change_block t = raise (Failure "Unimplemented")
 let enemy_health t = t.health
 let enemy_block t = t.block
+let enemy_damage t = t.damage

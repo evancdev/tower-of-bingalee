@@ -1,9 +1,12 @@
 type card_name = string list
+type door = string list
 
 type command =
   | Play of card_name
   | CheckHand
-  | End
+  | Go of door
+  | EndTurn
+  | Quit
 
 exception Empty
 (** Raised when an empty command is parsed. *)

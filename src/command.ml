@@ -1,9 +1,12 @@
 type card_name = string list
+type door = string list
 
 type command =
   | Play of card_name
   | CheckHand
-  | End
+  | Go of door
+  | EndTurn
+  | Quit
 
 exception Empty
 (** Raised when an empty command is parsed. *)
@@ -22,8 +25,10 @@ let object_list (lst : string list) =
   | [] -> raise Empty
   | h :: t ->
       if h = "play" && t != [] then Play t
-      else if h = "end" && t = [] then End
-      else if h = "check" && t = [] then CheckHand
+      else if h = "end" && t = [] then EndTurn
+      else if h = "go" && t != [] then Go t
+      else if h = "quit" && t = [] then Quit
+      else if h = "checkhand" && t = [] then CheckHand
       else raise Malformed
 
 let parse str =

@@ -15,6 +15,9 @@ let enemy_json = Yojson.Basic.from_file (data_dir_prefix ^ "enemy.json")
 let parse_test (name : string) str (expected_output : command) : test =
   name >:: fun _ -> assert_equal expected_output (parse str)
 
+let exn_parse_test (name : string) str expected_output : test =
+  name >:: fun _ -> assert_raises expected_output (fun _ -> parse str)
+
 let player = create_player "Player1"
 let card_tests = []
 
@@ -22,16 +25,22 @@ let command_tests =
   [
     parse_test "extra spaces with play" "play  omega attack  "
       (Play [ "omega"; "attack" ]);
-    ( "malfromed exception when end has a non-empty string after end"
-    >:: fun _ -> assert_raises Malformed (fun _ -> parse "end hkeje") );
-    ( "malfromed exception when string has a empty string after play"
-    >:: fun _ -> assert_raises Malformed (fun _ -> parse "play ") );
-    ( "malfromed exception when first word is not play or end" >:: fun _ ->
-      assert_raises Malformed (fun _ -> parse "omega attack") );
-    ( "empty exception when string contains empty spaces" >:: fun _ ->
-      assert_raises Empty (fun _ -> parse "    ") );
-    ( "empty exception when string is the empty string" >:: fun _ ->
-      assert_raises Empty (fun _ -> parse "") );
+    parse_test "testing if quit works" "quit" Quit;
+    parse_test "testing if endturn works" "end" EndTurn;
+    parse_test "testing if checkhand works" "checkhand" CheckHand;
+    parse_test "testing if go works" "go 1" (Go [ "1" ]);
+    exn_parse_test
+      "malfromed exception when end has a non-empty string after end"
+      "end hkeje" Malformed;
+    exn_parse_test
+      "malfromed exception when string has a empty string after play" "play "
+      Malformed;
+    exn_parse_test "malfromed exception when first word is not play or end"
+      "omega attack" Malformed;
+    exn_parse_test "empty exception when string contains empty spaces" "   "
+      Empty;
+    exn_parse_test "empty exception when\n    string is the empty string" ""
+      Empty;
   ]
 
 let enemy_tests = []
