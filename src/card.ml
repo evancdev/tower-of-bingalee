@@ -46,9 +46,12 @@ let rec card_block (c : string) (lst : card list) =
   | h :: t -> if h.id = c then h.block else card_block c t
 
 let create_cards j = { cards = all_cards_of_json j }
-let description (set : t) (card : string) = set.cards |> card_description card
-let get_dmg (set : t) (card : string) = set.cards |> card_dmg card
-let get_energy (set : t) (card : string) = set.cards |> card_energy card
-let get_block (set : t) (card : string) = set.cards |> card_block card
+let data_dir_prefix = "data" ^ Filename.dir_sep
+let card_json = Yojson.Basic.from_file (data_dir_prefix ^ "card.json")
+let set = create_cards card_json
+let description (card : string) = set.cards |> card_description card
+let get_dmg (card : string) = set.cards |> card_dmg card
+let get_energy (card : string) = set.cards |> card_energy card
+let get_block (card : string) = set.cards |> card_block card
 let get_id (card : card) = card.id
-let get_effect (set : t) (card : string) = ()
+let get_effect (card : string) = ()

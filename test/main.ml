@@ -5,7 +5,7 @@ open Card
 open Command
 open Player
 open Enemy
-open State
+open BattleState
 open OUnit2
 
 let data_dir_prefix = "data" ^ Filename.dir_sep

@@ -17,9 +17,7 @@ let init_state (player_name : string) (enemy_name : string) =
 (**plays the card*)
 let play_card (card_database : Card.t) (card_name : string) (state : t) =
   if List.mem card_name (player_hand state.player) then
-    let new_enemy_state =
-      card_name |> get_dmg card_database |> change_health state.enemy
-    in
+    let new_enemy_state = card_name |> get_dmg |> change_health state.enemy in
     (* print_endline (string_of_int (enemy_health new_enemy_state)); *)
     { state with enemy = new_enemy_state }
   else raise (CardNotInHand card_name)
