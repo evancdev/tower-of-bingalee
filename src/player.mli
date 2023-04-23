@@ -26,3 +26,6 @@ val draw : t -> t
 
 val change_health_player : t -> int -> t
 (**modifies player health*)
+
+val change_gold_player : t -> int -> t
+(**modifies player health*)
