@@ -1,6 +1,7 @@
 open Player
 open Enemy
 open Card
+open Command
 open Printf
 
 exception CardNotInHand of string
