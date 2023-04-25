@@ -21,5 +21,5 @@ val description : string -> string
 val get_dmg : string -> int
 val get_energy : string -> int
 val get_block : string -> int
-val get_effect : string -> effect
-val get_id : card -> string
+val get_id : string -> string
+val get_block : string -> int

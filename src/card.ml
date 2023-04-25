@@ -8,6 +8,8 @@ type card = {
   energy : int;
   damage : int;
   block : int;
+  value : int;
+  tier : int;
 }
 
 type t = { cards : card list }
@@ -20,6 +22,8 @@ let card_of_json j =
     energy = j |> member "energy" |> to_int;
     damage = j |> member "damage" |> to_int;
     block = j |> member "block" |> to_int;
+    value = j |> member "value" |> to_int;
+    tier = j |> member "tier" |> to_int;
   }
 
 let all_cards_of_json j =
@@ -29,6 +33,16 @@ let rec card_description (c : string) (lst : card list) =
   match lst with
   | [] -> raise (UnknownCard "Not a valid card.")
   | h :: t -> if h.id = c then h.description else card_description c t
+
+let rec card_value (c : string) (lst : card list) =
+  match lst with
+  | [] -> raise (UnknownCard "Not a valid card.")
+  | h :: t -> if h.id = c then h.value else card_value c t
+
+let rec card_tier (c : string) (lst : card list) =
+  match lst with
+  | [] -> raise (UnknownCard "Not a valid card.")
+  | h :: t -> if h.id = c then h.tier else card_tier c t
 
 let rec card_dmg (c : string) (lst : card list) =
   match lst with
@@ -45,6 +59,16 @@ let rec card_block (c : string) (lst : card list) =
   | [] -> raise (UnknownCard "Not a valid card.")
   | h :: t -> if h.id = c then h.block else card_block c t
 
+let rec card_id (c : string) (lst : card list) =
+  match lst with
+  | [] -> raise (UnknownCard "Not a valid card.")
+  | h :: t -> if h.id = c then h.id else card_id c t
+
+let rec card_tier (c : string) (lst : card list) =
+  match lst with
+  | [] -> raise (UnknownCard "Not a valid card.")
+  | h :: t -> if h.id = c then h.tier else card_tier c t
+
 let create_cards j = { cards = all_cards_of_json j }
 let data_dir_prefix = "data" ^ Filename.dir_sep
 let card_json = Yojson.Basic.from_file (data_dir_prefix ^ "card.json")
@@ -53,5 +77,5 @@ let description (card : string) = set.cards |> card_description card
 let get_dmg (card : string) = set.cards |> card_dmg card
 let get_energy (card : string) = set.cards |> card_energy card
 let get_block (card : string) = set.cards |> card_block card
-let get_id (card : card) = card.id
-let get_effect (card : string) = ()
+let get_id (card : string) = set.cards |> card_id card
+let get_tier (card : string) = set.cards |> card_tier card

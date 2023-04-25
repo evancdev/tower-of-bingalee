@@ -1,36 +1,114 @@
 {
   "cards": [
     {
-      "id": "baby attack",
-      "description": "Deals 2 DMG ",
-      "damage": 2,
+      "id": "cleave",
+      "description": "deals 8 DMG",
+      "damage": 8,
       "energy": 0,
       "effect": 0,
-      "block": 0
+      "block": 0,
+      "value": 7,
+      "tier": 1
     },
     {
-      "id": "basic attack",
-      "description": "Deals 2 DMG to the enemy and blocks 3",
-      "damage": 3,
+      "id": "clash",
+      "description": "Deals 15 DMG your active cards are all deal DMG",
+      "damage": 15,
       "energy": 1,
       "effect": 0,
-      "block": 5
+      "block": 3,
+      "value": 10,
+      "tier": 1
     },
     {
-      "id": "defense attack",
+      "id": "block",
       "description": "Blocks 10 DMG ",
       "damage": 0,
       "energy": 2,
       "effect": 0,
-      "block": 10
+      "block": 10,
+      "value": 2,
+      "tier": 1
     },
     {
-      "id": "OMEGA attack",
-      "description": "Deals 9 DMG",
+      "id": "clothesline",
+      "description": "Deals 14 DMG",
+      "damage": 14,
+      "energy": 3,
+      "effect": 0,
+      "block": 0,
+      "value": 5,
+      "tier": 1
+    },
+    {
+      "id": "attack",
+      "description": "Deals 2 DMG",
+      "damage": 2,
+      "energy": 0,
+      "effect": 0,
+      "block": 0,
+      "value": 5,
+      "tier": 2
+    },
+    {
+      "id": "parry",
+      "description": "Deals 2 DMG to the enemy and blocks 3 DMG",
+      "damage": 2,
+      "energy": 1,
+      "effect": 0,
+      "block": 3,
+      "value": 5,
+      "tier": 2
+    },
+    {
+      "id": "block",
+      "description": "Blocks 10 DMG ",
+      "damage": 0,
+      "energy": 2,
+      "effect": 0,
+      "block": 10,
+      "value": 2,
+      "tier": 2
+    },
+    {
+      "id": "heavy attafck",
+      "description": "Deals 5 DMG",
       "damage": 9,
       "energy": 2,
       "effect": 0,
-      "block": 0
+      "block": 0,
+      "value": 5,
+      "tier": 2
+    },
+    {
+      "id": "iron wave",
+      "description": "Block 5 DMG and deal 5 DMG",
+      "damage": 5,
+      "energy": 0,
+      "effect": 0,
+      "block": 5,
+      "value": 10,
+      "tier": 3
+    },
+    {
+      "id": "pommel strike",
+      "description": "Deals 10 DMG to the enemy and blocks 3 DMG",
+      "damage": 10,
+      "energy": 1,
+      "effect": 0,
+      "block": 3,
+      "value": 7,
+      "tier": 3
+    },
+    {
+      "id": "block",
+      "description": "Blocks 10 DMG ",
+      "damage": 0,
+      "energy": 2,
+      "effect": 0,
+      "block": 10,
+      "value": 2,
+      "tier": 3
     }
   ]
 }
