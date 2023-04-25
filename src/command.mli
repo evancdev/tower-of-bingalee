@@ -12,6 +12,7 @@ type command =
   | Sell of card_name
   | Heal
   | Recharge
+  | GiveGold
 
 exception Empty
 (** Raised when an empty command is parsed. *)

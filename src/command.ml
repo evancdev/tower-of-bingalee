@@ -12,6 +12,7 @@ type command =
   | Sell of card_name
   | Heal
   | Recharge
+  | GiveGold
 
 (* type shopCommand = type campCommand = *)
 
@@ -41,6 +42,7 @@ let object_list (lst : string list) =
       else if h = "buy" && t != [] then Sell t
       else if h = "heal" && t = [] then Heal
       else if h = "recharge" && t = [] then Recharge
+      else if h = "give" && t = [] then GiveGold
       else raise Malformed
 
 let parse str =
