@@ -3,6 +3,7 @@ type t = {
   health : int;
   energy : int;
   block : int;
+  cards : string list;
   hand : string list;
   deck : string list;
   used_cards : string list;
@@ -15,6 +16,7 @@ let create_player (name : string) =
     health = 50;
     energy = 3;
     block = 0;
+    cards = [ "OMEGA attack"; "OMEGA attack"; "OMEGA attack"; "OMEGA attack" ];
     hand = [];
     deck = [ "OMEGA attack"; "OMEGA attack"; "OMEGA attack"; "OMEGA attack" ];
     used_cards = [];
@@ -33,19 +35,23 @@ let player_hand (p : t) = p.hand
 (**[player_energy] returns the player's current energy*)
 let player_energy (p : t) : int = p.energy
 
+let player_cards (p : t) : string list = p.cards
+
 (**[add_card] adds [card_name] to the player's deck*)
 let add_card (p : t) (card_name : string) : t =
   { p with deck = p.deck @ [ card_name ] }
 
-let rec remove_card (card_name : string) (lst : string list) (count : int) :
-    string list =
-  match lst with
-  | [] -> []
-  | h :: t ->
-      if h = card_name then
-        List.filteri (fun i _ -> i < count) lst
-        @ List.filteri (fun i _ -> i > count) lst
-      else remove_card card_name t (count + 1)
+let remove_card (p : t) (card_name : string) : t =
+  let rec removing (count : int) =
+    match p.hand with
+    | [] -> []
+    | h :: t ->
+        if h = card_name then
+          List.filteri (fun i _ -> i < count) p.hand
+          @ List.filteri (fun i _ -> i > count) p.hand
+        else removing (count + 1)
+  in
+  { p with hand = removing 0 }
 
 (**[swap] swaps the elemenet at pos1 with the element at pos2*)
 let swap (arr : string array) (pos1 : int) (pos2 : int) =
