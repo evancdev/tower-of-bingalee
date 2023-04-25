@@ -15,10 +15,13 @@ val player_hand : t -> string list
 val player_energy : t -> int
 (**[player_energy] returns the player's current energy*)
 
+val player_cards : t -> string list
+(**[player_cards] returns all the cards that the player has*)
+
 val add_card : t -> string -> t
 (**[add_card] adds card [c] to the player's deck*)
 
-val remove_card : string -> string list -> int -> string list
+val remove_card : t -> string -> t
 (**[remove_card] removes the string [card_name] from the a list*)
 
 val draw : t -> t
