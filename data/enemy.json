@@ -3,45 +3,32 @@
     {
       "name": "slime",
       "health": 10,
-      "block": 0,
       "damage": 2,
-      "cards": []
+      "gold": 1
     },
     {
       "name": "golbin",
       "health": 20,
-      "block": 5,
       "damage": 3,
-      "cards": [
-        1
-      ]
+      "gold": 2
     },
     {
       "name": "mid",
       "health": 25,
-      "block": 6,
       "damage": 5,
-      "cards": [
-        2
-      ]
+      "gold": 2
     },
     {
       "name": "almost",
       "health": 35,
-      "block": 8,
       "damage": 7,
-      "cards": [
-        3
-      ]
+      "gold": 3
     },
     {
       "name": "biggest",
       "health": 45,
-      "block": 10,
       "damage": 10,
-      "cards": [
-        4
-      ]
+      "gold": 4
     }
   ]
 }

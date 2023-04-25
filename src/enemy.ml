@@ -5,17 +5,16 @@ exception UnknownEnemy of string
 type t = {
   name : string;
   health : int;
-  block : int;
   damage : int;
-  cards : string list;
+  gold : int;
 }
 
 let enemy_of_json j =
   {
     name = j |> member "name" |> to_string;
     health = j |> member "health" |> to_int;
-    (* block = j |> member "block" |> to_int; *)
-    damage = j |> member "damage" |> to_int (* cards = []; *);
+    damage = j |> member "damage" |> to_int;
+    gold = j |> member "gold" |> to_int;
   }
 
 let enemy_database =
@@ -30,7 +29,6 @@ let init_enemy (enemy_name : string) =
   | e -> e
 
 let change_health t damage = { t with health = t.health - damage }
-let change_block t = raise (Failure "Unimplemented")
 let enemy_health t = t.health
-let enemy_block t = t.block
+let enemy_gold t = t.gold
 let enemy_damage t = t.damage

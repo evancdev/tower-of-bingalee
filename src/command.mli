@@ -7,6 +7,11 @@ type command =
   | Go of door
   | EndTurn
   | Quit
+  | TryAgain
+  | Buy of card_name
+  | Sell of card_name
+  | Heal
+  | Recharge
 
 exception Empty
 (** Raised when an empty command is parsed. *)

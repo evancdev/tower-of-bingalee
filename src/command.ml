@@ -7,6 +7,13 @@ type command =
   | Go of door
   | EndTurn
   | Quit
+  | TryAgain
+  | Buy of card_name
+  | Sell of card_name
+  | Heal
+  | Recharge
+
+(* type shopCommand = type campCommand = *)
 
 exception Empty
 (** Raised when an empty command is parsed. *)
@@ -25,10 +32,15 @@ let object_list (lst : string list) =
   | [] -> raise Empty
   | h :: t ->
       if h = "play" && t != [] then Play t
-      else if h = "end" && t = [] then EndTurn
-      else if h = "go" && t != [] then Go t
-      else if h = "quit" && t = [] then Quit
       else if h = "checkhand" && t = [] then CheckHand
+      else if h = "go" && t != [] then Go t
+      else if h = "end" && t = [] then EndTurn
+      else if h = "quit" && t = [] then Quit
+      else if h = "again" && t = [] then TryAgain
+      else if h = "buy" && t != [] then Buy t
+      else if h = "buy" && t != [] then Sell t
+      else if h = "heal" && t = [] then Heal
+      else if h = "recharge" && t = [] then Recharge
       else raise Malformed
 
 let parse str =
