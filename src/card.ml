@@ -79,3 +79,9 @@ let get_energy (card : string) = set.cards |> card_energy card
 let get_block (card : string) = set.cards |> card_block card
 let get_id (card : string) = set.cards |> card_id card
 let get_tier (card : string) = set.cards |> card_tier card
+let is_t1 card = if card.tier = 1 then true else false
+let is_t2 card = if card.tier = 2 then true else false
+let is_t3 card = if card.tier = 3 then true else false
+let t1_cards j = all_cards_of_json j |> List.filter is_t1
+let t2_cards j = all_cards_of_json j |> List.filter is_t2
+let t3_cards j = all_cards_of_json j |> List.filter is_t3

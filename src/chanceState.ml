@@ -2,9 +2,6 @@ open Card
 open Player
 open Random
 
-exception InvalidPurchase of string
-exception CannotSell of string
-
 type t = {
   cards : string list;
   gold : int;
