@@ -1,0 +1,16 @@
+type t
+(**representation of a camp*)
+
+val create_camp : Player.t -> t
+(**creates a camp based on the current floor and depth*)
+
+val sleep_health : Player.t -> t -> t
+(* [sleep_health p c] is the health player [p] gets after they choose to sleep
+   in camp [c]*)
+
+val gatorade_energy : Player.t -> t -> t
+(* [gatorade_energy p c] is the energy player [p] gets after they choose to
+   drink a gatorade in camp [c]*)
+
+val get_player_state : t -> Player.t
+(**gets the player state*)
