@@ -86,8 +86,15 @@ let draw (p : t) : t =
       }
   | false -> { p with hand = new_hand p.deck; deck = new_deck p.deck }
 
-let change_health_player (p : t) (damage : int) : t =
-  { p with health = p.health - damage }
+let change_health_player (p : t) (amount : int) (subtract : bool) : t =
+  match subtract with
+  | true -> { p with health = p.health - amount }
+  | false -> { p with health = p.health + amount }
 
 let change_gold_player (p : t) (gold : int) : t =
   { p with gold = p.gold + gold }
+
+let change_energy_player (p : t) (amount : int) (subtract : bool) : t =
+  match subtract with
+  | true -> { p with energy = p.energy - amount }
+  | false -> { p with energy = p.energy + amount }

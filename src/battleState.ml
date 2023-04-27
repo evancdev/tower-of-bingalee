@@ -37,7 +37,7 @@ let game_state (state : t) =
   else Alive
 
 let enemy_attacks (state : t) =
-  { state with player = change_health_player state.player 5 }
+  { state with player = change_health_player state.player 5 true }
 
 let get_healths (state : t) =
   (player_health state.player, enemy_health state.enemy)

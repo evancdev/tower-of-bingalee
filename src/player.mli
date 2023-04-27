@@ -27,8 +27,11 @@ val remove_card : t -> string -> t
 val draw : t -> t
 (**[draw] updates the player's field whenever he draws*)
 
-val change_health_player : t -> int -> t
+val change_health_player : t -> int -> bool -> t
 (**modifies player health*)
 
 val change_gold_player : t -> int -> t
-(**modifies player health*)
+(**modifies player gold*)
+
+val change_energy_player : t -> int -> bool -> t
+(**modifies player energy*)
