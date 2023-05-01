@@ -34,12 +34,12 @@ let object_list (lst : string list) =
   | h :: t ->
       if h = "play" && t != [] then Play t
       else if h = "checkhand" && t = [] then CheckHand
-      else if h = "go" && t != [] then Go t
+      else if h = "go" && (t = [ "1" ] || t = [ "2" ] || t = [ "3" ]) then Go t
       else if h = "end" && t = [] then EndTurn
       else if h = "quit" && t = [] then Quit
       else if h = "again" && t = [] then TryAgain
       else if h = "buy" && t != [] then Buy t
-      else if h = "buy" && t != [] then Sell t
+      else if h = "sell" && t != [] then Sell t
       else if h = "heal" && t = [] then Heal
       else if h = "recharge" && t = [] then Recharge
       else if h = "give" && t = [] then GiveGold
