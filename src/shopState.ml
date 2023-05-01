@@ -1,6 +1,7 @@
 open Card
 open Player
 open Random
+open UsefulFunctions
 
 exception InvalidPurchase of string
 exception CannotSell of string
@@ -58,21 +59,8 @@ let sell_card (shop : t) (card : string) =
         shop with
         cards = card :: shop.cards;
         gold = shop.gold - 1;
-        player = Player.remove_card shop.player card;
+        player = p_remove_card shop.player card;
       }
-
-(* duplicate code from player.ml, maybe find a way to remove duplicate code?*)
-let shop_remove_card (shop : t) (card_name : string) : t =
-  let rec removing (count : int) =
-    match shop.cards with
-    | [] -> []
-    | h :: t ->
-        if h = card_name then
-          List.filteri (fun i _ -> i < count) shop.cards
-          @ List.filteri (fun i _ -> i > count) shop.cards
-        else removing (count + 1)
-  in
-  { shop with cards = removing 0 }
 
 let buy_card (shop : t) (card : string) =
   match List.mem card shop.cards with
@@ -80,7 +68,8 @@ let buy_card (shop : t) (card : string) =
       raise (InvalidPurchase "The shop isn't selling that card. Too bad!")
   | true ->
       {
-        (shop_remove_card shop card) with
+        shop with
+        cards = remove_card shop.cards card;
         gold = shop.gold + 1;
         player = change_gold_player (add_card shop.player card) (-1);
       }
@@ -90,9 +79,9 @@ let buy_card_removal (shop : t) (card : string) =
   | 1 ->
       removal_price := !removal_price + 2;
       {
-        (shop_remove_card shop card) with
+        shop with
         player =
-          change_gold_player (remove_card shop.player card) (- !removal_price);
+          change_gold_player (p_remove_card shop.player card) (- !removal_price);
         removal_cost = !removal_price;
       }
   | _ -> raise (CardRemoval "The shop is out of card removals")
