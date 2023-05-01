@@ -49,8 +49,8 @@ let get_gold (shop : t) = shop.gold
 let get_card_removals (shop : t) = shop.card_removal
 let get_removal_cost (shop : t) = shop.removal_cost
 
-let sell_card (player : Player.t) (shop : t) (card : string) =
-  match List.mem card (player_cards player) with
+let sell_card (shop : t) (card : string) =
+  match List.mem card (player_cards shop.player) with
   | false ->
       raise (CannotSell "ARGH! You cannot sell a card that you don't have!")
   | true ->
@@ -58,7 +58,7 @@ let sell_card (player : Player.t) (shop : t) (card : string) =
         shop with
         cards = card :: shop.cards;
         gold = shop.gold - 1;
-        player = Player.remove_card player card;
+        player = Player.remove_card shop.player card;
       }
 
 (* duplicate code from player.ml, maybe find a way to remove duplicate code?*)
@@ -74,7 +74,7 @@ let shop_remove_card (shop : t) (card_name : string) : t =
   in
   { shop with cards = removing 0 }
 
-let buy_card (player : Player.t) (shop : t) (card : string) =
+let buy_card (shop : t) (card : string) =
   match List.mem card shop.cards with
   | false ->
       raise (InvalidPurchase "The shop isn't selling that card. Too bad!")
@@ -82,16 +82,17 @@ let buy_card (player : Player.t) (shop : t) (card : string) =
       {
         (shop_remove_card shop card) with
         gold = shop.gold + 1;
-        player = change_gold_player (add_card player card) (-1);
+        player = change_gold_player (add_card shop.player card) (-1);
       }
 
-let buy_card_removal (player : Player.t) (shop : t) (card : string) =
+let buy_card_removal (shop : t) (card : string) =
   match shop.card_removal with
   | 1 ->
       removal_price := !removal_price + 2;
       {
         (shop_remove_card shop card) with
-        player = change_gold_player (remove_card player card) (- !removal_price);
+        player =
+          change_gold_player (remove_card shop.player card) (- !removal_price);
         removal_cost = !removal_price;
       }
   | _ -> raise (CardRemoval "The shop is out of card removals")
