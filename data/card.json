@@ -71,7 +71,7 @@
       "tier": 2
     },
     {
-      "id": "heavy attafck",
+      "id": "heavy attack",
       "description": "Deals 5 DMG",
       "damage": 9,
       "energy": 2,
