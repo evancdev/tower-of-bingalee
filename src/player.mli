@@ -6,6 +6,9 @@ val create_player : string -> t
 val player_health : t -> int
 (**[player_health] returns the player's maximum health*)
 
+val player_cur_health : t -> int
+(**[player_health] returns the player's current health*)
+
 val player_energy : t -> int
 (**[player_energy] returns the player's maximum energy*)
 

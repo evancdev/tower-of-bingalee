@@ -5,7 +5,7 @@
       "health": 10,
       "damage": 2,
       "gold": 1,
-      "tier": 1
+      "tier": 0
     },
     {
       "name": "golbin",

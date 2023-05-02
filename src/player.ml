@@ -6,6 +6,7 @@ type t = {
   max_energy : int;
   cards : string list;
   gold : int;
+  cur_health : int;
 }
 
 let create_player (name : string) =
@@ -15,9 +16,11 @@ let create_player (name : string) =
     max_energy = 3;
     cards = [ "OMEGA attack"; "OMEGA attack"; "OMEGA attack"; "OMEGA attack" ];
     gold = 0;
+    cur_health = 50;
   }
 
 let player_health (p : t) : int = p.max_health
+let player_cur_health (p : t) : int = p.cur_health
 let player_energy (p : t) : int = p.max_energy
 let player_cards (p : t) : string list = p.cards
 

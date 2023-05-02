@@ -3,11 +3,8 @@ type t
 exception CardNotInHand of string
 (** The abstract type of values representing the game state. *)
 
-val init_battle : Player.t -> string -> t
+val init_battle : Player.t -> int -> t
 (***)
-
-val play_card : Card.t -> string -> t -> t
-(**plays the card*)
 
 val checkhand : t -> string list
 
