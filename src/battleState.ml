@@ -12,8 +12,8 @@ type t = {
 }
 (** The abstract type of values representing the game state. *)
 
-let init_state (player_name : string) (enemy_name : string) =
-  { player = create_player player_name; enemy = init_enemy enemy_name }
+let init_battle (p : Player.t) (enemy_name : string) =
+  { player = p; enemy = init_enemy enemy_name }
 
 (**plays the card*)
 let play_card (card_database : Card.t) (card_name : string) (state : t) =
