@@ -12,8 +12,8 @@ type t = {
 }
 (** The abstract type of values representing the game state. *)
 
-let init_battle (p : Player.t) (enemy_name : string) =
-  { player = p; enemy = init_enemy enemy_name }
+let init_battle (p : Player.t) (enemy_tier : int) =
+  { player = p; enemy = init_enemy enemy_tier }
 
 (**plays the card*)
 let play_card (card_database : Card.t) (card_name : string) (state : t) =
@@ -36,8 +36,11 @@ let game_state (state : t) =
   else if enemy_health state.enemy <= 0 then EnemyDead
   else Alive
 
-let enemy_attacks (state : t) =
-  { state with player = change_health_player state.player 5 true }
+let enemy_attacks (state : t) enemy =
+  {
+    state with
+    player = change_health_player state.player (enemy_damage enemy) true;
+  }
 
 let get_healths (state : t) =
   (player_health state.player, enemy_health state.enemy)

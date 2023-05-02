@@ -19,13 +19,13 @@ val get_card_removals : t -> int
 val get_removal_cost : t -> int
 (**gets the shop's card removal cost*)
 
-val sell_card : Player.t -> t -> string -> t
+val sell_card : t -> string -> t
 (**the player sells a card to the shop*)
 
-val buy_card : Player.t -> t -> string -> t
+val buy_card : t -> string -> t
 (**the player buys a card from the shop*)
 
-val buy_card_removal : Player.t -> t -> string -> t
+val buy_card_removal : t -> string -> t
 (**the player buys a card removal from the shop*)
 
 val get_player_state : t -> Player.t

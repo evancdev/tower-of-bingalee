@@ -4,28 +4,19 @@ type t
 val create_player : string -> t
 
 val player_health : t -> int
-(**[player_health] returns the player's current health*)
-
-val player_block : t -> int
-(**[player_block] returns the player's current block*)
-
-val player_hand : t -> string list
-(**[player_hand] returns the player's current hand*)
+(**[player_health] returns the player's maximum health*)
 
 val player_energy : t -> int
-(**[player_energy] returns the player's current energy*)
+(**[player_energy] returns the player's maximum energy*)
 
 val player_cards : t -> string list
 (**[player_cards] returns all the cards that the player has*)
 
 val add_card : t -> string -> t
-(**[add_card] adds card [c] to the player's deck*)
+(**[add_card] adds card [c] to the player's card collection*)
 
-val remove_card : t -> string -> t
+val p_remove_card : t -> string -> t
 (**[remove_card] removes the string [card_name] from the a list*)
-
-val draw : t -> t
-(**[draw] updates the player's field whenever he draws*)
 
 val change_health_player : t -> int -> bool -> t
 (**modifies player health*)

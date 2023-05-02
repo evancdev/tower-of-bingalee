@@ -10,7 +10,7 @@ val enemy_gold : t -> int
 val enemy_damage : t -> int
 (**[enemy_damage e] is the amount of damage [e] can do *)
 
-val init_enemy : string -> t
+val init_enemy : int -> t
 (** [init_enemy s] is the Enemy.t representing a newly born enemy with name [s]
     with stats drawn from the enemy.json database *)
 
