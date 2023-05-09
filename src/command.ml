@@ -12,9 +12,6 @@ type command =
   | Sell of card_name
   | Heal
   | Recharge
-  | GiveGold
-
-(* type shopCommand = type campCommand = *)
 
 exception Empty
 (** Raised when an empty command is parsed. *)
@@ -42,7 +39,6 @@ let object_list (lst : string list) =
       else if h = "sell" && t != [] then Sell t
       else if h = "heal" && t = [] then Heal
       else if h = "recharge" && t = [] then Recharge
-      else if h = "give" && t = [] then GiveGold
       else raise Malformed
 
 let parse str =

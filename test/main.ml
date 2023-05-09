@@ -23,12 +23,18 @@ let card_tests = []
 
 let command_tests =
   [
-    parse_test "extra spaces with play" "play  omega attack  "
+    parse_test "extra spaces with play" "play  clash  "
       (Play [ "omega"; "attack" ]);
-    parse_test "testing if quit works" "quit" Quit;
-    parse_test "testing if endturn works" "end" EndTurn;
     parse_test "testing if checkhand works" "checkhand" CheckHand;
-    parse_test "testing if go works" "go 1" (Go [ "1" ]);
+    parse_test "go command with valid input" "go  1 " (Go [ "1" ]);
+    parse_test "endturn command" "end" EndTurn;
+    parse_test "quit command" "quit" Quit;
+    parse_test "tryagain command" "try again" TryAgain;
+    parse_test "buy command" "buy cleave " (Buy [ "cleave" ]);
+    parse_test "sell command" "sell cleave " (Sell [ "cleave" ]);
+    parse_test "heal command" "heal" Heal;
+    parse_test "recharge command" "recharge" Recharge;
+    exn_parse_test "go command with invalid input" "go  omega attack " Malformed;
     exn_parse_test
       "malfromed exception when end has a non-empty string after end"
       "end hkeje" Malformed;
