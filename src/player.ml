@@ -7,6 +7,7 @@ type t = {
   cards : string list;
   gold : int;
   cur_health : int;
+  stage : int * int;
 }
 
 let create_player (name : string) =
@@ -17,14 +18,15 @@ let create_player (name : string) =
     cards = [ "OMEGA attack"; "OMEGA attack"; "OMEGA attack"; "OMEGA attack" ];
     gold = 0;
     cur_health = 50;
+    stage = (1, 0);
   }
 
 let player_health (p : t) : int = p.max_health
 let player_cur_health (p : t) : int = p.cur_health
 let player_energy (p : t) : int = p.max_energy
 let player_cards (p : t) : string list = p.cards
+let player_stage (p : t) : int * int = p.stage
 
-(**[add_card] adds [card_name] to the player's deck*)
 let add_card (p : t) (card_name : string) : t =
   { p with cards = p.cards @ [ card_name ] }
 

@@ -15,6 +15,9 @@ val player_energy : t -> int
 val player_cards : t -> string list
 (**[player_cards] returns all the cards that the player has*)
 
+val player_stage : t -> int * int
+(**[player_stage] returns the player's current stage (floor, depth)*)
+
 val add_card : t -> string -> t
 (**[add_card] adds card [c] to the player's card collection*)
 
