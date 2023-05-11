@@ -4,7 +4,6 @@ open Random
 open UsefulFunctions
 
 exception InvalidPurchase of string
-exception CannotSell of string
 exception CardRemoval of string
 
 type t = {
@@ -49,18 +48,6 @@ let get_cards (shop : t) = shop.cards
 let get_gold (shop : t) = shop.gold
 let get_card_removals (shop : t) = shop.card_removal
 let get_removal_cost (shop : t) = shop.removal_cost
-
-let sell_card (shop : t) (card : string) =
-  match List.mem card (player_cards shop.player) with
-  | false ->
-      raise (CannotSell "ARGH! You cannot sell a card that you don't have!")
-  | true ->
-      {
-        shop with
-        cards = card :: shop.cards;
-        gold = shop.gold - 1;
-        player = p_remove_card shop.player card;
-      }
 
 let buy_card (shop : t) (card : string) =
   match List.mem card shop.cards with
