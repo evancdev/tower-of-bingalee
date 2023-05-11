@@ -4,7 +4,6 @@ open Random
 open UsefulFunctions
 
 exception InvalidPurchase of string
-exception CannotSell of string
 exception CardRemoval of string
 
 type t = {
@@ -16,10 +15,6 @@ type t = {
 }
 
 let removal_price = ref 3
-let floor = 1
-let tier1 = []
-let tier2 = []
-let tier3 = []
 
 let rec get_random_cards (cards : string list) (size : int) =
   match size with
@@ -31,14 +26,16 @@ let rec get_random_cards (cards : string list) (size : int) =
 let generate_shop_cards =
   let size = Random.int 2 + 5 in
   function
-  | 1 -> get_random_cards tier1 size
-  | 2 -> get_random_cards tier2 size
-  | 3 -> get_random_cards tier3 size
+  | 1 -> get_random_cards t1_cards size
+  | 2 -> get_random_cards t2_cards size
+  | 3 -> get_random_cards t3_cards size
   | _ -> []
 
 let create_shop (floor : int) (depth : int) (player : Player.t) =
+  let floor = player |> player_stage |> fst
+  and depth = player |> player_stage |> snd in
   {
-    cards = generate_shop_cards floor;
+    cards = floor |> generate_shop_cards;
     gold = (floor * 7) + (depth * 2);
     player;
     card_removal = 1;
@@ -49,18 +46,6 @@ let get_cards (shop : t) = shop.cards
 let get_gold (shop : t) = shop.gold
 let get_card_removals (shop : t) = shop.card_removal
 let get_removal_cost (shop : t) = shop.removal_cost
-
-let sell_card (shop : t) (card : string) =
-  match List.mem card (player_cards shop.player) with
-  | false ->
-      raise (CannotSell "ARGH! You cannot sell a card that you don't have!")
-  | true ->
-      {
-        shop with
-        cards = card :: shop.cards;
-        gold = shop.gold - 1;
-        player = p_remove_card shop.player card;
-      }
 
 let buy_card (shop : t) (card : string) =
   match List.mem card shop.cards with

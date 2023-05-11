@@ -89,6 +89,7 @@ let create_cards j = { cards = all_cards_of_json j }
 let data_dir_prefix = "data" ^ Filename.dir_sep
 let card_json = Yojson.Basic.from_file (data_dir_prefix ^ "card.json")
 let set = create_cards card_json
+let get_card_name (card : card) = card.id
 let description (card : string) = set.cards |> card_description card
 let get_dmg (card : string) = set.cards |> card_dmg card
 let get_energy (card : string) = set.cards |> card_energy card
@@ -100,6 +101,12 @@ let get_bdmg (card : string) = set.cards |> card_bblk card
 let is_t1 card = if card.tier = 1 then true else false
 let is_t2 card = if card.tier = 2 then true else false
 let is_t3 card = if card.tier = 3 then true else false
-let t1_cards j = all_cards_of_json j |> List.filter is_t1
-let t2_cards j = all_cards_of_json j |> List.filter is_t2
-let t3_cards j = all_cards_of_json j |> List.filter is_t3
+
+let t1_cards =
+  all_cards_of_json card_json |> List.filter is_t1 |> List.map get_card_name
+
+let t2_cards =
+  all_cards_of_json card_json |> List.filter is_t2 |> List.map get_card_name
+
+let t3_cards =
+  all_cards_of_json card_json |> List.filter is_t3 |> List.map get_card_name
