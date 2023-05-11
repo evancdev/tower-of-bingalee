@@ -12,6 +12,7 @@ type card = {
   tier : int;
   bonusdmg : int;
   bonusblk : int;
+  synergy : string list;
 }
 
 type t = { cards : card list }
@@ -28,9 +29,8 @@ let card_of_json j =
     tier = j |> member "tier" |> to_int;
     bonusdmg = j |> member "bonusdmg" |> to_int;
     bonusblk = j |> member "bonusdmg" |> to_int;
+    synergy = j |> member "synergy" |> to_list |> List.map to_string;
   }
-
-let synergy = []
 
 let all_cards_of_json j =
   j |> member "cards" |> to_list |> List.map card_of_json
