@@ -8,7 +8,7 @@
       "effect": 0,
       "block": 0,
       "value": 7,
-      "tier": 1
+      "tier": 2
     },
     {
       "id": "clash",
@@ -22,7 +22,7 @@
     },
     {
       "id": "block",
-      "description": "Blocks 10 DMG ",
+      "description": "Blocks 7 DMG ",
       "damage": 0,
       "energy": 2,
       "effect": 0,
@@ -41,14 +41,14 @@
       "tier": 1
     },
     {
-      "id": "attack",
+      "id": "strike",
       "description": "Deals 2 DMG",
       "damage": 2,
       "energy": 0,
       "effect": 0,
       "block": 0,
       "value": 5,
-      "tier": 2
+      "tier": 1
     },
     {
       "id": "parry",
@@ -61,7 +61,7 @@
       "tier": 2
     },
     {
-      "id": "block",
+      "id": "shrug",
       "description": "Blocks 10 DMG ",
       "damage": 0,
       "energy": 2,
@@ -101,8 +101,8 @@
       "tier": 3
     },
     {
-      "id": "block",
-      "description": "Blocks 10 DMG ",
+      "id": "barricade",
+      "description": "Blocks 12 DMG ",
       "damage": 0,
       "energy": 2,
       "effect": 0,
