@@ -35,7 +35,7 @@ let init_enemy (tier : int) =
   let n = Random.int (List.length pos_enemies) in
   List.nth pos_enemies n
 
-let change_health t damage = { t with health = t.health - damage }
+let change_health_enemy t damage = { t with health = t.health - damage }
 let enemy_health t = t.health
 let enemy_gold t = t.gold
 let enemy_damage t = t.damage
