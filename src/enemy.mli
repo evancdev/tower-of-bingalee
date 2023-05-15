@@ -29,3 +29,5 @@ val init_enemy : int -> t
 val change_health_enemy : t -> int -> t
 (**[change_health e i] is the amount of health [e] has after the user deals [i]
    damage*)
+
+val enemy_max_health : t -> int

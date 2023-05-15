@@ -29,3 +29,6 @@ let gatorade_energy camp = match camp.energy with
 
 (* heals 8% if they decide to sleep gives them 1 energy if they choose energy *)
 let get_player_state c = c.player
+
+let exists_energy c = c.energy
+let exists_hp c = c.health

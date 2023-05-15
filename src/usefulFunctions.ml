@@ -17,3 +17,9 @@ let rec remove_card (lst : string list) (card_name : string) : string list =
   | h :: t ->
       if h = card_name then remove_card t card_name
       else h :: remove_card t card_name
+
+let join_slist sl sep =
+  match sl with
+  | [] -> ""
+  | [ h ] -> h
+  | h :: t -> List.fold_left (fun acc s -> acc ^ sep ^ s) h t

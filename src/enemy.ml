@@ -46,3 +46,10 @@ let enemy_gold t = t.gold
 let enemy_damage t = t.damage
 let enemy_name t = t.name
 let enemy_face t = t.face
+
+let enemy_max_health e =
+  let rec find n = function
+    | [] -> failwith "impossible"
+    | h :: t -> if h.name = n then h.health else find n t
+  in
+  find e.name enemy_database

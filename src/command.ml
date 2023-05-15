@@ -1,3 +1,5 @@
+open UsefulFunctions
+
 type card_name = string
 type door = int
 
@@ -26,8 +28,6 @@ let rec split_on_space (s : string list) acc =
   | h :: t ->
       if h = "" then split_on_space t acc else split_on_space t (h :: acc)
 
-let join s_list = List.fold_left (fun x acc -> acc ^ " " ^ x) "" s_list
-
 let fst_list = function
   | [] -> failwith "impossible to reach"
   | h :: t -> h
@@ -36,15 +36,15 @@ let object_list (lst : string list) =
   match lst with
   | [] -> raise Empty
   | h :: t ->
-      if h = "play" && t != [] then Play (join t)
+      if h = "play" && t != [] then Play (join_slist t " ")
       else if h = "checkhand" && t = [] then CheckHand
       else if h = "go" && (t = [ "1" ] || t = [ "2" ] || t = [ "3" ]) then
         Go (t |> fst_list |> int_of_string)
       else if h = "end" && t = [] then EndTurn
       else if h = "quit" && t = [] then Quit
       else if h = "again" && t = [] then TryAgain
-      else if h = "buy" && t != [] then Buy (join t)
-      else if h = "remove" && t != [] then Remove (join t)
+      else if h = "buy" && t != [] then Buy (join_slist t " ")
+      else if h = "remove" && t != [] then Remove (join_slist t " ")
       else if h = "heal" && t = [] then Heal
       else if h = "recharge" && t = [] then Recharge
       else if h = "leave" && t = [] then Leave

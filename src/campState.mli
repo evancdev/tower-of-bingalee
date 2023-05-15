@@ -1,6 +1,8 @@
 type t
 (**representation of a camp*)
 
+exception InvalidChoice of string
+
 val create_camp : Player.t -> t
 (**creates a camp based on the current floor and depth*)
 
@@ -14,3 +16,6 @@ val gatorade_energy : t -> t
 
 val get_player_state : t -> Player.t
 (**gets the player state*)
+
+val exists_energy : t -> bool
+val exists_hp : t -> bool

@@ -3,3 +3,5 @@ val shuffle : string list -> string list
 
 val remove_card : string list -> string -> string list
 (*Removes the card with the string identifier [card] from the list*)
+
+val join_slist : string list -> string -> string

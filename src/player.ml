@@ -25,7 +25,7 @@ let create_player () =
         "strike";
         "strike";
         "strike";
-        "clash";
+        "cleave";
       ];
     gold = 0;
     cur_health = 50;
