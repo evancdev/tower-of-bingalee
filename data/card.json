@@ -125,7 +125,7 @@
     },
     {
       "id": "barricade",
-      "description": "Blocks 10 DMG. If you play BARRICADE, you block 20 DMG instead.",
+      "description": "Blocks 10 DMG. If you play SENTINEL, you block 20 DMG instead.",
       "damage": 0,
       "energy": 2,
       "effect": 0,

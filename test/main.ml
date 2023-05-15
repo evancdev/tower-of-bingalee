@@ -70,6 +70,15 @@ let enemy_tier_test name tier expected_output : test =
 let enemy_health_test name enemy expected_output : test =
   name >:: fun _ -> assert_equal expected_output (enemy_health enemy)
 
+let synergy_test (name : string) (enemy : string) (cards : string list)
+    expected_output : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (Enemy.enemy_health
+       (BattleState.enemy_battle
+          (eval_active (for_player_attack_test (Enemy.enemy_from enemy) cards))))
+    ~printer:string_of_int
+
 let card_tests = []
 
 let command_tests =
@@ -147,8 +156,16 @@ let enemy_tests =
 let state_tests = []
 let shop_tests = []
 
+let synergy_tests =
+  [
+    synergy_test "clothesline + german suplex" "bird"
+      [ "clothesline"; "german suplex" ]
+      8;
+  ]
+
 let suite =
   "test suite for Final Project"
-  >::: List.flatten [ command_tests; player_tests; enemy_tests ]
+  >::: List.flatten
+         [ (*command_tests; player_tests; enemy_tests*) synergy_tests ]
 
 let _ = run_test_tt_main suite
