@@ -1,9 +1,16 @@
+(**State to manage buying and removing of cards from a player's inventory.*)
+
 type t
 (**representation of shop*)
 
 exception InvalidPurchase of string
+(**Raised when an illegal purchase is attempted, ie a card that doesn't exist.*)
+
 exception CardRemoval of string
+(**Raised when the shop can no longer take any more cards off the player's deck*)
+
 exception NotEnough of string
+(**Raised when the player doesn't have enough gold to make a purchase*)
 
 val create_shop : Player.t -> t
 (**creates a shop based on the current floor and depth*)

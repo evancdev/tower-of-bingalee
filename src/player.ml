@@ -53,9 +53,6 @@ let p_remove_card (p : t) (card_name : string) : t =
 let change_player_mhp (p : t) (amount : int) : t =
   { p with max_health = p.max_health + amount }
 
-let change_health_player p damage =
-  { p with cur_health = p.cur_health - damage }
-
 let change_gold_player (p : t) (gold : int) : t =
   { p with gold = p.gold + gold }
 
@@ -66,3 +63,17 @@ let change_player_curhp (p : t) (amount : int) : t =
   match p.cur_health + amount <= p.max_health with
   | true -> { p with cur_health = p.cur_health + amount }
   | false -> { p with cur_health = p.max_health }
+
+let crhp_to_max_health p = { p with cur_health = p.max_health }
+let is_dead p = p.cur_health <= 0
+
+let create_dead_player () =
+  let p = create_player () in
+  { p with cur_health = 0 }
+
+let crhp_to_max_health p = { p with cur_health = p.max_health }
+let is_dead p = p.cur_health <= 0
+
+let create_dead_player () =
+  let p = create_player () in
+  { p with cur_health = 0 }

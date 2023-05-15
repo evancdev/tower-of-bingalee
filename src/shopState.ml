@@ -60,7 +60,7 @@ let buy_card (shop : t) (card : string) =
         shop with
         cards = remove_card shop.cards card;
         player =
-          change_gold_player (add_card shop.player card) (-get_value card);
+          change_gold_player (add_card shop.player card) ~-(get_value card);
       }
 
 let buy_card_removal (shop : t) (card : string) =

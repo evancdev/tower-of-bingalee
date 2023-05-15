@@ -4,11 +4,11 @@ exception Restart
 exception End
 
 let print_battle_instructions () =
-  ANSITerminal.print_string
-    [ ANSITerminal.green; ANSITerminal.Underlined ]
-    "\n=== Instructions for Battle ===\n";
+  ANSITerminal.(
+    print_string [ green; Underlined ] "\n=== Instructions for Battle ===\n");
   print_endline
     "\n   play <card> : plays the card with name <card> in your hand";
+  print_endline "\n   info <card> : gives the <card> description";
   print_endline
     "\n   end : ends your turn after you have played your desired cards";
   print_endline "\n   quit : quits the game";
@@ -16,17 +16,15 @@ let print_battle_instructions () =
   print_endline "\n   info <card> : prints a description of the card"
 
 let print_door_instructions () =
-  ANSITerminal.print_string
-    [ ANSITerminal.green; ANSITerminal.Underlined ]
-    "\n=== Instructions for Hallway ===\n";
+  ANSITerminal.(
+    print_string [ green; Underlined ] "\n=== Instructions for Hallway ===\n");
   print_endline "\n   go <door> : leads you to the encounter behind <door> "
 
 let print_shop_instructions () =
-  ANSITerminal.print_string
-    [ ANSITerminal.green; ANSITerminal.Underlined ]
-    "\n=== Instructions for Shop ===\n";
+  ANSITerminal.(
+    print_string [ green; Underlined ] "\n=== Instructions for Shop ===\n");
   print_endline
-    "\n checkhand : displays cards in your active slot and your\n   hand";
+    "\n   checkhand : displays cards in your active slot and your hand";
   print_endline "\n   buy <card>: buy a <card> available at the shop";
   print_endline "\n   remove <card>: removes a <card> from your hand";
   print_endline "\n   leave : removes you from the shop"
@@ -114,19 +112,19 @@ let play_card c s =
   | s' -> s'
 
 let check_hand_from_player p =
+  ANSITerminal.(print_string [ Underlined; blue ] "Cards:\n");
   print_endline
-    ("Cards:\n    - "
-    ^ UsefulFunctions.join_slist (Player.player_cards p) "\n    - ")
+    ("   - " ^ UsefulFunctions.join_slist (Player.player_cards p) "\n   - ")
 
 let end_turn s =
   let open BattleState in
   let s' = s |> eval_active |> draw in
   if game_state s' = EnemyDead then (
-    print_endline "You won the battle!";
+    ANSITerminal.(print_string [ green; Bold ] "You won the battle!");
     (true, false, gold_on_kill s'))
   else
     let s'' = enemy_attacks s' in
-    print_endline "You played your turn.";
+    ANSITerminal.(print_string [ blue; Bold ] "You played your turn");
     enemy_hit s'';
     if game_state s'' = PlayerDead then (false, true, s'')
     else (false, false, reset_turn s'')
@@ -136,9 +134,9 @@ let info c =
   match description c with
   | s ->
       ANSITerminal.print_string
-        [ ANSITerminal.magenta; ANSITerminal.Underlined ]
+        [ ANSITerminal.blue; ANSITerminal.Underlined ]
         (c ^ "\n");
-      print_string s
+      print_string ("   " ^ s)
   | exception UnknownCard s -> print_endline s
 
 let battle (p : Player.t) (flr : int) =
@@ -160,20 +158,24 @@ let battle (p : Player.t) (flr : int) =
     | Help ->
         print_battle_instructions ();
         battle_loop s
-    | _ -> battle_loop s
-    | exception Command.Malformed -> battle_loop s
-    | exception Command.Empty -> battle_loop s
+    | _ | (exception Command.Malformed) | (exception Command.Empty) ->
+        ANSITerminal.(print_string [ red; Bold ] "Invalid command.");
+        battle_loop s
   in
+
   flr |> BattleState.init_battle p |> battle_loop
   |> BattleState.get_player_state
 
 let display_doors doors =
+  print_endline "";
+  ANSITerminal.(print_string [ Bold; cyan ] "You are at a crossroads...\n\n");
   ignore
     (List.fold_left
        (fun i s ->
-         print_endline ("Door " ^ string_of_int i ^ ": " ^ s);
+         print_endline ("  -> Door " ^ string_of_int i ^ ": " ^ s ^ "\n");
          i + 1)
-       1 doors)
+       1 doors);
+  ANSITerminal.(print_string [ Bold; cyan ] "Select a door...\n")
 
 let door () =
   let rec door_loop () =
@@ -183,13 +185,16 @@ let door () =
     | Help ->
         print_door_instructions ();
         door_loop ()
-    | _ -> door_loop ()
-    | exception Command.Malformed -> door_loop ()
-    | exception Command.Empty -> door_loop ()
+    | _ | (exception Command.Malformed) | (exception Command.Empty) ->
+        ANSITerminal.(print_string [ red; Bold ] "Invalid command.\n");
+        door_loop ()
   in
   let door_choices = Encounter.generate_encounters () in
   display_doors door_choices;
   List.nth door_choices (door_loop () - 1)
+
+let your_gold s =
+  s |> ShopState.get_player_state |> Player.player_gold |> string_of_int
 
 let print_shop s =
   ANSITerminal.print_string
@@ -204,14 +209,18 @@ let print_shop s =
   ANSITerminal.print_string
     [ ANSITerminal.magenta; ANSITerminal.Underlined ]
     "Cards For Sale\n";
-  print_endline
-    ("   - "
-    ^ UsefulFunctions.join_slist (ShopState.get_cards s) "\n   - "
-    ^ "\n");
+  let card_list = ShopState.get_cards s in
+  if List.length card_list = 0 then
+    ANSITerminal.(print_string [ Bold; red ] "SOLD OUT\n\n")
+  else
+    print_endline
+      ("   - " ^ UsefulFunctions.join_slist card_list "\n   - " ^ "\n");
   ANSITerminal.print_string
     [ ANSITerminal.magenta; ANSITerminal.Underlined ]
     "Card Removal Cost:";
-  print_endline (" " ^ string_of_int (ShopState.get_removal_cost s) ^ "\n\n")
+  print_endline (" " ^ string_of_int (ShopState.get_removal_cost s) ^ "\n");
+  ANSITerminal.(print_string [ yellow; Bold ] "Your gold: ");
+  print_endline (your_gold s)
 
 let shop (p : Player.t) =
   let open ShopState in
@@ -223,19 +232,19 @@ let shop (p : Player.t) =
         match buy_card s c with
         | x -> shop_loop x
         | exception InvalidPurchase m ->
-            print_endline m;
+            ANSITerminal.(print_string [ Bold; red ] m);
             shop_loop s
         | exception NotEnough m ->
-            print_endline m;
+            ANSITerminal.(print_string [ Bold; red ] m);
             shop_loop s)
     | Remove c -> (
         match buy_card_removal s c with
         | x -> shop_loop x
         | exception CardRemoval m ->
-            print_endline m;
+            ANSITerminal.(print_string [ Bold; red ] m);
             shop_loop s
         | exception NotEnough m ->
-            print_endline m;
+            ANSITerminal.(print_string [ Bold; red ] m);
             shop_loop s)
     | Leave -> get_player_state s
     | CheckHand ->
@@ -245,9 +254,9 @@ let shop (p : Player.t) =
     | Help ->
         print_shop_instructions ();
         shop_loop s
-    | _ -> shop_loop s
-    | exception Command.Malformed -> shop_loop s
-    | exception Command.Empty -> shop_loop s
+    | _ | (exception Command.Malformed) | (exception Command.Empty) ->
+        ANSITerminal.(print_string [ red; Bold ] "Invalid command.\n");
+        shop_loop s
   in
   shop_loop (create_shop p)
 
@@ -264,7 +273,8 @@ let print_camp c =
   else
     print_endline
       "\tNext to the bottle, you see a cozy blanket, but you're not tired.";
-  print_endline ""
+  print_endline "";
+  print_endline (stats c)
 
 let camp (p : Player.t) =
   let open CampState in
@@ -276,6 +286,7 @@ let camp (p : Player.t) =
         | c' ->
             ANSITerminal.print_string [ ANSITerminal.green ]
               "You lay down to take a nap. Health increased!";
+            print_endline (string_of_int (Player.player_cur_health p));
             camp_loop c'
         | exception CampState.InvalidChoice s ->
             ANSITerminal.print_string [ ANSITerminal.red ] s;
@@ -300,16 +311,16 @@ let camp (p : Player.t) =
     | Help ->
         print_camp_instructions ();
         camp_loop c
-    | _ -> camp_loop c
-    | exception Command.Malformed -> camp_loop c
-    | exception Command.Empty -> camp_loop c
+    | _ | (exception Command.Malformed) | (exception Command.Empty) ->
+        ANSITerminal.(print_string [ red; Bold ] "Invalid command.\n");
+        camp_loop c
   in
   p |> create_camp |> camp_loop |> get_player_state
 
 let chance p =
   let open ChanceState in
-  let c = create_chance_event p in
-  apply_prompt c
+  let p' = p |> create_chance_event |> apply_prompt in
+  if Player.is_dead p' then raise Restart else p'
 
 let encounter p flr dep =
   match door () with
@@ -323,14 +334,14 @@ let rec restart () =
   match read_input () with
   | TryAgain -> true
   | Quit -> false
-  | _ -> restart ()
-  | exception Command.Malformed -> restart ()
-  | exception Command.Empty -> restart ()
+  | _ | (exception Command.Malformed) | (exception Command.Empty) ->
+      ANSITerminal.(print_string [ red; Bold ] "Invalid command.\n");
+      restart ()
 
 let rec floor p flr =
   match
     ANSITerminal.print_string [ ANSITerminal.green ]
-      "\n\
+      "\n\n\
       \    You step into a new realm... eager to explore.\n\
       \    It's not long before you're ambushed!";
     let p1 = battle p flr in
@@ -362,7 +373,7 @@ let adventure_begin () =
     ignore (floor p2 3);
     print_endline "You win!"
   with
-  | exception End -> print_endline "Goodbye...\n"
+  | exception End -> ANSITerminal.(print_string [ red; Bold ] "fArEwELl...\n")
   | _ -> ()
 
 (* let print_enemy state (color:string) face s = ANSITerminal.print_string
@@ -371,11 +382,18 @@ let adventure_begin () =
 
 let main () =
   print_endline "";
+  ANSITerminal.resize 130 130;
   ANSITerminal.print_string
     [ ANSITerminal.Bold; ANSITerminal.cyan ]
     "Welcome to the World of Bingalee\n";
+  ANSITerminal.print_string [ ANSITerminal.yellow ]
+    "The <help> command will give you instuctions on how to play and what \
+     commands are at your disposal";
   adventure_begin ()
 
 let () = ignore (shop (Player.create_player ()))
+let () = main ()
+(* let () = ignore (camp (Player.create_player ())) *)
+(* let () = ignore (chance (Player.create_dead_player ())) *)
 (* ignore (chance (Player.create_player ())) *)
 (* let () = ignore (shop (Player.create_player ())) *)

@@ -1,3 +1,7 @@
+(**State to represent an enemy and manage its health and damage, as well as
+   manage a database with mappings between enemy names and their respective
+   stats*)
+
 type t
 (** The abstract type representing an enemy *)
 
@@ -31,3 +35,8 @@ val change_health_enemy : t -> int -> t
    damage*)
 
 val enemy_max_health : t -> int
+(**[enemy_max_health e] returns the maximum energy a newborn enemy of the same
+   name as [e] has*)
+
+val enemy_from : string -> t
+(**[enemy_from name] returns a newborn version of an enemy with named [name]*)
