@@ -224,11 +224,17 @@ let shop (p : Player.t) =
         | x -> shop_loop x
         | exception InvalidPurchase m ->
             print_endline m;
+            shop_loop s
+        | exception NotEnough m ->
+            print_endline m;
             shop_loop s)
     | Remove c -> (
         match buy_card_removal s c with
         | x -> shop_loop x
         | exception CardRemoval m ->
+            print_endline m;
+            shop_loop s
+        | exception NotEnough m ->
             print_endline m;
             shop_loop s)
     | Leave -> get_player_state s
@@ -270,6 +276,7 @@ let camp (p : Player.t) =
         | c' ->
             ANSITerminal.print_string [ ANSITerminal.green ]
               "You lay down to take a nap. Health increased!";
+            print_endline (string_of_int (Player.player_cur_health p));
             camp_loop c'
         | exception CampState.InvalidChoice s ->
             ANSITerminal.print_string [ ANSITerminal.red ] s;
