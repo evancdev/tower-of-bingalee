@@ -7,6 +7,9 @@ exception InvalidPrompt of string
 
 type t = { player : Player.t }
 
+(**TODO fix this*)
+let prompts = []
+
 type change = {
   health_delta : int;
   energy_delta : int;

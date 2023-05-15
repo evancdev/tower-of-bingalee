@@ -32,7 +32,7 @@ let init_battle (p : Player.t) (enemy_tier : int) =
     enemy = init_enemy enemy_tier;
     max_hp = player_health p;
     cur_hp = player_cur_health p;
-    max_energy = player_max_energy p;
+    max_energy = Player.player_max_energy p;
     cur_energy = 3;
     block = 0;
     deck = player_cards p;
@@ -151,4 +151,4 @@ let activate_card (s : t) (c : card) =
 let get_player_state (s : t) =
   Player.player_from s.max_hp s.max_energy
     (s.deck @ s.used_cards @ s.hand @ s.active)
-    (player_gold s.player) s.cur_hp
+    (player_gold s.player) s.cur_hp (player_stage s.player)

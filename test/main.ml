@@ -74,14 +74,14 @@ let card_tests = []
 
 let command_tests =
   [
-    parse_test "extra spaces with play" "play  clash " (Play [ "clash" ]);
+    parse_test "extra spaces with play" "play  clash " (Play "clash");
     parse_test "testing if checkhand works" "checkhand" CheckHand;
-    parse_test "go command with valid input" "go 1 " (Go [ "1" ]);
+    parse_test "go command with valid input" "go 1 " (Go 1);
     parse_test "endturn\n   command" "end" EndTurn;
     parse_test "quit command" "quit" Quit;
     parse_test "tryagain command" "tryagain" TryAgain;
-    parse_test "buy command" "buy cleave   " (Buy [ "cleave" ]);
-    parse_test "sell command" "sell cleave " (Sell [ "cleave" ]);
+    parse_test "buy command" "buy cleave   " (Buy "cleave");
+    parse_test "remove command" "remove cleave " (Remove "cleave");
     parse_test "heal command" "heal" Heal;
     parse_test "recharge\n   command" "recharge" Recharge;
     exn_parse_test "go command with invalid input" "go omega attack " Malformed;
@@ -99,7 +99,7 @@ let command_tests =
   ]
 
 let player_tests =
-  let player = create_player in
+  let player = create_player () in
   [
     player_health_test "Init Player Max Health" player 50;
     player_cur_health_test "Init Player Curr Health" player 50;

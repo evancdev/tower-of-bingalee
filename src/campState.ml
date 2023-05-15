@@ -23,7 +23,7 @@ let sleep_health camp = match camp.health with
 |false -> raise (InvalidChoice "You can not sleep")
 
 let gatorade_energy camp = match camp.energy with 
-| true -> {camp with energy = false ; player = Player.change_energy_player camp.player 1 false}
+| true -> {camp with energy = false ; player = Player.change_player_menergy camp.player 1 }
 |false -> raise (InvalidChoice "You can not drink gatorade")
 
 
