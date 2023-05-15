@@ -15,6 +15,7 @@ type command =
   | Heal
   | Recharge
   | Leave
+  | Info of card_name
 
 exception Empty
 (** Raised when an empty command is parsed. *)
@@ -48,6 +49,7 @@ let object_list (lst : string list) =
       else if h = "heal" && t = [] then Heal
       else if h = "recharge" && t = [] then Recharge
       else if h = "leave" && t = [] then Leave
+      else if h = "info" && t != [] then Info (String.trim (join_slist t " "))
       else raise Malformed
 
 let parse str =
