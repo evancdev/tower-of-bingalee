@@ -282,14 +282,13 @@ let csynergy_test name card expected_output : test =
 let exn_csynergy_test name card expected_output : test =
   name >:: fun _ -> assert_raises expected_output (fun _ -> get_synergy card)
 
-let synergy_test (name : string) (enemy : string) (cards : string list)
-    expected_output : test =
+let loot_enemy (name : string) (enemy : string) (expected_output : int) : test =
   name >:: fun _ ->
   assert_equal expected_output
-    (Enemy.enemy_health
-       (BattleState.enemy_battle
-          (eval_active (for_player_attack_test (Enemy.enemy_from enemy) cards))))
-    ~printer:string_of_int
+    (Player.player_gold
+       BattleState.(
+         get_player_state
+           (gold_on_kill (for_player_attack_test (Enemy.enemy_from enemy) []))))
 
 let card_tests =
   let card = "clothesline" in
@@ -436,8 +435,6 @@ let camp_tests =
       camp 4;
   ]
 
-let state_tests = []
-
 let shop_tests =
   let player = create_player ()
   and player2 = change_gold_player (create_player ()) (-100) in
@@ -491,7 +488,36 @@ let shop_tests =
   ]
 
 let battle_tests =
-  [ player_attack_test "strike slime once" "slime" [ "strike" ] 8 ]
+  [
+    player_attack_test "being a pacifist with no active does not fail" "slime"
+      [] 10;
+    player_attack_test "striking a slime once" "slime" [ "strike" ] 8;
+    player_attack_test "striking a slime twice" "slime" [ "strike"; "strike" ] 6;
+    player_attack_test "strike a slime thrice" "slime"
+      [ "strike"; "strike"; "strike" ]
+      4;
+    player_attack_test "block does nothing to slime" "slime" [ "block" ] 10;
+    player_attack_test "block and strike does same as strike" "slime"
+      [ "block"; "strike" ] 8;
+    player_block_test "block reduces slime damage to 0" "slime" [ "block" ] 50;
+    player_block_test "block and strike reduces slime damate" "slime"
+      [ "block"; "strike" ] 50;
+    player_block_test "block reduces bird damage to 0" "bird" [ "block" ] 50;
+    player_block_test "block reduces vampire damage to 1" "vampire" [ "block" ]
+      49;
+    player_block_test "double block stacks against vampire" "vampire"
+      [ "block"; "block" ] 50;
+    player_attack_test "parrying against mary deals damage" "mary" [ "parry" ]
+      26;
+    player_block_test "parrying against mary blocks damage" "mary" [ "parry" ]
+      48;
+    player_attack_test "double parry against mary stacks" "mary"
+      [ "parry"; "parry" ] 22;
+    player_block_test "double parry against mary stacks blocks" "mary"
+      [ "parry"; "parry" ] 50;
+    loot_enemy "looting slime nets 10 + 1 = 11" "slime" 11;
+    loot_enemy "looting ghost nets 10 + 4 = 14" "ghost" 14;
+  ]
 
 let synergy_tests =
   [
