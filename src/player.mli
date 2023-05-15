@@ -1,7 +1,15 @@
+(**State to manage all pertinent details about a player that persist across
+   environments, including:
+
+   - maximum/current health
+   - gold
+   - maximum energy*)
+
 type t
 (** The abstract type of values representing player. *)
 
 val create_player : unit -> t
+(** Creates the first human used in the initial stage of the game. *)
 
 val player_health : t -> int
 (**[player_health] returns the player's maximum health*)
@@ -17,8 +25,6 @@ val player_gold : t -> int
 
 val player_cards : t -> string list
 (**[player_cards] returns all the cards that the player has*)
-
-val player_gold : t -> int
 
 val player_stage : t -> int * int
 (**[player_stage] returns the player's current stage (floor, depth)*)
@@ -45,6 +51,8 @@ val crhp_to_max_health : t -> t
 (** [crhp_to_max_health p] modifies [p] current health to its maximum health*)
 
 val player_from : int -> int -> string list -> int -> int -> int * int -> t
+(** [player_from max_health max_energy card_list gold current_health stage]
+    returns a representation of a player with those attributes *)
 
 val is_dead : t -> bool
 (** [is_dead p] returns true if [p] has 0 or less health*)

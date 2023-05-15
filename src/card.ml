@@ -28,7 +28,7 @@ let card_of_json j =
     value = j |> member "value" |> to_int;
     tier = j |> member "tier" |> to_int;
     bonusdmg = j |> member "bonusdmg" |> to_int;
-    bonusblk = j |> member "bonusdmg" |> to_int;
+    bonusblk = j |> member "bonusblk" |> to_int;
     synergy = j |> member "synergy" |> to_list |> List.map to_string;
   }
 
@@ -78,12 +78,12 @@ let rec card_tier (c : string) (lst : card list) =
 let rec card_bdmg (c : string) (lst : card list) =
   match lst with
   | [] -> raise (UnknownCard "Not a valid card.")
-  | h :: t -> if h.id = c then h.bonusdmg else card_tier c t
+  | h :: t -> if h.id = c then h.bonusdmg else card_bdmg c t
 
 let rec card_bblk (c : string) (lst : card list) =
   match lst with
   | [] -> raise (UnknownCard "Not a valid card.")
-  | h :: t -> if h.id = c then h.bonusblk else card_tier c t
+  | h :: t -> if h.id = c then h.bonusblk else card_bblk c t
 
 let rec card_synergy (c : string) (lst : card list) =
   match lst with

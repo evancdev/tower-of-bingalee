@@ -1,3 +1,45 @@
+(***** TEST PLAN: The automated test suite using OUnit was helpful in testing
+  single interactions between states. Since our game is fundamentally built off
+  the exchange of various states across different "environments," such as a
+  shop, camp, battle, etc, we used OUnit to verify that states were correctly
+  updating with the right information as well as being passed along correctly to
+  other states. Another example where OUnit was helpful was in verifying that
+  string inputs to a command parser still resulted in the right command
+  Variants, despite having extra white space and whatnot. OUnit was also helpful
+  for verifying slightly more complex operations, such as single turns in a
+  battle. The synergy feature we provide between cards is not very
+  straightforward in damage calculation, so OUnit allowed us to have a
+  controlled environment to observe the single outcome. What we had to test
+  manually via [make play] was the actual adventure from start to finish, as
+  well as progressing between environments like shops to battles, etc. This
+  testing took place manually since the actual engine runs as the bridge between
+  the operations we test with OUnit.
+
+  Specific modules that were tested by OUnit include: BattleState, CampState,
+  Card, Command, Encounter, Enemy, Player, ShopState, and UsefulFunctions. We
+  used a combination of black box and glass box testing. For example, the
+  testing of the synergy between two cards involved a few black box unit tests,
+  as all we know is the outcome to an enemy's health and not the gory details
+  about how synergy is identified in the code. For many other tests, we used
+  glass box testing to narrow in on small operations, such as parsing Commands,
+  which we know strips away extraneous white space. We also test our enemy tier
+  system, a system that is completely hidden to the game player but is
+  nevertheless important to test for our implementation purposes. Overall, our
+  combination of blackbox and glassbox testing was effective in elucidating
+  issues and gaining confidence in our system.
+
+  Once again, our system essentially functions based on passing around states.
+  For example, the player state is a recurring source of information that is
+  continuously updated/overwritten over the course of the game. The player state
+  is passed into other states, such as the shop and battle states, and its
+  information is extracted and used for calculations regarding those
+  environments. As this is the core feature of our game, the way we test our
+  modules—and our state modules in particular by verifying the correct
+  transferral of information—should naturally give us confidence in the entire
+  system working. Because we can verify all the small operations work in fine
+  detail, we are confident the more complex operations that go into the final
+  game are also correct on this foundation.*)
+
 open Game
 open Yojson.Basic.Util
 open OUnit2

@@ -1,7 +1,12 @@
+(** Module for managing information about each card, as well as a database of
+    cards and their information*)
+
 type t
-(** The abstract type of values representing cards. *)
+(** The abstract type of values representing card decks, useful in testing a
+    card database, but not for the actual game. *)
 
 type card
+(** The abstract type representing a single card.*)
 
 val create_cards : Yojson.Basic.t -> t
 (** [create_card j] is the adventure that [j] represents. Requires: [j] is a

@@ -114,7 +114,7 @@ let play_card c s =
 let check_hand_from_player p =
   ANSITerminal.(print_string [ Underlined; blue ] "Cards:\n");
   print_endline
-    ("    - " ^ UsefulFunctions.join_slist (Player.player_cards p) "\n    - ")
+    ("   - " ^ UsefulFunctions.join_slist (Player.player_cards p) "\n   - ")
 
 let end_turn s =
   let open BattleState in
@@ -193,6 +193,9 @@ let door () =
   display_doors door_choices;
   List.nth door_choices (door_loop () - 1)
 
+let your_gold s =
+  s |> ShopState.get_player_state |> Player.player_gold |> string_of_int
+
 let print_shop s =
   ANSITerminal.print_string
     [ ANSITerminal.magenta; ANSITerminal.Bold ]
@@ -208,14 +211,16 @@ let print_shop s =
     "Cards For Sale\n";
   let card_list = ShopState.get_cards s in
   if List.length card_list = 0 then
-    ANSITerminal.(print_string [ Bold; red ] "SOLD OUT\n")
+    ANSITerminal.(print_string [ Bold; red ] "SOLD OUT\n\n")
   else
     print_endline
       ("   - " ^ UsefulFunctions.join_slist card_list "\n   - " ^ "\n");
   ANSITerminal.print_string
     [ ANSITerminal.magenta; ANSITerminal.Underlined ]
     "Card Removal Cost:";
-  print_endline (" " ^ string_of_int (ShopState.get_removal_cost s) ^ "\n\n")
+  print_endline (" " ^ string_of_int (ShopState.get_removal_cost s) ^ "\n");
+  ANSITerminal.(print_string [ yellow; Bold ] "Your gold: ");
+  print_endline (your_gold s)
 
 let shop (p : Player.t) =
   let open ShopState in
@@ -227,19 +232,19 @@ let shop (p : Player.t) =
         match buy_card s c with
         | x -> shop_loop x
         | exception InvalidPurchase m ->
-            print_endline m;
+            ANSITerminal.(print_string [ Bold; red ] m);
             shop_loop s
         | exception NotEnough m ->
-            print_endline m;
+            ANSITerminal.(print_string [ Bold; red ] m);
             shop_loop s)
     | Remove c -> (
         match buy_card_removal s c with
         | x -> shop_loop x
         | exception CardRemoval m ->
-            print_endline m;
+            ANSITerminal.(print_string [ Bold; red ] m);
             shop_loop s
         | exception NotEnough m ->
-            print_endline m;
+            ANSITerminal.(print_string [ Bold; red ] m);
             shop_loop s)
     | Leave -> get_player_state s
     | CheckHand ->
