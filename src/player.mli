@@ -45,3 +45,9 @@ val crhp_to_max_health : t -> t
 (** [crhp_to_max_health p] modifies [p] current health to its maximum health*)
 
 val player_from : int -> int -> string list -> int -> int -> int * int -> t
+
+val is_dead : t -> bool
+(** [is_dead p] returns true if [p] has 0 or less health*)
+
+val create_dead_player : unit -> t
+(** [create_dead_player ()] returns a new player with 0 health (for testing)*)

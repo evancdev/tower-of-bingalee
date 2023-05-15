@@ -63,3 +63,8 @@ let change_player_curhp (p : t) (amount : int) : t =
   { p with cur_health = p.cur_health + amount }
 
 let crhp_to_max_health p = { p with cur_health = p.max_health }
+let is_dead p = p.cur_health <= 0
+
+let create_dead_player () =
+  let p = create_player () in
+  { p with cur_health = 0 }
