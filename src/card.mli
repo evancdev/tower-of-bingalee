@@ -8,9 +8,6 @@ type t
 type card
 (** The abstract type representing a single card.*)
 
-type effect
-(**secondary effect playing a card may have*)
-
 val create_cards : Yojson.Basic.t -> t
 (** [create_card j] is the adventure that [j] represents. Requires: [j] is a
     valid JSON card representation. *)
@@ -26,8 +23,6 @@ val description : string -> string
 val get_card_name : card -> string
 (**[get_card_name c] returns the name of a card given the card object*)
 
-val get_dmg : string -> int
-val description : string -> string
 val get_dmg : string -> int
 val get_energy : string -> int
 val get_block : string -> int

@@ -174,7 +174,77 @@ let stats_camp_test name camp expected_output : test =
   name >:: fun _ ->
   assert_equal expected_output (stats camp) ~printer:String.escaped
 
-let card_tests = []
+(* card function tests *)
+let get_card_name_test name card expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (get_card_name card)
+
+let exn_cname_test (name : string) card expected_output : test =
+  name >:: fun _ -> assert_raises expected_output (fun _ -> get_card_name card)
+
+let card_description_test name card expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (description card)
+
+let exn_cdescription_test (name : string) card expected_output : test =
+  name >:: fun _ -> assert_raises expected_output (fun _ -> description card)
+
+let card_dmg_test name card expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (get_dmg card)
+
+let exn_cdmg_test (name : string) card expected_output : test =
+  name >:: fun _ -> assert_raises expected_output (fun _ -> get_dmg card)
+
+let card_energy_test name card expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (get_energy card)
+
+let exn_cenergy_test (name : string) card expected_output : test =
+  name >:: fun _ -> assert_raises expected_output (fun _ -> get_energy card)
+
+let card_block_test name card expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (get_block card)
+
+let exn_cblock_test (name : string) card expected_output : test =
+  name >:: fun _ -> assert_raises expected_output (fun _ -> get_block card)
+
+let card_id_test name card expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (get_id card)
+
+let exn_cid_test (name : string) card expected_output : test =
+  name >:: fun _ -> assert_raises expected_output (fun _ -> get_id card)
+
+let card_tier_test name card expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (get_tier card)
+
+let exn_ctier_test name card expected_output : test =
+  name >:: fun _ -> assert_raises expected_output (fun _ -> get_tier card)
+
+let card_tests =
+  let card = "clothesline" in
+  let fake = "fake" in
+  [
+    (* get_card_name_test "clothesline card has name clothesline" card
+       "clothesline"; *)
+    card_description_test
+      "clothesline has description Deals 4 DMG. If you play GERMAN SUPLEX, you \
+       deal 12 DMG instead."
+      card "Deals 4 DMG. If you play GERMAN SUPLEX, you deal 12 DMG instead.";
+    exn_cdescription_test "fake card doesnt have a decription" fake
+      (UnknownCard "Not a valid card.");
+    card_dmg_test "clothesline deals 4 dmg" card 4;
+    exn_cdmg_test "fake card doesnt have damage" fake
+      (UnknownCard "Not a valid card.");
+    card_energy_test "clothesline use 1 energy" card 1;
+    exn_cenergy_test "fake card doesnt have energy" fake
+      (UnknownCard "Not a valid card.");
+    card_block_test "clothesline blocks 0 damage" card 0;
+    exn_cblock_test "fake card doesnt have block" fake
+      (UnknownCard "Not a valid card.");
+    card_id_test "clothesline has id clothesline" card "clothesline";
+    exn_cid_test "fake card doesnt have an id" fake
+      (UnknownCard "Not a valid card.");
+    card_tier_test "clothesline is a tier 1 card" card 1;
+    exn_ctier_test "fake case doesnt have tier" fake
+      (UnknownCard "Not a valid card.");
+  ]
 
 let command_tests =
   [
@@ -290,6 +360,7 @@ let synergy_tests =
 
 let suite =
   "test suite for Final Project"
-  >::: List.flatten [ command_tests; player_tests; enemy_tests; camp_tests ]
+  >::: List.flatten
+         [ command_tests; player_tests; enemy_tests; camp_tests; card_tests ]
 
 let _ = run_test_tt_main suite
