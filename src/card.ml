@@ -17,7 +17,6 @@ type card = {
 }
 
 type t = { cards : card list }
-type effect = unit
 
 let card_of_json j =
   {

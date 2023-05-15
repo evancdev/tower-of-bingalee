@@ -3,9 +3,6 @@ type t
 
 type card
 
-type effect
-(**effect*)
-
 val create_cards : Yojson.Basic.t -> t
 (** [create_card j] is the adventure that [j] represents. Requires: [j] is a
     valid JSON card representation. *)
@@ -19,8 +16,6 @@ val description : string -> string
     of cards [a]. Raises [UnknownCard c] if [c] is not a card identifier in [a]. *)
 
 val get_card_name : card -> string
-val get_dmg : string -> int
-val description : string -> string
 val get_dmg : string -> int
 val get_energy : string -> int
 val get_block : string -> int
