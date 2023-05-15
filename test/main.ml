@@ -28,14 +28,13 @@ let card_tests = []
 
 let command_tests =
   [
-    parse_test "extra spaces with play" "play clash "
-      (Play [ "omega"; "attack" ]);
+    parse_test "extra spaces with play" "play  clash " (Play [ "clash" ]);
     parse_test "testing if checkhand works" "checkhand" CheckHand;
     parse_test "go command with valid input" "go 1 " (Go [ "1" ]);
     parse_test "endturn\n   command" "end" EndTurn;
     parse_test "quit command" "quit" Quit;
-    parse_test "tryagain command" "try again" TryAgain;
-    parse_test "buy command" "buy cleave\n   " (Buy [ "cleave" ]);
+    parse_test "tryagain command" "tryagain" TryAgain;
+    parse_test "buy command" "buy cleave   " (Buy [ "cleave" ]);
     parse_test "sell command" "sell cleave " (Sell [ "cleave" ]);
     parse_test "heal command" "heal" Heal;
     parse_test "recharge\n   command" "recharge" Recharge;
@@ -46,12 +45,11 @@ let command_tests =
     exn_parse_test
       "malfromed exception when string has a empty string after play" "play "
       Malformed;
-    exn_parse_test "malfromed exception when first word is not play or\n   end"
+    exn_parse_test "malfromed exception when first word is not play or end"
       "omega attack" Malformed;
     exn_parse_test "empty exception when string\n   contains empty spaces" " "
       Empty;
-    exn_parse_test "empty exception when\n\n   string is the empty string" ""
-      Empty;
+    exn_parse_test "empty exception when string is the empty string" "" Empty;
   ]
 
 let enemy_tests =
