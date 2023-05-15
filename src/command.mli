@@ -7,6 +7,7 @@ type command =
   | Go of door
   | EndTurn
   | Quit
+  | Help
   | TryAgain
   | Buy of card_name
   | Remove of card_name
