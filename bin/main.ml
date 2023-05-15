@@ -12,7 +12,8 @@ let print_battle_instructions () =
   print_endline
     "\n   end : ends your turn after you have played your desired cards";
   print_endline "\n   quit : quits the game";
-  print_endline "\n   again: allows you to have a second chance and try to win "
+  print_endline "\n   again: allows you to have a second chance and try to win ";
+  print_endline "\n   info <card> : prints a description of the card"
 
 let print_door_instructions () =
   ANSITerminal.print_string
