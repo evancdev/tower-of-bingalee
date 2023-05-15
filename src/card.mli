@@ -1,10 +1,15 @@
+(** Module for managing information about each card, as well as a database of
+    cards and their information*)
+
 type t
-(** The abstract type of values representing cards. *)
+(** The abstract type of values representing card decks, useful in testing a
+    card database, but not for the actual game. *)
 
 type card
+(** The abstract type representing a single card.*)
 
 type effect
-(**effect*)
+(**secondary effect playing a card may have*)
 
 val create_cards : Yojson.Basic.t -> t
 (** [create_card j] is the adventure that [j] represents. Requires: [j] is a
@@ -19,6 +24,8 @@ val description : string -> string
     of cards [a]. Raises [UnknownCard c] if [c] is not a card identifier in [a]. *)
 
 val get_card_name : card -> string
+(**[get_card_name c] returns the name of a card given the card object*)
+
 val get_dmg : string -> int
 val description : string -> string
 val get_dmg : string -> int

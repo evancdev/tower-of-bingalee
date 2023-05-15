@@ -1,6 +1,13 @@
-type card_name = string
-type door = int
+(**Parsing commands from the player*)
 
+type card_name = string
+(** Alias for string to represent a card name that is identified in a command*)
+
+type door = int
+(** Alias for int to represent picking a door at a crossroads*)
+
+(** Type to represent various commands input by the user across all possible
+    situations *)
 type command =
   | Play of card_name
   | CheckHand
