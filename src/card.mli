@@ -29,6 +29,7 @@ val get_tier : string -> int
 val get_bdmg : string -> int
 val get_blck : string -> int
 val get_synergy : string -> string list
+val get_value : string -> int
 val t1_cards : string list
 val t2_cards : string list
 val t3_cards : string list

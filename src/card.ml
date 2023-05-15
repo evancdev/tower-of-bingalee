@@ -91,16 +91,10 @@ let rec card_synergy (c : string) (lst : card list) =
   | [] -> raise (UnknownCard "Not a valid card.")
   | h :: t -> if h.id = c then h.synergy else card_synergy c t
 
-let rec check_synergy (c1 : card) (c2 : card) =
-  match c1.synergy with
-  | [] -> false
-  | h :: t -> if h = c2.id then true else check_synergy c1 c2
-
-let apply_synergy (c1 : card) (c2 : card) : int =
-  if List.mem c2.id c1.synergy then
-    c1.bonusblk + c2.bonusblk + c1.bonusdmg
-    + c2.bonusdmg (* Cannot have both bonus block and damage at the same time*)
-  else raise (SynergyError "No synergy exists")
+let rec card_value (c : string) (lst : card list) =
+  match lst with
+  | [] -> raise (UnknownCard "Not a valid card.")
+  | h :: t -> if h.id = c then h.value else card_value c t
 
 let create_cards j = { cards = all_cards_of_json j }
 let data_dir_prefix = "data" ^ Filename.dir_sep
@@ -116,6 +110,7 @@ let get_tier (card : string) = set.cards |> card_tier card
 let get_bdmg (card : string) = set.cards |> card_bdmg card
 let get_blck (card : string) = set.cards |> card_bblk card
 let get_synergy (card : string) = set.cards |> card_synergy card
+let get_value (card : string) = set.cards |> card_value card
 let is_t1 card = if card.tier = 1 then true else false
 let is_t2 card = if card.tier = 2 then true else false
 let is_t3 card = if card.tier = 3 then true else false
