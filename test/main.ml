@@ -75,7 +75,6 @@ let enemy_tier_test name tier expected_output : test =
 let enemy_health_test name enemy expected_output : test =
   name >:: fun _ -> assert_equal expected_output (enemy_health enemy)
 
-<<<<<<< HEAD
 let synergy_test (name : string) (enemy : string) (cards : string list)
     expected_output : test =
   name >:: fun _ ->
@@ -84,7 +83,7 @@ let synergy_test (name : string) (enemy : string) (cards : string list)
        (BattleState.enemy_battle
           (eval_active (for_player_attack_test (Enemy.enemy_from enemy) cards))))
     ~printer:string_of_int
-=======
+
 let enemy_gold_test name enemy expected_output : test =
   name >:: fun _ -> assert_equal expected_output (enemy_gold enemy)
 
@@ -103,7 +102,6 @@ let enemy_max_health_test name enemy expected_output : test =
 let change_health_enemy_test name enemy damage expected_output : test =
   name >:: fun _ ->
   assert_equal expected_output (change_health_enemy enemy damage |> enemy_health)
->>>>>>> 5777a76a5b69d8cfe49909f1ce4726502e4db83d
 
 let card_tests = []
 
@@ -182,7 +180,7 @@ let enemy_tests =
     enemy_face_test "health of generated enemy is d[o_0]b " enemy "d[o_0]b";
     enemy_max_health_test "maximum health of generated enemy(robot)" enemy 25;
     change_health_enemy_test "decreasing health to 5" enemy 20 5;
-    change_health_enemy_test "inreasing health to 30" enemy (-5) 5;
+    change_health_enemy_test "increasing health to 30" enemy (-5) 30;
     enemy_tier_test "tier 1 enemies" 1 [ "slime"; "bird" ];
     enemy_tier_test "tier 2 enemies" 2 [ "robot" ];
     enemy_tier_test "tier 3 enemies" 3 [ "zombie"; "ghost" ];
@@ -199,11 +197,14 @@ let synergy_tests =
     synergy_test "clothesline + german suplex" "bird"
       [ "clothesline"; "german suplex" ]
       8;
+    synergy_test "clothesline + german suplex" "bird"
+      [ "german suplex"; "clothesline" ]
+      8;
   ]
 
 let suite =
   "test suite for Final Project"
   >::: List.flatten
-         [ (*command_tests; player_tests; enemy_tests*) synergy_tests ]
+         [ command_tests; player_tests; enemy_tests (*synergy_tests*) ]
 
 let _ = run_test_tt_main suite
