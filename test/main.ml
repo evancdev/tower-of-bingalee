@@ -141,6 +141,15 @@ let enemy_face_test name enemy expected_output : test =
 let enemy_max_health_test name enemy expected_output : test =
   name >:: fun _ -> assert_equal expected_output (enemy_max_health enemy)
 
+let enemy_gold_test name enemy expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (enemy_gold enemy)
+
+let enemy_damage_test name enemy expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (enemy_damage enemy)
+
+let enemy_name_test name enemy expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (enemy_name enemy)
+
 let change_health_enemy_test name enemy damage expected_output : test =
   name >:: fun _ ->
   assert_equal expected_output (change_health_enemy enemy damage |> enemy_health)
@@ -158,7 +167,7 @@ let sleep_health_bool_test name camp expected_output : test =
 let sleep_health_int_test name camp expected_output : test =
   name >:: fun _ ->
   assert_equal expected_output
-    (sleep_health camp |> get_player_state |> player_cur_health)
+    (sleep_health camp |> camp_get_player_state |> player_cur_health)
 
 let gatorade_energy_bool_test name camp expected_output : test =
   name >:: fun _ ->
@@ -167,7 +176,7 @@ let gatorade_energy_bool_test name camp expected_output : test =
 let gatorade_energy_int_test name camp expected_output : test =
   name >:: fun _ ->
   assert_equal expected_output
-    (gatorade_energy camp |> get_player_state |> player_max_energy)
+    (gatorade_energy camp |> camp_get_player_state |> player_max_energy)
 
 let stats_camp_test name camp expected_output : test =
   name >:: fun _ ->
@@ -233,6 +242,15 @@ let csynergy_test name card expected_output : test =
 
 let exn_csynergy_test name card expected_output : test =
   name >:: fun _ -> assert_raises expected_output (fun _ -> get_synergy card)
+
+let synergy_test (name : string) (enemy : string) (cards : string list)
+    expected_output : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (Enemy.enemy_health
+       (BattleState.enemy_battle
+          (eval_active (for_player_attack_test (Enemy.enemy_from enemy) cards))))
+    ~printer:string_of_int
 
 let card_tests =
   let card = "clothesline" in
@@ -433,6 +451,16 @@ let shop_tests =
           buy_card_removal
             (buy_card_removal (buy_remove_first shop)
                (List.nth (shop |> get_player_state |> player_cards) 0))) );
+  ]
+
+let synergy_tests =
+  [
+    synergy_test "clothesline + german suplex" "bird"
+      [ "clothesline"; "german suplex" ]
+      8;
+    synergy_test "clothesline + german suplex" "bird"
+      [ "german suplex"; "clothesline" ]
+      8;
   ]
 
 let suite =
