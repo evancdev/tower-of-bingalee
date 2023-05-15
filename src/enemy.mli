@@ -1,6 +1,12 @@
 type t
 (** The abstract type representing an enemy *)
 
+val enemy_tier : int -> t list
+(** [enemy_tier i] is a list of enemies with tier [i] *)
+
+val enemy_names : t list -> string list
+(** [enemy_names lst] is a list of the names of the enemies in [lst]*)
+
 val enemy_health : t -> int
 (**[enemy_block e] is the amount of health [e] has *)
 

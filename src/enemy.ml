@@ -29,9 +29,12 @@ let enemy_database =
 let enemy_tier (tier : int) =
   List.filter (fun e -> e.tier = tier) enemy_database
 
-(* let init_enemy (tier : int) = let found = List.find (fun e -> e.name =
-   enemy_name) enemy_database in match found with | exception Not_found -> raise
-   (UnknownEnemy enemy_name) | e -> e*)
+let rec enemy_names enemy_list =
+  match enemy_list with
+  | [] -> raise (UnknownEnemy "enemy does not exist")
+  | h :: t ->
+      List.fold_left (fun acc h -> h.name :: acc) [ h.name ] t |> List.rev
+
 let init_enemy (tier : int) =
   let pos_enemies = enemy_tier tier in
   let n = Random.int (List.length pos_enemies) in
@@ -43,6 +46,3 @@ let enemy_gold t = t.gold
 let enemy_damage t = t.damage
 let enemy_name t = t.name
 let enemy_face t = t.face
-(* let enemy_face name tier = let e_list = enemy_tier tier in match e_list with
-   | [] -> raise (UnknownEnemy name) | h :: t -> if enemy_name h = name then
-   h.face else enemy_face *)

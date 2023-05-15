@@ -18,8 +18,7 @@ let battle (p : Player.t) (flr : int) =
 
 (* let shop *)
 
-let rec adventure_begin () = let p0 = Player.create_player "Leonardo
-   DiCaprio" in let route = "Battle" :: Encounter.generate_encounters in let rec
+let rec adventure_begin () = let route = "Battle" :: Encounter.generate_encounters in let rec
    do_encounter (r : string list) (flr : int) (p : Player.t) = match r with | []
    -> p | h :: t -> (match h with | "Battle" -> flr |> battle p |> do_encounter
    t (flr - 1) )
