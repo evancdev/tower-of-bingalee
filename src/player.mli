@@ -32,6 +32,9 @@ val p_remove_card : t -> string -> t
 val change_player_mhp : t -> int -> t
 (**modifies player health*)
 
+val change_health_player : t -> int -> t
+(**modifies player current health*)
+
 val change_gold_player : t -> int -> t
 (**modifies player gold*)
 
