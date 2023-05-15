@@ -12,12 +12,14 @@ let data_dir_prefix = "data" ^ Filename.dir_sep
 let card_json = Yojson.Basic.from_file (data_dir_prefix ^ "card.json")
 let enemy_json = Yojson.Basic.from_file (data_dir_prefix ^ "enemy.json")
 
+(* command test functions *)
 let parse_test (name : string) str (expected_output : command) : test =
   name >:: fun _ -> assert_equal expected_output (parse str)
 
 let exn_parse_test (name : string) str expected_output : test =
   name >:: fun _ -> assert_raises expected_output (fun _ -> parse str)
 
+(* player test functions *)
 let player_health_test (name : string) (player : Player.t) expected_output :
     test =
   name >:: fun _ -> assert_equal expected_output (player_health player)
@@ -38,6 +40,7 @@ let player_stage_test (name : string) (player : Player.t) expected_output : test
     =
   name >:: fun _ -> assert_equal expected_output (player_stage player)
 
+(* card test functions *)
 let add_card_test (name : string) (player : Player.t) (card : string)
     expected_output : test =
   name >:: fun _ ->
@@ -64,11 +67,32 @@ let change_player_menergy_test (name : string) (player : Player.t)
   assert_equal expected_output
     (change_player_menergy player amount |> player_max_energy)
 
+(* enemy test functions *)
+
 let enemy_tier_test name tier expected_output : test =
   name >:: fun _ -> assert_equal expected_output (enemy_names (enemy_tier tier))
 
 let enemy_health_test name enemy expected_output : test =
   name >:: fun _ -> assert_equal expected_output (enemy_health enemy)
+
+let enemy_gold_test name enemy expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (enemy_gold enemy)
+
+let enemy_damage_test name enemy expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (enemy_damage enemy)
+
+let enemy_name_test name enemy expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (enemy_name enemy)
+
+let enemy_face_test name enemy expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (enemy_face enemy)
+
+let enemy_max_health_test name enemy expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (enemy_max_health enemy)
+
+let change_health_enemy_test name enemy damage expected_output : test =
+  name >:: fun _ ->
+  assert_equal expected_output (change_health_enemy enemy damage |> enemy_health)
 
 let card_tests = []
 
@@ -79,11 +103,14 @@ let command_tests =
     parse_test "go command with valid input" "go 1 " (Go 1);
     parse_test "endturn\n   command" "end" EndTurn;
     parse_test "quit command" "quit" Quit;
+    parse_test "help command" "help" Help;
     parse_test "tryagain command" "again" TryAgain;
     parse_test "buy command" "buy cleave   " (Buy "cleave");
     parse_test "remove command" "remove cleave " (Remove "cleave");
     parse_test "heal command" "heal" Heal;
     parse_test "recharge\n   command" "recharge" Recharge;
+    parse_test "leave command" "leave" Leave;
+    parse_test "info command" "info strike" (Info "strike");
     exn_parse_test "go command with invalid input" "go omega attack " Malformed;
     exn_parse_test
       "malfromed exception when end\n   has a non-empty string after end"
@@ -135,7 +162,16 @@ let player_tests =
   ]
 
 let enemy_tests =
+  let enemy = init_enemy 2 in
   [
+    enemy_health_test "health of generated enemy(robot)" enemy 25;
+    enemy_gold_test "gold of generated enemy(robot)" enemy 2;
+    enemy_damage_test "damage of generated enemy(robot)" enemy 5;
+    enemy_name_test "name of generated enemy is robot " enemy "robot";
+    enemy_face_test "health of generated enemy is d[o_0]b " enemy "d[o_0]b";
+    enemy_max_health_test "maximum health of generated enemy(robot)" enemy 25;
+    change_health_enemy_test "decreasing health to 5" enemy 20 5;
+    change_health_enemy_test "inreasing health to 30" enemy (-5) 5;
     enemy_tier_test "tier 1 enemies" 1 [ "slime"; "bird" ];
     enemy_tier_test "tier 2 enemies" 2 [ "robot" ];
     enemy_tier_test "tier 3 enemies" 3 [ "zombie"; "ghost" ];
