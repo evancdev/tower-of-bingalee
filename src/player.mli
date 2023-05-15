@@ -12,6 +12,9 @@ val player_cur_health : t -> int
 val player_max_energy : t -> int
 (**[player_energy] returns the player's maximum energy*)
 
+val player_gold : t -> int
+(**[player_gold] returns the player's gold*)
+
 val player_cards : t -> string list
 (**[player_cards] returns all the cards that the player has*)
 

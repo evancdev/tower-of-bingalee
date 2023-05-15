@@ -11,14 +11,9 @@ let shuffle (lst : string list) : string list =
   done;
   Array.to_list arr
 
-let remove_card (lst : string list) (card_name : string) : string list =
-  let rec removing (count : int) =
-    match lst with
-    | [] -> []
-    | h :: t ->
-        if h = card_name then
-          List.filteri (fun i _ -> i < count) lst
-          @ List.filteri (fun i _ -> i > count) lst
-        else removing (count + 1)
-  in
-  removing 0
+let rec remove_card (lst : string list) (card_name : string) : string list =
+  match lst with
+  | [] -> []
+  | h :: t ->
+      if h = card_name then remove_card t card_name
+      else h :: remove_card t card_name
