@@ -115,7 +115,7 @@ let player_tests =
         "strike";
         "strike";
         "strike";
-        "clash";
+        "cleave";
       ];
     player_stage_test "Init Player Stage" player (1, 0);
     add_card_test "Add parry to Player Cards" player "parry"
@@ -129,8 +129,8 @@ let player_tests =
       "NONEXISTENT" (player_cards player);
     change_player_mhp_test "Increase Max HP by 5" player 5 55;
     change_player_mhp_test "Decrease Max HP by 5" player (-5) 45;
-    change_gold_player_test "Give Player 10 Gold" player 10 10;
-    change_gold_player_test "Remove Player 10 Gold" player (-10) (-10);
+    change_gold_player_test "Give Player 10 Gold" player 10 20;
+    change_gold_player_test "Remove Player 10 Gold" player (-10) 0;
     change_player_menergy_test "Increase Max Energy by 1" player 1 4;
   ]
 
@@ -146,5 +146,9 @@ let enemy_tests =
 
 let state_tests = []
 let shop_tests = []
-let suite = "test suite for Final Project" >::: List.flatten [ player_tests ]
+
+let suite =
+  "test suite for Final Project"
+  >::: List.flatten [ command_tests; player_tests; enemy_tests ]
+
 let _ = run_test_tt_main suite
