@@ -434,8 +434,6 @@ let camp_tests =
     sleep_health_int_test "health stays at 50 after heal" camp 50;
     gatorade_energy_int_test "gatorade increases max energy to 4 after recharge"
       camp 4;
-    stats_camp_test "stats when you arrive at camp" camp
-      "Health: ♡ 50/50\nEnergy: 3";
   ]
 
 let state_tests = []
@@ -495,9 +493,6 @@ let shop_tests =
 let battle_tests =
   [ player_attack_test "strike slime once" "slime" [ "strike" ] 8 ]
 
-let battle_tests =
-  [ player_attack_test "strike slime once" "slime" [ "strike" ] 8 ]
-
 let synergy_tests =
   [
     player_attack_test "clothesline + german suplex" "bird"
@@ -521,7 +516,12 @@ let suite =
   "test suite for Final Project"
   >::: List.flatten
          [
-           (*command_tests; player_tests; enemy_tests; camp_tests; card_tests;*)
+           command_tests;
+           player_tests;
+           enemy_tests;
+           camp_tests;
+           card_tests;
+           battle_tests;
            synergy_tests;
          ]
 

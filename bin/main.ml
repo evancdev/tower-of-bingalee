@@ -314,7 +314,7 @@ let camp (p : Player.t) =
         ANSITerminal.(print_string [ red; Bold ] "Invalid command.\n");
         camp_loop c
   in
-  p |> create_camp |> camp_loop |> get_player_state
+  p |> create_camp |> camp_loop |> camp_get_player_state
 
 let chance p =
   let open ChanceState in
