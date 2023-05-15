@@ -41,13 +41,15 @@ let rec eval_active_aux (state : t) =
       let synergy_dmg =
         List.fold_left
           (fun acc c ->
-            if List.mem c (get_synergy h) then acc + get_bdmg c else acc)
+            if List.mem c (get_synergy h) then acc + get_bdmg c + get_bdmg h
+            else acc)
           0 t
       in
       let synergy_blk =
         List.fold_left
           (fun acc c ->
-            if List.mem c (get_synergy h) then acc + get_blck c else acc)
+            if List.mem c (get_synergy h) then acc + get_blck c + get_blck h
+            else acc)
           0 t
       in
       let dmg = get_dmg h + synergy_dmg in
@@ -182,3 +184,7 @@ let init_battle (p : Player.t) (enemy_tier : int) =
 
 let reset_turn (s : t) = { s with cur_energy = s.max_energy; block = 0 }
 let get_cur_energy s = s.cur_energy
+
+let for_player_attack_test enemy active =
+  let b = init_battle (Player.create_player ()) 1 in
+  { b with enemy; active }

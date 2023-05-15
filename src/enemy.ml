@@ -56,3 +56,5 @@ let enemy_max_health e =
     | h :: t -> if h.name = n then h.health else find n t
   in
   find e.name enemy_database
+
+let enemy_from name = List.find (fun e -> e.name = name) enemy_database

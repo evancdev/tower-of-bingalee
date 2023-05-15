@@ -4,9 +4,8 @@ exception Restart
 exception End
 
 let print_battle_instructions () =
-  ANSITerminal.print_string
-    [ ANSITerminal.green; ANSITerminal.Underlined ]
-    "\n=== Instructions for Battle ===\n";
+  ANSITerminal.(
+    print_string [ green; Underlined ] "\n=== Instructions for Battle ===\n");
   print_endline
     "\n   play <card> : plays the card with name <card> in your hand";
   print_endline
@@ -16,15 +15,13 @@ let print_battle_instructions () =
   print_endline "\n   info <card> : prints a description of the card"
 
 let print_door_instructions () =
-  ANSITerminal.print_string
-    [ ANSITerminal.green; ANSITerminal.Underlined ]
-    "\n=== Instructions for Hallway ===\n";
+  ANSITerminal.(
+    print_string [ green; Underlined ] "\n=== Instructions for Hallway ===\n");
   print_endline "\n   go <door> : leads you to the encounter behind <door> "
 
 let print_shop_instructions () =
-  ANSITerminal.print_string
-    [ ANSITerminal.green; ANSITerminal.Underlined ]
-    "\n=== Instructions for Shop ===\n";
+  ANSITerminal.(
+    print_string [ green; Underlined ] "\n=== Instructions for Shop ===\n");
   print_endline
     "\n checkhand : displays cards in your active slot and your\n   hand";
   print_endline "\n   buy <card>: buy a <card> available at the shop";
@@ -377,7 +374,7 @@ let main () =
     "Welcome to the World of Bingalee\n";
   adventure_begin ()
 
-(* let () = main () *)
+let () = main ()
 (* let () = ignore (camp (Player.create_player ())) *)
 (* ignore (chance (Player.create_player ())) *)
-let () = ignore (shop (Player.create_player ()))
+(* let () = ignore (shop (Player.create_player ())) *)

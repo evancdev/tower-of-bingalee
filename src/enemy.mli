@@ -31,3 +31,4 @@ val change_health_enemy : t -> int -> t
    damage*)
 
 val enemy_max_health : t -> int
+val enemy_from : string -> t

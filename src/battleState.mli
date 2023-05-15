@@ -29,3 +29,4 @@ val reset_turn : t -> t
 val gold_on_kill : t -> t
 val get_health_strings : t -> string * string
 val get_cur_energy : t -> int
+val for_player_attack_test : Enemy.t -> string list -> t

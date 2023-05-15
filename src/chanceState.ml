@@ -6,6 +6,7 @@ open Yojson.Basic.Util
 exception InvalidPrompt of string
 
 type change = {
+  maxhp_delta : int;
   health_delta : int;
   energy_delta : int;
   gold_delta : int;
@@ -24,6 +25,7 @@ type t = {
 
 let change_of_json (j : Yojson.Basic.t) =
   {
+    maxhp_delta = j |> member "maxhp_delta" |> to_int;
     health_delta = j |> member "health_delta" |> to_int;
     energy_delta = j |> member "energy_delta" |> to_int;
     gold_delta = j |> member "gold_delta" |> to_int;
@@ -44,19 +46,50 @@ let prompts_json = Yojson.Basic.from_file (data_dir_prefix ^ "prompts.json")
 let prompts_data = all_prompts_of_json prompts_json
 
 let generate_random_prompt () =
-  List.nth prompts_data
-    (Random.self_init ();
-     Random.int (List.length prompts_data))
+  List.nth prompts_data (Random.int (List.length prompts_data))
 
 let prompt_desc (p : prompt) = p.description
 let create_chance_event p = { player = p; prompt = generate_random_prompt () }
 
+let print_player_stats state =
+  let player = state.player in
+  ANSITerminal.(
+    print_string [ magenta ]
+      ("CURRENT STATS : "
+      ^ string_of_int (player_health player)
+      ^ " MAXIMUM HP | "
+      ^ string_of_int (player_cur_health player)
+      ^ " CURRENT HP | "
+      ^ string_of_int (player_max_energy player)
+      ^ " MAX ENERGY | "
+      ^ string_of_int (player_gold player)
+      ^ " GOLD\n"))
+
 let apply_changes (state : t) (change : change) =
-  change_player_menergy
-    (change_gold_player
-       (change_player_curhp state.player change.health_delta)
-       change.gold_delta)
-    change.energy_delta
+  ANSITerminal.(
+    print_string [ cyan ]
+      ("CHANGES : "
+      ^ string_of_int change.maxhp_delta
+      ^ " MAXIMUM HP | "
+      ^ string_of_int change.health_delta
+      ^ " HP | "
+      ^ string_of_int change.energy_delta
+      ^ " MAX ENERGY | "
+      ^ string_of_int change.gold_delta
+      ^ " GOLD\n"));
+
+  let updated_state =
+    change_player_mhp
+      (change_player_menergy
+         (change_gold_player
+            (change_player_curhp state.player change.health_delta)
+            change.gold_delta)
+         change.energy_delta)
+      change.maxhp_delta
+  in
+
+  print_player_stats { state with player = updated_state };
+  updated_state
 
 let read_decision (state : t) =
   let rec loop () =
