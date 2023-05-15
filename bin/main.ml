@@ -390,7 +390,7 @@ let main () =
      commands are at your disposal";
   adventure_begin ()
 
-let () = ignore (shop (Player.create_player ()))
+(* let () = ignore (shop (Player.create_player ())) *)
 let () = main ()
 (* let () = ignore (camp (Player.create_player ())) *)
 (* let () = ignore (chance (Player.create_dead_player ())) *)
