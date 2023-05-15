@@ -9,6 +9,7 @@ type command =
   | Go of door
   | EndTurn
   | Quit
+  | Help
   | TryAgain
   | Buy of card_name
   | Remove of card_name
@@ -43,6 +44,7 @@ let object_list (lst : string list) =
         Go (t |> fst_list |> int_of_string)
       else if h = "end" && t = [] then EndTurn
       else if h = "quit" && t = [] then Quit
+      else if h = "help" && t = [] then Help
       else if h = "again" && t = [] then TryAgain
       else if h = "buy" && t != [] then Buy (String.trim (join_slist t " "))
       else if h = "remove" && t != [] then Remove (join_slist t " ")
