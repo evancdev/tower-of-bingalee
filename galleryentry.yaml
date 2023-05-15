@@ -24,11 +24,11 @@ demo-video-url: ""
 # Write a short, attention-grabbing description of your project.
 desc: >
   Our project is an dungeon-crawler game. You play as a hero who explores the
-  different floors of Bingalee, each inhabited with special enemies varying of
+  world of Bingalee, each inhabited with special enemies varying of
   difficulty. In order to defeat them, you are given a hand of cards that vary
   in effects such as dealing damage or increasing your defense against their 
   attacks. However, playing these cards cost energy hence you must choose
-  carefully and wisely which cards you wish to play each turn.
-
-  Game will be implemented text-based interface style but the game can also
-  be supported to be played with a GUI.
+  carefully and wisely which cards you wish to play each turn. In the midst
+  between your battles, you can also choose randomly selected events for you
+  to embark on your own risk, consisting of chance events, shop events, and
+  camp events. You can choose these events at your own risk.

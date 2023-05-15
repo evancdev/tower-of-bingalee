@@ -43,22 +43,21 @@ let data_dir_prefix = "data" ^ Filename.dir_sep
 let prompts_json = Yojson.Basic.from_file (data_dir_prefix ^ "prompts.json")
 let prompts_data = all_prompts_of_json prompts_json
 
-let generate_random_prompt =
+let generate_random_prompt () =
   List.nth prompts_data (Random.int (List.length prompts_data))
 
 let prompt_desc (p : prompt) = p.description
-let create_chance_event p = { player = p; prompt = generate_random_prompt }
+let create_chance_event p = { player = p; prompt = generate_random_prompt () }
 
 let apply_changes (state : t) (change : change) =
   change_player_menergy
     (change_gold_player
-       (change_player_mhp state.player change.health_delta)
+       (change_player_curhp state.player change.health_delta)
        change.gold_delta)
     change.energy_delta
 
 let read_decision (state : t) =
   let rec loop () =
-    ANSITerminal.(print_string [ green ] (state.prompt.description ^ "\n"));
     ANSITerminal.(print_string [ yellow ] "Enter your choice (y/n): ");
     match String.trim (read_line ()) with
     | "y" | "Y" -> true
@@ -71,6 +70,7 @@ let read_decision (state : t) =
   loop ()
 
 let apply_prompt (state : t) =
+  ANSITerminal.(print_string [ green ] (state.prompt.description ^ "\n"));
   if state.prompt.choice then
     match read_decision state with
     | true -> apply_changes state (List.nth state.prompt.changes 0)

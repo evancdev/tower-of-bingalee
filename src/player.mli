@@ -41,4 +41,7 @@ val change_gold_player : t -> int -> t
 val change_player_menergy : t -> int -> t
 (**modifies player energy*)
 
+val change_player_curhp : t -> int -> t
+(**modifies player current health*)
+
 val player_from : int -> int -> string list -> int -> int -> int * int -> t

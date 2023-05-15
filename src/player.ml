@@ -61,3 +61,6 @@ let change_gold_player (p : t) (gold : int) : t =
 
 let change_player_menergy (p : t) (amount : int) : t =
   { p with max_energy = p.max_energy + amount }
+
+let change_player_curhp (p : t) (amount : int) : t =
+  { p with cur_health = p.cur_health + amount }

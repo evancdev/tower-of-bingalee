@@ -3,6 +3,41 @@ open Game
 exception Restart
 exception End
 
+let print_battle_instructions () =
+  ANSITerminal.print_string
+    [ ANSITerminal.green; ANSITerminal.Underlined ]
+    "\n=== Instructions for Battle ===\n";
+  print_endline
+    "\n   play <card> : plays the card with name <card> in your hand";
+  print_endline
+    "\n   end : ends your turn after you have played your desired cards";
+  print_endline "\n   quit : quits the game";
+  print_endline "\n   again: allows you to have a second chance and try to win "
+
+let print_door_instructions () =
+  ANSITerminal.print_string
+    [ ANSITerminal.green; ANSITerminal.Underlined ]
+    "\n=== Instructions for Hallway ===\n";
+  print_endline "\n   go <door> : leads you to the encounter behind <door> "
+
+let print_shop_instructions () =
+  ANSITerminal.print_string
+    [ ANSITerminal.green; ANSITerminal.Underlined ]
+    "\n=== Instructions for Shop ===\n";
+  print_endline
+    "\n checkhand : displays cards in your active slot and your\n   hand";
+  print_endline "\n   buy <card>: buy a <card> available at the shop";
+  print_endline "\n   remove <card>: removes a <card> from your hand";
+  print_endline "\n   leave : removes you from the shop"
+
+let print_camp_instructions () =
+  ANSITerminal.print_string
+    [ ANSITerminal.green; ANSITerminal.Underlined ]
+    "\n=== Instructions for Camp ===\n";
+  print_endline "\n   heal : heals you by 8%";
+  print_endline "\n   recharge : increases yous energy by 1";
+  print_endline "\n   leave : removes you from the camp"
+
 let enemy_hit (state : BattleState.t) =
   let enemy = BattleState.enemy_battle state in
   let face = Enemy.enemy_face enemy in
@@ -121,6 +156,9 @@ let battle (p : Player.t) (flr : int) =
     | Info c ->
         info c;
         battle_loop s
+    | Help ->
+        print_battle_instructions ();
+        battle_loop s
     | _ -> battle_loop s
     | exception Command.Malformed -> battle_loop s
     | exception Command.Empty -> battle_loop s
@@ -141,6 +179,9 @@ let door () =
     match read_input () with
     | Go i -> i
     | Quit -> raise End
+    | Help ->
+        print_door_instructions ();
+        door_loop ()
     | _ -> door_loop ()
     | exception Command.Malformed -> door_loop ()
     | exception Command.Empty -> door_loop ()
@@ -194,6 +235,9 @@ let shop (p : Player.t) =
         check_hand_from_player (get_player_state s);
         shop_loop s
     | Quit -> raise End
+    | Help ->
+        print_shop_instructions ();
+        shop_loop s
     | _ -> shop_loop s
     | exception Command.Malformed -> shop_loop s
     | exception Command.Empty -> shop_loop s
@@ -248,18 +292,26 @@ let camp (p : Player.t) =
            but the grind must go on...\n\n";
         c
     | Quit -> raise End
+    | Help ->
+        print_camp_instructions ();
+        camp_loop c
     | _ -> camp_loop c
     | exception Command.Malformed -> camp_loop c
     | exception Command.Empty -> camp_loop c
   in
   p |> create_camp |> camp_loop |> get_player_state
 
+let chance p =
+  let open ChanceState in
+  let c = create_chance_event p in
+  apply_prompt c
+
 let encounter p flr dep =
   match door () with
   | "Battle" -> battle p flr
   | "Shop" -> shop p
   | "Camp" -> camp p
-  | "Chance" -> p (*FIX AFTER GETTING MLI*)
+  | "Chance" -> chance p
   | _ -> failwith "not possible"
 
 let rec restart () =
@@ -311,48 +363,14 @@ let adventure_begin () =
 (* let print_enemy state (color:string) face s = ANSITerminal.print_string
    [ANSITerminal.color; ANSITerminal.Bold] face; ANSITerminal.print_string [
    ANSITerminal.Bold ] ("\n\n" ^ s ^ "\n"); *)
-let print_battle_instructions () =
-  ANSITerminal.print_string
-    [ ANSITerminal.green; ANSITerminal.Underlined ]
-    "\n=== Instructions for Battle ===\n";
-  print_endline
-    "\n   play <card> : plays the card with name <card> in your hand";
-  print_endline
-    "\n   end : ends your turn after you have played your desired cards";
-  print_endline "\n   quit : quits the game";
-  print_endline "\n   again: allows you to have a second chance and try to win "
-
-let print_door_instructions () =
-  ANSITerminal.print_string
-    [ ANSITerminal.green; ANSITerminal.Underlined ]
-    "\n=== Instructions for Hallway ===\n";
-  print_endline "\n   go <door> : leads you to the encounter behind <door> "
-
-let print_shop_instructions () =
-  ANSITerminal.print_string
-    [ ANSITerminal.green; ANSITerminal.Underlined ]
-    "\n=== Instructions for Shop ===\n";
-  print_endline
-    "\n checkhand : displays cards in your active slot and your\n   hand";
-  print_endline "\n   buy <card>: buy a <card> available at the shop";
-  print_endline "\n   remove <card>: removes a <card> from your hand";
-  print_endline "\n   leave : removes you from the shop"
-
-let print_camp_instructions () =
-  ANSITerminal.print_string
-    [ ANSITerminal.green; ANSITerminal.Underlined ]
-    "\n=== Instructions for Camp ===\n";
-  print_endline "\n   heal : heals you by 8%";
-  print_endline "\n   recharge : increases yous energy by 1";
-  print_endline "\n   leave : removes you from the camp"
 
 let main () =
   print_endline "";
   ANSITerminal.print_string
     [ ANSITerminal.Bold; ANSITerminal.cyan ]
     "Welcome to the World of Bingalee\n";
-  print_battle_instructions ();
   adventure_begin ()
 
 let () = main ()
-(* ignore (shop (Player.create_player ()) 1 1) *)
+(* ignore (chance (Player.create_player ())) *)
+(* let () = ignore (shop (Player.create_player ())) *)
