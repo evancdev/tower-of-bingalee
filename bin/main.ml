@@ -105,6 +105,7 @@ let battle (p : Player.t) (flr : int) =
         | true, _, s' -> s'
         | _, true, s' -> raise Restart
         | _, _, s' -> battle_loop s')
+    | Quit -> raise End
     | _ -> battle_loop s
     | exception Command.Malformed -> battle_loop s
     | exception Command.Empty -> battle_loop s
@@ -124,6 +125,7 @@ let door () =
   let rec door_loop () =
     match read_input () with
     | Go i -> i
+    | Quit -> raise End
     | _ -> door_loop ()
     | exception Command.Malformed -> door_loop ()
     | exception Command.Empty -> door_loop ()
@@ -175,6 +177,7 @@ let shop (p : Player.t) flr dep =
     | CheckHand ->
         check_hand_from_player (get_player_state s);
         shop_loop s
+    | Quit -> raise End
     | _ -> shop_loop s
     | exception Command.Malformed -> shop_loop s
     | exception Command.Empty -> shop_loop s
@@ -228,6 +231,7 @@ let camp (p : Player.t) =
            You miss the feeling of ease already...\n\
            but the grind must go on...\n\n";
         c
+    | Quit -> raise End
     | _ -> camp_loop c
     | exception Command.Malformed -> camp_loop c
     | exception Command.Empty -> camp_loop c
@@ -273,6 +277,7 @@ let rec floor p flr =
       print_endline
         {|type "again" to try once more or "quit" to end the adventure|};
       if restart () then floor p flr else raise End
+  | exception End -> raise End
   | p' -> p'
 
 let adventure_begin () =
