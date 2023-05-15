@@ -37,11 +37,11 @@ let gatorade_energy camp =
   | false -> raise (InvalidChoice "There is no more gatorade")
 
 let stats camp =
-  "Health: ♡ "
+  "\tHealth: ♡ "
   ^ string_of_int (Player.player_cur_health camp.player)
   ^ "/"
   ^ string_of_int (Player.player_health camp.player)
-  ^ "\nEnergy: "
+  ^ "\n\tEnergy: ⚡"
   ^ string_of_int (Player.player_max_energy camp.player)
 
 let get_player_state c = c.player

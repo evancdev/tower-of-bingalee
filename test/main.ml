@@ -276,7 +276,7 @@ let enemy_tests =
     enemy_gold_test "gold of generated enemy(robot)" enemy 2;
     enemy_damage_test "damage of generated enemy(robot)" enemy 5;
     enemy_name_test "name of generated enemy is robot " enemy "robot";
-    enemy_face_test "health of generated enemy is d[o_0]b " enemy "d[o_0]b";
+    enemy_face_test "face of generated enemy is d[o_0]b " enemy "d[o_0]b";
     enemy_max_health_test "maximum health of generated enemy(robot)" enemy 25;
     change_health_enemy_test "decreasing health to 5" enemy 20 5;
     change_health_enemy_test "increasing health to 30" enemy (-5) 30;

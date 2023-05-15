@@ -140,7 +140,7 @@ let get_card_state (state : t) = (state.active, state.hand)
 let activate_card (s : t) (c : card) =
   let rec pluck_card hand removed =
     match hand with
-    | [] -> raise (CardNotInHand (removed ^ "not in hand."))
+    | [] -> raise (CardNotInHand (removed ^ " not in hand."))
     | h :: t -> if h = removed then t else h :: pluck_card t removed
   in
   match
