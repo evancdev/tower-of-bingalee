@@ -48,7 +48,7 @@ let print_battlefield (s : BattleState.t) =
   print_endline "";
   let ph, eh = BattleState.get_health_strings s in
   print_endline (ph ^ "\t\t" ^ eh);
-  print_endline ("Energy: " ^ string_of_int (BattleState.get_cur_energy s));
+  print_endline ("Energy: ⚡" ^ string_of_int (BattleState.get_cur_energy s));
   print_endline ""
 
 let read_input () =
@@ -71,6 +71,11 @@ let check_hand s =
   let active, hand = BattleState.get_card_state s in
   print_endline ("Active: " ^ UsefulFunctions.join_slist active ", ");
   print_endline ("Hand: " ^ UsefulFunctions.join_slist hand ", ")
+
+let check_hand_from_player p =
+  print_endline
+    ("Cards:\n    - "
+    ^ UsefulFunctions.join_slist (Player.player_cards p) "\n    - ")
 
 let end_turn s =
   let open BattleState in
@@ -127,22 +132,53 @@ let door () =
   display_doors door_choices;
   List.nth door_choices (door_loop () - 1)
 
+let print_shop s =
+  ANSITerminal.print_string
+    [ ANSITerminal.magenta; ANSITerminal.Bold ]
+    "\n\
+     You're in a small, decrepid shop. The merchant\n\
+     behind the counter peers at you warily.\n";
+  ANSITerminal.print_string [ ANSITerminal.green ]
+    "\tYou can't help but notice the glitter in his\n\
+     \teyes as he glances at your coin purse...\n\
+     \tOr was it your imagination?\n\n";
+  ANSITerminal.print_string
+    [ ANSITerminal.magenta; ANSITerminal.Underlined ]
+    "Cards For Sale\n";
+  print_endline
+    ("   - "
+    ^ UsefulFunctions.join_slist (ShopState.get_cards s) "\n   - "
+    ^ "\n");
+  ANSITerminal.print_string
+    [ ANSITerminal.magenta; ANSITerminal.Underlined ]
+    "Card Removal Cost:";
+  print_endline (" " ^ string_of_int (ShopState.get_removal_cost s) ^ "\n\n")
+
 let shop (p : Player.t) flr dep =
   let open ShopState in
   let rec shop_loop s =
+    print_shop s;
     match read_input () with
-    | Buy c ->
-        let s' = buy_card s c in
-        shop_loop s'
-    | Remove c ->
-        let s' = buy_card_removal s c in
-        shop_loop s'
+    | Buy c -> (
+        match buy_card s c with
+        | x -> shop_loop x
+        | exception InvalidPurchase m ->
+            print_endline m;
+            shop_loop s)
+    | Remove c -> (
+        match buy_card_removal s c with
+        | x -> shop_loop x
+        | exception CardRemoval m ->
+            print_endline m;
+            shop_loop s)
     | Leave -> get_player_state s
+    | CheckHand ->
+        check_hand_from_player (get_player_state s);
+        shop_loop s
     | _ -> shop_loop s
     | exception Command.Malformed -> shop_loop s
     | exception Command.Empty -> shop_loop s
   in
-
   shop_loop (create_shop flr dep p)
 
 let print_camp c =
@@ -216,10 +252,17 @@ let rec restart () =
 
 let rec floor p flr =
   match
+    ANSITerminal.print_string [ ANSITerminal.green ]
+      "\n\
+      \    You step into a new realm... eager to explore.\n\
+      \    It's not long before you're ambushed!";
     let p1 = battle p flr in
     let p2 = encounter p1 flr 2 in
     let p3 = encounter p2 flr 3 in
     let p4 = encounter p3 flr 4 in
+    ANSITerminal.print_string
+      [ ANSITerminal.red; ANSITerminal.Bold ]
+      "\nA boss approaches...";
     let p5 = battle p4 (flr + 3) in
     p5
   with
@@ -228,7 +271,7 @@ let rec floor p flr =
         [ ANSITerminal.Bold; ANSITerminal.red ]
         "You died.\n\n";
       print_endline
-        {|type "tryagain" to try once more or "quit" to end the adventure|};
+        {|type "again" to try once more or "quit" to end the adventure|};
       if restart () then floor p flr else raise End
   | p' -> p'
 
@@ -241,7 +284,7 @@ let adventure_begin () =
     ignore (floor p2 3);
     print_endline "You win!"
   with
-  | exception End -> print_endline "Goodbye."
+  | exception End -> print_endline "Goodbye...\n"
   | _ -> ()
 
 (* let print_enemy state (color:string) face s = ANSITerminal.print_string
@@ -255,4 +298,5 @@ let main () =
     "Welcome to the World of Bingalee\n";
   adventure_begin ()
 
-let () = ignore (shop (Player.create_player ()) 1 2)
+let () = main ()
+(*ignore (shop (Player.create_player ()) 1 1)*)

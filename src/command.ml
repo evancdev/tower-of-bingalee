@@ -36,14 +36,14 @@ let object_list (lst : string list) =
   match lst with
   | [] -> raise Empty
   | h :: t ->
-      if h = "play" && t != [] then Play (join_slist t " ")
+      if h = "play" && t != [] then Play (String.trim (join_slist t " "))
       else if h = "checkhand" && t = [] then CheckHand
       else if h = "go" && (t = [ "1" ] || t = [ "2" ] || t = [ "3" ]) then
         Go (t |> fst_list |> int_of_string)
       else if h = "end" && t = [] then EndTurn
       else if h = "quit" && t = [] then Quit
       else if h = "again" && t = [] then TryAgain
-      else if h = "buy" && t != [] then Buy (join_slist t " ")
+      else if h = "buy" && t != [] then Buy (String.trim (join_slist t " "))
       else if h = "remove" && t != [] then Remove (join_slist t " ")
       else if h = "heal" && t = [] then Heal
       else if h = "recharge" && t = [] then Recharge

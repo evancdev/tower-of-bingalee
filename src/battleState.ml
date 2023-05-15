@@ -78,7 +78,7 @@ type status =
   | EnemyDead
 
 let game_state (state : t) =
-  if player_health state.player <= 0 then PlayerDead
+  if state.cur_hp <= 0 then PlayerDead
   else if enemy_health state.enemy <= 0 then EnemyDead
   else Alive
 
@@ -169,7 +169,7 @@ let init_battle (p : Player.t) (enemy_tier : int) =
     max_hp = player_health p;
     cur_hp = player_cur_health p;
     max_energy = Player.player_max_energy p;
-    cur_energy = 3;
+    cur_energy = Player.player_max_energy p;
     block = 0;
     deck = shuffle (player_cards p);
     used_cards = [];

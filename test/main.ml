@@ -79,7 +79,7 @@ let command_tests =
     parse_test "go command with valid input" "go 1 " (Go 1);
     parse_test "endturn\n   command" "end" EndTurn;
     parse_test "quit command" "quit" Quit;
-    parse_test "tryagain command" "tryagain" TryAgain;
+    parse_test "tryagain command" "again" TryAgain;
     parse_test "buy command" "buy cleave   " (Buy "cleave");
     parse_test "remove command" "remove cleave " (Remove "cleave");
     parse_test "heal command" "heal" Heal;

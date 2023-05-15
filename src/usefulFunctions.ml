@@ -14,9 +14,7 @@ let shuffle (lst : string list) : string list =
 let rec remove_card (lst : string list) (card_name : string) : string list =
   match lst with
   | [] -> []
-  | h :: t ->
-      if h = card_name then remove_card t card_name
-      else h :: remove_card t card_name
+  | h :: t -> if h = card_name then t else h :: remove_card t card_name
 
 let join_slist sl sep =
   match sl with
