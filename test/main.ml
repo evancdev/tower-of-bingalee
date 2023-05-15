@@ -276,6 +276,12 @@ let cbonusblock_test name card expected_output : test =
 let exn_cbonusblock_test name card expected_output : test =
   name >:: fun _ -> assert_raises expected_output (fun _ -> get_blck card)
 
+let cvalue_test name card (expected_output : int) : test =
+  name >:: fun _ -> assert_equal expected_output (get_value card)
+
+let exn_cvalue_test name card expected_output : test =
+  name >:: fun _ -> assert_raises expected_output (fun _ -> get_value card)
+
 let csynergy_test name card expected_output : test =
   name >:: fun _ -> assert_equal expected_output (get_synergy card)
 
@@ -292,40 +298,72 @@ let loot_enemy (name : string) (enemy : string) (expected_output : int) : test =
 
 let card_tests =
   let card = "clothesline" in
+  let card2 = "strike" in
+  let card3 = "block" in
+  let card4 = "barricade" in
+  let card5 = "sentinel" in
   let fake = "fake" in
   [
     (* get_card_name_test "clothesline card has name clothesline" card
        "clothesline"; *)
     card_description_test
-      "clothesline has description Deals 4 DMG. If you play GERMAN SUPLEX, you \
-       deal 12 DMG instead."
-      card "Deals 4 DMG. If you play GERMAN SUPLEX, you deal 12 DMG instead.";
+      "clothesline has description {|Deals 4 DMG. If you play GERMAN SUPLEX, you\n\
+      \       deal 12 DMG instead.|}" card
+      "Deals 4 DMG. If you play GERMAN SUPLEX, you deal 12 DMG instead.";
     exn_cdescription_test "fake card doesnt have a decription" fake
       (UnknownCard "Not a valid card.");
+    card_description_test "strike has description {|Deals 2 DMG|}." card2
+      "Deals 2 DMG";
+    card_description_test "block has description {|Blocks 4 DMG|}." card3
+      "Blocks 4 DMG";
     card_dmg_test "clothesline deals 4 dmg" card 4;
+    card_dmg_test "strike has 2 DMG" card2 2;
+    card_dmg_test "block has 0 DMG" card3 0;
     exn_cdmg_test "fake card doesnt have damage" fake
       (UnknownCard "Not a valid card.");
     card_energy_test "clothesline use 1 energy" card 1;
+    card_energy_test "strike has 1 energy" card 1;
+    card_energy_test "block has 2 energy" card3 2;
     exn_cenergy_test "fake card doesnt have energy" fake
       (UnknownCard "Not a valid card.");
     card_block_test "clothesline blocks 0 damage" card 0;
+    card_block_test "block blocks 4 DMG" card3 4;
+    card_block_test "strike blocks 0 DMG" card2 0;
     exn_cblock_test "fake card doesnt have block" fake
       (UnknownCard "Not a valid card.");
     card_id_test "clothesline has id clothesline" card "clothesline";
+    card_id_test "id of strike is strike" card2 "strike";
+    card_id_test "id of block is block" card3 "block";
     exn_cid_test "fake card doesnt have an id" fake
       (UnknownCard "Not a valid card.");
     card_tier_test "clothesline is a tier 1 card" card 1;
+    card_tier_test "tier of strike is 1" card2 1;
+    card_tier_test "tier of block is 1" card3 1;
+    card_tier_test "tier of barricade is 3" card4 3;
+    card_tier_test "tier of sentinel is 2" card5 2;
     exn_ctier_test "fake case doesnt have tier" fake
       (UnknownCard "Not a valid card.");
     cbonusdmg_test "clothesline has 2 bonus dmg" card 2;
+    cbonusdmg_test "strike has 0 bonus dmg" card2 0;
+    cbonusdmg_test "block has 0 bonus dmg" card3 0;
     exn_cbonusdmg_test "fake does not have bonus dmg" fake
       (UnknownCard "Not a valid card.");
     cbonusblock_test "clothesline has 0 bonus block" card 0;
+    cbonusblock_test "strike has 0 bonus block" card2 0;
+    cbonusblock_test "block has 0 bonus block" card3 0;
+    cbonusblock_test "barricade has 0 bonus block" card4 0;
+    cbonusblock_test "sentinel has 2 bonus block" card5 2;
     exn_cbonusblock_test "fake has no bonus block" fake
       (UnknownCard "Not a valid card.");
     csynergy_test "clothesline synergizes with german suplex" card
       [ "german suplex" ];
+    csynergy_test "barricade synergizes with sentinel" card4 [ "sentinel" ];
+    csynergy_test "strike has no synergy with any other card" card2 [];
+    csynergy_test "block hasno synergy" card3 [];
     exn_csynergy_test "fake DNE" fake (UnknownCard "Not a valid card.");
+    cvalue_test "strike costs 1 gold" card2 1;
+    cvalue_test "barricade costs 10 gold" card4 10;
+    exn_cvalue_test "fake DNE" fake (UnknownCard "Not a valid card.");
   ]
 
 let command_tests =
