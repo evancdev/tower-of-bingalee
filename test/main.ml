@@ -217,6 +217,24 @@ let card_tier_test name card expected_output : test =
 let exn_ctier_test name card expected_output : test =
   name >:: fun _ -> assert_raises expected_output (fun _ -> get_tier card)
 
+let cbonusdmg_test name card expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (get_bdmg card)
+
+let exn_cbonusdmg_test name card expected_output : test =
+  name >:: fun _ -> assert_raises expected_output (fun _ -> get_bdmg card)
+
+let cbonusblock_test name card expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (get_blck card)
+
+let exn_cbonusblock_test name card expected_output : test =
+  name >:: fun _ -> assert_raises expected_output (fun _ -> get_blck card)
+
+let csynergy_test name card expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (get_synergy card)
+
+let exn_csynergy_test name card expected_output : test =
+  name >:: fun _ -> assert_raises expected_output (fun _ -> get_synergy card)
+
 let card_tests =
   let card = "clothesline" in
   let fake = "fake" in
@@ -244,6 +262,15 @@ let card_tests =
     card_tier_test "clothesline is a tier 1 card" card 1;
     exn_ctier_test "fake case doesnt have tier" fake
       (UnknownCard "Not a valid card.");
+    cbonusdmg_test "clothesline has 2 bonus dmg" card 2;
+    exn_cbonusdmg_test "fake does not have bonus dmg" fake
+      (UnknownCard "Not a valid card.");
+    cbonusblock_test "clothesline has 0 bonus block" card 0;
+    exn_cbonusblock_test "fake has no bonus block" fake
+      (UnknownCard "Not a valid card.");
+    csynergy_test "clothesline synergizes with german suplex" card
+      [ "german suplex" ];
+    exn_csynergy_test "fake DNE" fake (UnknownCard "Not a valid card.");
   ]
 
 let command_tests =
