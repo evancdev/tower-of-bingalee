@@ -53,6 +53,9 @@ let p_remove_card (p : t) (card_name : string) : t =
 let change_player_mhp (p : t) (amount : int) : t =
   { p with max_health = p.max_health + amount }
 
+let change_health_player p damage =
+  { p with cur_health = p.cur_health - damage }
+
 let change_gold_player (p : t) (gold : int) : t =
   { p with gold = p.gold + gold }
 

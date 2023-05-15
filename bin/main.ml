@@ -12,7 +12,8 @@ let print_battle_instructions () =
   print_endline
     "\n   end : ends your turn after you have played your desired cards";
   print_endline "\n   quit : quits the game";
-  print_endline "\n   again: allows you to have a second chance and try to win "
+  print_endline "\n   again: allows you to have a second chance and try to win ";
+  print_endline "\n   info <card> : prints a description of the card"
 
 let print_door_instructions () =
   ANSITerminal.print_string
@@ -270,27 +271,25 @@ let camp (p : Player.t) =
   let rec camp_loop c =
     print_camp c;
     match read_input () with
-    | Heal ->
-        (match c |> sleep_health with
+    | Heal -> (
+        match c |> sleep_health with
         | c' ->
             ANSITerminal.print_string [ ANSITerminal.green ]
               "You lay down to take a nap. Health increased!";
-            c'
+            camp_loop c'
         | exception CampState.InvalidChoice s ->
             ANSITerminal.print_string [ ANSITerminal.red ] s;
             camp_loop c)
-        |> camp_loop
-    | Recharge ->
-        (match c |> gatorade_energy with
+    | Recharge -> (
+        match c |> gatorade_energy with
         | c' ->
             ANSITerminal.print_string [ ANSITerminal.yellow ]
               "You chug the bottle of gatorade. Electrolytes course through \
                your body! Max energy increased!";
-            c'
+            camp_loop c'
         | exception CampState.InvalidChoice s ->
             ANSITerminal.print_string [ ANSITerminal.red ] s;
             camp_loop c)
-        |> camp_loop
     | Leave ->
         ANSITerminal.print_string [ ANSITerminal.red ]
           "You leave the camp and all it's peacefullness. \n\

@@ -58,7 +58,6 @@ let apply_changes (state : t) (change : change) =
 
 let read_decision (state : t) =
   let rec loop () =
-    ANSITerminal.(print_string [ green ] (state.prompt.description ^ "\n"));
     ANSITerminal.(print_string [ yellow ] "Enter your choice (y/n): ");
     match String.trim (read_line ()) with
     | "y" | "Y" -> true
@@ -71,6 +70,7 @@ let read_decision (state : t) =
   loop ()
 
 let apply_prompt (state : t) =
+  ANSITerminal.(print_string [ green ] (state.prompt.description ^ "\n"));
   if state.prompt.choice then
     match read_decision state with
     | true -> apply_changes state (List.nth state.prompt.changes 0)
