@@ -18,38 +18,52 @@ let parse_test (name : string) str (expected_output : command) : test =
 let exn_parse_test (name : string) str expected_output : test =
   name >:: fun _ -> assert_raises expected_output (fun _ -> parse str)
 
-let player = create_player "Player1"
+let enemy_tier_test name tier expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (enemy_names (enemy_tier tier))
+
+let enemy_health_test name enemy expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (enemy_health enemy)
+
 let card_tests = []
 
 let command_tests =
   [
-    parse_test "extra spaces with play" "play  clash  "
+    parse_test "extra spaces with play" "play clash "
       (Play [ "omega"; "attack" ]);
     parse_test "testing if checkhand works" "checkhand" CheckHand;
-    parse_test "go command with valid input" "go  1 " (Go [ "1" ]);
-    parse_test "endturn command" "end" EndTurn;
+    parse_test "go command with valid input" "go 1 " (Go [ "1" ]);
+    parse_test "endturn\n   command" "end" EndTurn;
     parse_test "quit command" "quit" Quit;
     parse_test "tryagain command" "try again" TryAgain;
-    parse_test "buy command" "buy cleave " (Buy [ "cleave" ]);
+    parse_test "buy command" "buy cleave\n   " (Buy [ "cleave" ]);
     parse_test "sell command" "sell cleave " (Sell [ "cleave" ]);
     parse_test "heal command" "heal" Heal;
-    parse_test "recharge command" "recharge" Recharge;
-    exn_parse_test "go command with invalid input" "go  omega attack " Malformed;
+    parse_test "recharge\n   command" "recharge" Recharge;
+    exn_parse_test "go command with invalid input" "go omega attack " Malformed;
     exn_parse_test
-      "malfromed exception when end has a non-empty string after end"
+      "malfromed exception when end\n   has a non-empty string after end"
       "end hkeje" Malformed;
     exn_parse_test
       "malfromed exception when string has a empty string after play" "play "
       Malformed;
-    exn_parse_test "malfromed exception when first word is not play or end"
+    exn_parse_test "malfromed exception when first word is not play or\n   end"
       "omega attack" Malformed;
-    exn_parse_test "empty exception when string contains empty spaces" "   "
+    exn_parse_test "empty exception when string\n   contains empty spaces" " "
       Empty;
-    exn_parse_test "empty exception when\n    string is the empty string" ""
+    exn_parse_test "empty exception when\n\n   string is the empty string" ""
       Empty;
   ]
 
-let enemy_tests = []
+let enemy_tests =
+  [
+    enemy_tier_test "tier 1 enemies" 1 [ "slime"; "bird" ];
+    enemy_tier_test "tier 2 enemies" 2 [ "robot" ];
+    enemy_tier_test "tier 3 enemies" 3 [ "zombie"; "ghost" ];
+    enemy_tier_test "tier 4 enemies" 4 [ "vampire" ];
+    enemy_tier_test "tier 5 enemies" 5 [ "mary" ];
+    enemy_tier_test "tier 6 enemies" 6 [ "clown" ];
+  ]
+
 let player_tests = []
 let state_tests = []
 
