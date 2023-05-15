@@ -3,6 +3,7 @@ open Enemy
 open Card
 open Command
 open Printf
+open UsefulFunctions
 
 exception CardNotInHand of string
 
@@ -18,6 +19,7 @@ type t = {
   used_cards : string list;
   hand : string list;
   active : string list;
+  hold : string option;
 }
 (** The abstract type of values representing the game state. *)
 
@@ -27,13 +29,14 @@ let init_battle (p : Player.t) (enemy_tier : int) =
     enemy = init_enemy enemy_tier;
     max_hp = player_health p;
     cur_hp = player_cur_health p;
-    max_energy = player_energy p;
-    cur_energy = player_energy p;
+    max_energy = player_max_energy p;
+    cur_energy = 3;
     block = 0;
     deck = player_cards p;
     used_cards = [];
     hand = [];
     active = [];
+    hold = None;
   }
 
 (**plays the card*)
@@ -59,8 +62,35 @@ let game_state (state : t) =
 let enemy_attacks (state : t) =
   {
     state with
-    player = change_health_player state.player (enemy_damage state.enemy) true;
+    player = change_player_mhp state.player (enemy_damage state.enemy);
   }
+
+let hold_card (state : t) (card : string) : t = { state with hold = Some card }
+
+let new_deck (deck : string list) (held_card : string option) : string list =
+  match held_card with
+  | None -> List.filteri (fun i _ -> i > 4) deck
+  | Some card -> List.filteri (fun i _ -> i > 3) deck
+
+let new_hand (deck : string list) (held_card : string option) : string list =
+  match held_card with
+  | None -> List.filteri (fun i _ -> i <= 4) deck
+  | Some card -> card :: List.filteri (fun i _ -> i <= 3) deck
+
+let no_more_cards (p : t) : t =
+  let deck2 = p.deck @ shuffle p.used_cards in
+  {
+    p with
+    hand = new_hand deck2 p.hold;
+    deck = new_deck deck2 p.hold;
+    used_cards = [];
+  }
+
+let draw (p : t) : t =
+  match p.hold with
+  | None when List.length p.deck < 5 -> no_more_cards p
+  | Some _ when List.length p.deck < 4 -> no_more_cards p
+  | _ -> { p with hand = new_hand p.deck p.hold; deck = new_deck p.deck p.hold }
 
 let get_healths (state : t) =
   (player_health state.player, enemy_health state.enemy)
