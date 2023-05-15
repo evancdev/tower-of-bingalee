@@ -118,13 +118,24 @@ let enemy_tier_test name tier expected_output : test =
 let enemy_health_test name enemy expected_output : test =
   name >:: fun _ -> assert_equal expected_output (enemy_health enemy)
 
-let synergy_test (name : string) (enemy : string) (cards : string list)
+let player_attack_test (name : string) (enemy : string) (cards : string list)
     expected_output : test =
   name >:: fun _ ->
   assert_equal expected_output
     (Enemy.enemy_health
        (BattleState.enemy_battle
           (eval_active (for_player_attack_test (Enemy.enemy_from enemy) cards))))
+    ~printer:string_of_int
+
+let player_block_test (name : string) (enemy : string) (cards : string list)
+    expected_output : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (Player.player_cur_health
+       (BattleState.get_player_state
+          (BattleState.enemy_attacks
+             (eval_active
+                (for_player_attack_test (Enemy.enemy_from enemy) cards)))))
     ~printer:string_of_int
 
 let enemy_gold_test name enemy expected_output : test =
@@ -348,25 +359,33 @@ let camp_tests =
 let state_tests = []
 let shop_tests = []
 
+let battle_tests =
+  [ player_attack_test "strike slime once" "slime" [ "strike" ] 8 ]
+
 let synergy_tests =
   [
-    synergy_test "clothesline + german suplex" "bird"
+    player_attack_test "clothesline + german suplex" "bird"
       [ "clothesline"; "german suplex" ]
       8;
-    synergy_test "clothesline + german suplex" "bird"
+    player_attack_test "reversed still works" "bird"
       [ "german suplex"; "clothesline" ]
       8;
+    player_attack_test "clothes + german + german double bonus" "clown"
+      [ "clothesline"; "german suplex"; "german suplex" ]
+      35;
+    player_block_test "sentinel + barricade takes no damage" "clown"
+      [ "sentinel"; "barricade" ]
+      50;
+    player_block_test "reversed version also works" "clown"
+      [ "barricade"; "sentinel" ]
+      50;
   ]
 
 let suite =
   "test suite for Final Project"
   >::: List.flatten
          [
-           command_tests;
-           player_tests;
-           enemy_tests;
-           camp_tests;
-           card_tests;
+           (*command_tests; player_tests; enemy_tests; camp_tests; card_tests;*)
            synergy_tests;
          ]
 

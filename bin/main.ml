@@ -120,11 +120,11 @@ let end_turn s =
   let open BattleState in
   let s' = s |> eval_active |> draw in
   if game_state s' = EnemyDead then (
-    ANSITerminal.(print_string [ green; Bold ] "You won the battle!");
+    ANSITerminal.(print_string [ green; Bold ] "You won the battle!\n");
     (true, false, gold_on_kill s'))
   else
     let s'' = enemy_attacks s' in
-    ANSITerminal.(print_string [ blue; Bold ] "You played your turn");
+    ANSITerminal.(print_string [ blue; Bold ] "You played your turn\n");
     enemy_hit s'';
     if game_state s'' = PlayerDead then (false, true, s'')
     else (false, false, reset_turn s'')
@@ -162,7 +162,6 @@ let battle (p : Player.t) (flr : int) =
         ANSITerminal.(print_string [ red; Bold ] "Invalid command.");
         battle_loop s
   in
-
   flr |> BattleState.init_battle p |> battle_loop
   |> BattleState.get_player_state
 
@@ -371,7 +370,7 @@ let adventure_begin () =
     let p1 = floor p0 1 in
     let p2 = floor p1 2 in
     ignore (floor p2 3);
-    print_endline "You win!"
+    ANSITerminal.(print_string [ green; Bold ] "You Win!\n")
   with
   | exception End -> ANSITerminal.(print_string [ red; Bold ] "fArEwELl...\n")
   | _ -> ()
