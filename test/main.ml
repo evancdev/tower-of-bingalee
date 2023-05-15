@@ -221,13 +221,6 @@ let stats_camp_test name camp expected_output : test =
   name >:: fun _ ->
   assert_equal expected_output (stats camp) ~printer:String.escaped
 
-(* card function tests *)
-let get_card_name_test name card expected_output : test =
-  name >:: fun _ -> assert_equal expected_output (get_card_name card)
-
-let exn_cname_test (name : string) card expected_output : test =
-  name >:: fun _ -> assert_raises expected_output (fun _ -> get_card_name card)
-
 let card_description_test name card expected_output : test =
   name >:: fun _ -> assert_equal expected_output (description card)
 
@@ -304,8 +297,6 @@ let card_tests =
   let card5 = "sentinel" in
   let fake = "fake" in
   [
-    (* get_card_name_test "clothesline card has name clothesline" card
-       "clothesline"; *)
     card_description_test
       "clothesline has description {|Deals 4 DMG. If you play GERMAN SUPLEX, you\n\
       \       deal 12 DMG instead.|}" card

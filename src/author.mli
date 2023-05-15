@@ -1,4 +1,4 @@
-(** CS 3110 Spring 2023 Project The Depths of Bingalee
+(** CS 3110 Spring 2023 Project: World of Bingalee
     @authors Nelson Feng (nf243) Madelyn Leon (mkl78) Carly Jiang (cjj43) 
               Evan Chen (ec723) *)
 
