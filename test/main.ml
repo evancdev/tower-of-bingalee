@@ -122,6 +122,45 @@ let enemy_tier_test name tier expected_output : test =
 let enemy_health_test name enemy expected_output : test =
   name >:: fun _ -> assert_equal expected_output (enemy_health enemy)
 
+let player_attack_test (name : string) (enemy : string) (cards : string list)
+    expected_output : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (Enemy.enemy_health
+       (BattleState.enemy_battle
+          (eval_active (for_player_attack_test (Enemy.enemy_from enemy) cards))))
+    ~printer:string_of_int
+
+let get_card_removals_test (name : string) (shop : ShopState.t) expected_output
+    : test =
+  name >:: fun _ -> assert_equal expected_output (get_card_removals shop)
+
+let get_removal_cost_test (name : string) (shop : ShopState.t) expected_output :
+    test =
+  name >:: fun _ -> assert_equal expected_output (get_removal_cost shop)
+
+let buy_first shop = buy_card shop (List.nth (get_cards shop) 0)
+
+let buy_remove_first shop =
+  buy_card_removal shop (List.nth (shop |> get_player_state |> player_cards) 0)
+
+let enemy_face_test name enemy expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (enemy_face enemy)
+
+let enemy_max_health_test name enemy expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (enemy_max_health enemy)
+
+let player_block_test (name : string) (enemy : string) (cards : string list)
+    expected_output : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (Player.player_cur_health
+       (BattleState.get_player_state
+          (BattleState.enemy_attacks
+             (eval_active
+                (for_player_attack_test (Enemy.enemy_from enemy) cards)))))
+    ~printer:string_of_int
+
 let get_card_removals_test (name : string) (shop : ShopState.t) expected_output
     : test =
   name >:: fun _ -> assert_equal expected_output (get_card_removals shop)
@@ -489,14 +528,26 @@ let shop_tests =
                (List.nth (shop |> get_player_state |> player_cards) 0))) );
   ]
 
+let battle_tests =
+  [ player_attack_test "strike slime once" "slime" [ "strike" ] 8 ]
+
 let synergy_tests =
   [
-    synergy_test "clothesline + german suplex" "bird"
+    player_attack_test "clothesline + german suplex" "bird"
       [ "clothesline"; "german suplex" ]
       8;
-    synergy_test "clothesline + german suplex" "bird"
+    player_attack_test "reversed still works" "bird"
       [ "german suplex"; "clothesline" ]
       8;
+    player_attack_test "clothes + german + german double bonus" "clown"
+      [ "clothesline"; "german suplex"; "german suplex" ]
+      35;
+    player_block_test "sentinel + barricade takes no damage" "clown"
+      [ "sentinel"; "barricade" ]
+      50;
+    player_block_test "reversed version also works" "clown"
+      [ "barricade"; "sentinel" ]
+      50;
   ]
 
 let suite =
@@ -508,6 +559,7 @@ let suite =
            enemy_tests;
            camp_tests;
            card_tests;
+           battle_tests;
            synergy_tests;
          ]
 
