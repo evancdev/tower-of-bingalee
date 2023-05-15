@@ -83,7 +83,8 @@ let game_state (state : t) =
   else Alive
 
 let enemy_attacks (state : t) =
-  { state with cur_hp = state.cur_hp - enemy_damage state.enemy }
+  let damage = enemy_damage state.enemy - state.block in
+  { state with cur_hp = (state.cur_hp - if damage < 0 then 0 else damage) }
 
 let hold_card (state : t) (card : string) : t = { state with hold = Some card }
 

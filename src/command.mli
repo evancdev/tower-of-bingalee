@@ -14,6 +14,7 @@ type command =
   | Heal
   | Recharge
   | Leave
+  | Info of card_name
 
 exception Empty
 (** Raised when an empty command is parsed. *)

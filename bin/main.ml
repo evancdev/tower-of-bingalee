@@ -42,6 +42,13 @@ let enemy_hit (state : BattleState.t) =
         \ PENNYWISE WALKS TOWARDS YOU AND STARTS TURNING INTO YOUR BIGGEST FEAR \n"
   | _ -> failwith "Invalid enemy"
 
+let check_hand s =
+  let active, hand = BattleState.get_card_state s in
+  ANSITerminal.print_string [ ANSITerminal.Bold; ANSITerminal.green ] "Active: ";
+  print_endline (UsefulFunctions.join_slist active ", ");
+  ANSITerminal.print_string [ ANSITerminal.Bold; ANSITerminal.magenta ] "Hand: ";
+  print_endline (UsefulFunctions.join_slist hand ", ")
+
 let print_battlefield (s : BattleState.t) =
   print_endline "\n\n";
   print_string ("  𖨆\t\t" ^ Enemy.enemy_face (BattleState.enemy_battle s));
@@ -49,7 +56,8 @@ let print_battlefield (s : BattleState.t) =
   let ph, eh = BattleState.get_health_strings s in
   print_endline (ph ^ "\t\t" ^ eh);
   print_endline ("Energy: ⚡" ^ string_of_int (BattleState.get_cur_energy s));
-  print_endline ""
+  print_endline "";
+  check_hand s
 
 let read_input () =
   ANSITerminal.print_string [ ANSITerminal.green; ANSITerminal.Bold ] "> ";
@@ -60,17 +68,14 @@ let play_card c s =
   let open BattleState in
   match activate_card s c with
   | exception CardNotInHand msg ->
-      print_endline msg;
+      ANSITerminal.print_string [ ANSITerminal.red; ANSITerminal.Bold ] msg;
       s
   | exception NotEnoughEnergy ->
-      print_endline "Not enough energy.";
+      ANSITerminal.print_string
+        [ ANSITerminal.Bold; ANSITerminal.red ]
+        "Not enough energy.\n";
       s
   | s' -> s'
-
-let check_hand s =
-  let active, hand = BattleState.get_card_state s in
-  print_endline ("Active: " ^ UsefulFunctions.join_slist active ", ");
-  print_endline ("Hand: " ^ UsefulFunctions.join_slist hand ", ")
 
 let check_hand_from_player p =
   print_endline
@@ -90,6 +95,16 @@ let end_turn s =
     if game_state s'' = PlayerDead then (false, true, s'')
     else (false, false, reset_turn s'')
 
+let info c =
+  let open Card in
+  match description c with
+  | s ->
+      ANSITerminal.print_string
+        [ ANSITerminal.magenta; ANSITerminal.Underlined ]
+        (c ^ "\n");
+      print_string s
+  | exception UnknownCard s -> print_endline s
+
 let battle (p : Player.t) (flr : int) =
   let rec battle_loop s =
     print_battlefield s;
@@ -97,14 +112,15 @@ let battle (p : Player.t) (flr : int) =
     | Play c ->
         let s' = play_card c s in
         battle_loop s'
-    | CheckHand ->
-        check_hand s;
-        battle_loop s
     | EndTurn -> (
         match end_turn s with
         | true, _, s' -> s'
         | _, true, s' -> raise Restart
         | _, _, s' -> battle_loop s')
+    | Quit -> raise End
+    | Info c ->
+        info c;
+        battle_loop s
     | _ -> battle_loop s
     | exception Command.Malformed -> battle_loop s
     | exception Command.Empty -> battle_loop s
@@ -124,6 +140,7 @@ let door () =
   let rec door_loop () =
     match read_input () with
     | Go i -> i
+    | Quit -> raise End
     | _ -> door_loop ()
     | exception Command.Malformed -> door_loop ()
     | exception Command.Empty -> door_loop ()
@@ -154,9 +171,7 @@ let print_shop s =
     "Card Removal Cost:";
   print_endline (" " ^ string_of_int (ShopState.get_removal_cost s) ^ "\n\n")
 
-(* print_endline "\n checkhand : displays cards in your active slot and your
-   hand"; *)
-let shop (p : Player.t) flr dep =
+let shop (p : Player.t) =
   let open ShopState in
   let rec shop_loop s =
     print_shop s;
@@ -178,11 +193,12 @@ let shop (p : Player.t) flr dep =
     | CheckHand ->
         check_hand_from_player (get_player_state s);
         shop_loop s
+    | Quit -> raise End
     | _ -> shop_loop s
     | exception Command.Malformed -> shop_loop s
     | exception Command.Empty -> shop_loop s
   in
-  shop_loop (create_shop flr dep p)
+  shop_loop (create_shop p)
 
 let print_camp c =
   let open CampState in
@@ -231,6 +247,7 @@ let camp (p : Player.t) =
            You miss the feeling of ease already...\n\
            but the grind must go on...\n\n";
         c
+    | Quit -> raise End
     | _ -> camp_loop c
     | exception Command.Malformed -> camp_loop c
     | exception Command.Empty -> camp_loop c
@@ -240,7 +257,7 @@ let camp (p : Player.t) =
 let encounter p flr dep =
   match door () with
   | "Battle" -> battle p flr
-  | "Shop" -> shop p flr dep
+  | "Shop" -> shop p
   | "Camp" -> camp p
   | "Chance" -> p (*FIX AFTER GETTING MLI*)
   | _ -> failwith "not possible"
@@ -276,6 +293,7 @@ let rec floor p flr =
       print_endline
         {|type "again" to try once more or "quit" to end the adventure|};
       if restart () then floor p flr else raise End
+  | exception End -> raise End
   | p' -> p'
 
 let adventure_begin () =
@@ -314,6 +332,8 @@ let print_shop_instructions () =
   ANSITerminal.print_string
     [ ANSITerminal.green; ANSITerminal.Underlined ]
     "\n=== Instructions for Shop ===\n";
+  print_endline
+    "\n checkhand : displays cards in your active slot and your\n   hand";
   print_endline "\n   buy <card>: buy a <card> available at the shop";
   print_endline "\n   remove <card>: removes a <card> from your hand";
   print_endline "\n   leave : removes you from the shop"

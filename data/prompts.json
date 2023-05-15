@@ -1,7 +1,7 @@
 {
   "prompts": [
     {
-      "choice": true,
+      "choice": "true",
       "changes": [
         {
           "health_delta": 20,
@@ -17,7 +17,7 @@
       "description": "You see a beggar on the floor. Do you choose to give him 5 gold?"
     },
     {
-      "choice": true,
+      "choice": "true",
       "changes": [
         {
           "health_delta": -10,
@@ -33,7 +33,7 @@
       "description": "You approach a minions surrounding within a cauldron. Do you choose to put your hand inside?"
     },
     {
-      "choice": true,
+      "choice": "true",
       "changes": [
         {
           "health_delta": -5,
@@ -49,7 +49,7 @@
       "description": "You are suddenly ambushed by a group of raccoons. Do you wish to fight?"
     },
     {
-      "choice": false,
+      "choice": "false",
       "changes": [
         {
           "health_delta": 0,
@@ -60,7 +60,7 @@
       "description": "You enter the door and see a hooded figure walk towards you. He unveils his cloak and you see a surplus amount of energy drinks."
     },
     {
-      "choice": false,
+      "choice": "false",
       "changes": [
         {
           "health_delta": 0,
@@ -71,7 +71,7 @@
       "description": "A thief quickly runs at you but he slipped on a banana peel! He becomes unconscious and you robbed him of his money and scurry away."
     },
     {
-      "choice": false,
+      "choice": "false",
       "changes": [
         {
           "health_delta": -10,
@@ -82,7 +82,7 @@
       "description": "The door leads to a lecture hall full of minions who stopped and look at you. You hurrily scurry away and lose health out of embarassment."
     },
     {
-      "choice": false,
+      "choice": "false",
       "changes": [
         {
           "health_delta": 5,
