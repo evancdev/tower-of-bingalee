@@ -9,6 +9,8 @@
       "block": 0,
       "value": 1,
       "tier": 1,
+      "bonusdmg": 0,
+      "bonusblk": 0,
       "synergy": []
     },
     {
@@ -105,7 +107,8 @@
       "value": 15,
       "tier": 3,
       "bonusdmg": 0,
-      "bonusblk": 0
+      "bonusblk": 0,
+      "synergy": []
     },
     {
       "id": "heavy blade",
