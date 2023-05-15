@@ -88,11 +88,11 @@
       "damage": 0,
       "energy": 2,
       "effect": 0,
-      "block": 10,
+      "block": 8,
       "value": 8,
       "tier": 2,
       "bonusdmg": 0,
-      "bonusblk": 10,
+      "bonusblk": 2,
       "synergy": [
         "barricade"
       ]
@@ -127,13 +127,13 @@
       "id": "barricade",
       "description": "Blocks 10 DMG. If you play SENTINEL, you block 20 DMG instead.",
       "damage": 0,
-      "energy": 2,
+      "energy": 3,
       "effect": 0,
       "block": 10,
       "value": 10,
       "tier": 3,
       "bonusdmg": 0,
-      "bonusblk": 2,
+      "bonusblk": 0,
       "synergy": [
         "sentinel"
       ]
