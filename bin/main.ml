@@ -97,9 +97,55 @@ let adventure_begin () =
   ignore (floor p2 3);
   print_endline "You win!"
 
+(*TODO: Boss encounter*)
+
+(* let print_enemy state (color:string) face s = ANSITerminal.print_string
+   [ANSITerminal.color; ANSITerminal.Bold] face; ANSITerminal.print_string [
+   ANSITerminal.Bold ] ("\n\n" ^ s ^ "\n"); *)
+
+let enemy_hit (state : BattleState.t) =
+  let enemy = BattleState.enemy_battle state in
+  let face = Enemy.enemy_face enemy in
+  match Enemy.enemy_name enemy with
+  | "slime" ->
+      ANSITerminal.print_string [ ANSITerminal.green; ANSITerminal.Bold ] face;
+      ANSITerminal.print_string [ ANSITerminal.Bold ]
+        "\n\n A SLIME BABY STARTS CRAWLING TOWARDS YOU...\n"
+  | "bird" ->
+      ANSITerminal.print_string [ ANSITerminal.blue; ANSITerminal.Bold ] face;
+      ANSITerminal.print_string [ ANSITerminal.Bold ]
+        "\n\n A VULTURE STARTS FLYING IN YOUR DIRECTION\n"
+  | "vampire" ->
+      ANSITerminal.print_string [ ANSITerminal.red; ANSITerminal.Bold ] face;
+      ANSITerminal.print_string [ ANSITerminal.Bold ]
+        "\n\n A VAMPIRE SEES THE BLOOD ON YOU AND SPEEDS TO YOU\n"
+  | "robot" ->
+      ANSITerminal.print_string [ ANSITerminal.blue; ANSITerminal.Bold ] face;
+      ANSITerminal.print_string [ ANSITerminal.Bold ]
+        "\n\n A ROBOT ROLLS TOWARDS YOU \n"
+  | "mary" ->
+      ANSITerminal.print_string [ ANSITerminal.white; ANSITerminal.Bold ] face;
+      ANSITerminal.print_string [ ANSITerminal.Bold ]
+        "\n\n BLOODY MARY HAS APPEARED AND STARTS TO HAUNT YOU \n"
+  | "zombie" ->
+      ANSITerminal.print_string [ ANSITerminal.yellow; ANSITerminal.Bold ] face;
+      ANSITerminal.print_string [ ANSITerminal.Bold ]
+        "\n\n ZOMBIE SLOWLY STARTS WALKING TO YOU\n"
+  | "ghost" ->
+      ANSITerminal.print_string [ ANSITerminal.white; ANSITerminal.Bold ] face;
+      ANSITerminal.print_string [ ANSITerminal.Bold ]
+        "\n\n A GHOST FLOATS TOWARDS YOU\n"
+  | "clown" ->
+      ANSITerminal.print_string [ ANSITerminal.cyan; ANSITerminal.Bold ] face;
+      ANSITerminal.print_string [ ANSITerminal.Bold ]
+        "\n\n\
+        \ PENNYWISE WALKS TOWARDS YOU AND STARTS TURNING INTO YOUR BIGGEST FEAR \n"
+  | _ -> failwith "Invalid enemy"
+
 let main () =
-  (*** RUN *)
-  print_endline "Starting game...";
-  adventure_begin ()
+  ANSITerminal.resize 130 130;
+  print_endline "STARTING GAME...";
+  adventure_begin ();
+  ANSITerminal.erase Screen
 
 let () = main ()

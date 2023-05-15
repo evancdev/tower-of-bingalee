@@ -7,6 +7,7 @@ val init_battle : Player.t -> int -> t
 (***)
 
 val checkhand : t -> string list
+val enemy_battle : t -> Enemy.t
 
 type status =
   | Alive

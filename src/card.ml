@@ -1,6 +1,7 @@
 open Yojson.Basic.Util
 
 exception UnknownCard of string
+exception SynergyError of string
 
 type card = {
   id : string;
@@ -10,6 +11,9 @@ type card = {
   block : int;
   value : int;
   tier : int;
+  bonusdmg : int;
+  bonusblk : int;
+  synergy : string list;
 }
 
 type t = { cards : card list }
@@ -24,6 +28,9 @@ let card_of_json j =
     block = j |> member "block" |> to_int;
     value = j |> member "value" |> to_int;
     tier = j |> member "tier" |> to_int;
+    bonusdmg = j |> member "bonusdmg" |> to_int;
+    bonusblk = j |> member "bonusdmg" |> to_int;
+    synergy = j |> member "synergy" |> to_list |> List.map to_string;
   }
 
 let all_cards_of_json j =
@@ -69,19 +76,58 @@ let rec card_tier (c : string) (lst : card list) =
   | [] -> raise (UnknownCard "Not a valid card.")
   | h :: t -> if h.id = c then h.tier else card_tier c t
 
+let rec card_bdmg (c : string) (lst : card list) =
+  match lst with
+  | [] -> raise (UnknownCard "Not a valid card.")
+  | h :: t -> if h.id = c then h.bonusdmg else card_tier c t
+
+let rec card_bblk (c : string) (lst : card list) =
+  match lst with
+  | [] -> raise (UnknownCard "Not a valid card.")
+  | h :: t -> if h.id = c then h.bonusblk else card_tier c t
+
+let rec card_synergy (c : string) (lst : card list) =
+  match lst with
+  | [] -> raise (UnknownCard "Not a valid card.")
+  | h :: t -> if h.id = c then h.synergy else card_synergy c t
+
+let rec check_synergy (c1 : card) (c2 : card) =
+  match c1.synergy with
+  | [] -> false
+  | h :: t -> if h = c2.id then true else check_synergy c1 c2
+
+let apply_synergy (c1 : card) (c2 : card) : int =
+  if List.mem c2.id c1.synergy then
+    c1.bonusblk + c2.bonusblk + c1.bonusdmg
+    + c2.bonusdmg (* Cannot have both bonus block and damage at the same time*)
+  else raise (SynergyError "No synergy exists")
+
 let create_cards j = { cards = all_cards_of_json j }
 let data_dir_prefix = "data" ^ Filename.dir_sep
 let card_json = Yojson.Basic.from_file (data_dir_prefix ^ "card.json")
 let set = create_cards card_json
+let get_card_name (card : card) = card.id
 let description (card : string) = set.cards |> card_description card
 let get_dmg (card : string) = set.cards |> card_dmg card
 let get_energy (card : string) = set.cards |> card_energy card
 let get_block (card : string) = set.cards |> card_block card
 let get_id (card : string) = card_id card set.cards
 let get_tier (card : string) = set.cards |> card_tier card
+let get_bdmg (card : string) = set.cards |> card_bdmg card
+let get_blck (card : string) = set.cards |> card_bblk card
+let get_synergy (card : string) = set.cards |> card_synergy card
 let is_t1 card = if card.tier = 1 then true else false
 let is_t2 card = if card.tier = 2 then true else false
 let is_t3 card = if card.tier = 3 then true else false
-let t1_cards j = all_cards_of_json j |> List.filter is_t1
-let t2_cards j = all_cards_of_json j |> List.filter is_t2
-let t3_cards j = all_cards_of_json j |> List.filter is_t3
+
+let find_card (id : string) =
+  List.find (fun c -> c.id = id) (all_cards_of_json card_json)
+
+let t1_cards =
+  all_cards_of_json card_json |> List.filter is_t1 |> List.map get_card_name
+
+let t2_cards =
+  all_cards_of_json card_json |> List.filter is_t2 |> List.map get_card_name
+
+let t3_cards =
+  all_cards_of_json card_json |> List.filter is_t3 |> List.map get_card_name
