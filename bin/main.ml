@@ -258,7 +258,7 @@ let print_camp c =
   else
     print_endline
       "\tNext to the bottle, you see a cozy blanket, but you're not tired.";
-  print_endline ""
+  print_endline (stats c)
 
 let camp (p : Player.t) =
   let open CampState in
@@ -370,6 +370,6 @@ let main () =
     "Welcome to the World of Bingalee\n";
   adventure_begin ()
 
-let () = main ()
+let () = ignore (camp (Player.create_player ()))
 (* ignore (chance (Player.create_player ())) *)
 (* let () = ignore (shop (Player.create_player ())) *)

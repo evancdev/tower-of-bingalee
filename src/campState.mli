@@ -19,3 +19,4 @@ val get_player_state : t -> Player.t
 
 val exists_energy : t -> bool
 val exists_hp : t -> bool
+val stats : t -> string

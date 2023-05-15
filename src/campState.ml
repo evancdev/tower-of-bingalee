@@ -36,6 +36,14 @@ let gatorade_energy camp =
       }
   | false -> raise (InvalidChoice "You can not drink gatorade")
 
+let stats camp =
+  "Health: ♡ "
+  ^ string_of_int (Player.player_cur_health camp.player)
+  ^ "/"
+  ^ string_of_int (Player.player_health camp.player)
+  ^ "\nEnergy: "
+  ^ string_of_int (Player.player_max_energy camp.player)
+
 let get_player_state c = c.player
 let exists_energy c = c.energy
 let exists_hp c = c.health
