@@ -35,6 +35,7 @@ let create_player =
 let player_health (p : t) : int = p.max_health
 let player_cur_health (p : t) : int = p.cur_health
 let player_max_energy (p : t) : int = p.max_energy
+let player_gold (p : t) : int = p.gold
 let player_cards (p : t) : string list = p.cards
 let player_stage (p : t) : int * int = p.stage
 
