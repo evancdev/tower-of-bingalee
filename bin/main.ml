@@ -375,10 +375,6 @@ let adventure_begin () =
   | exception End -> ANSITerminal.(print_string [ red; Bold ] "fArEwELl...\n")
   | _ -> ()
 
-(* let print_enemy state (color:string) face s = ANSITerminal.print_string
-   [ANSITerminal.color; ANSITerminal.Bold] face; ANSITerminal.print_string [
-   ANSITerminal.Bold ] ("\n\n" ^ s ^ "\n"); *)
-
 let main () =
   print_endline "";
   ANSITerminal.resize 130 130;
@@ -390,9 +386,4 @@ let main () =
      commands are at your disposal";
   adventure_begin ()
 
-(* let () = ignore (shop (Player.create_player ())) *)
 let () = main ()
-(* let () = ignore (camp (Player.create_player ())) *)
-(* let () = ignore (chance (Player.create_dead_player ())) *)
-(* ignore (chance (Player.create_player ())) *)
-(* let () = ignore (shop (Player.create_player ())) *)
