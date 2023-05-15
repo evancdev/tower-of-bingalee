@@ -361,6 +361,13 @@ let synergy_tests =
 let suite =
   "test suite for Final Project"
   >::: List.flatten
-         [ command_tests; player_tests; enemy_tests; camp_tests; card_tests ]
+         [
+           command_tests;
+           player_tests;
+           enemy_tests;
+           camp_tests;
+           card_tests;
+           synergy_tests;
+         ]
 
 let _ = run_test_tt_main suite
