@@ -54,6 +54,8 @@ let rec eval_active (state : t) =
 (**returns player hand*)
 let checkhand (state : t) = state.hand
 
+let enemy_battle (state : t) = state.enemy
+
 type status =
   | Alive
   | PlayerDead
