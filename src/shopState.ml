@@ -5,10 +5,10 @@ open UsefulFunctions
 
 exception InvalidPurchase of string
 exception CardRemoval of string
+exception NotEnough of string
 
 type t = {
   cards : string list;
-  gold : int;
   player : Player.t;
   card_removal : int;
   removal_cost : int;
@@ -31,32 +31,35 @@ let generate_shop_cards =
   | 3 -> get_random_cards t3_cards size
   | _ -> []
 
-let create_shop (floor : int) (depth : int) (player : Player.t) =
-  let floor = player |> player_stage |> fst
-  and depth = player |> player_stage |> snd in
+let create_shop (player : Player.t) =
+  let floor = player |> player_stage |> fst in
   {
     cards = floor |> generate_shop_cards;
-    gold = (floor * 7) + (depth * 2);
     player;
     card_removal = 1;
     removal_cost = !removal_price;
   }
 
 let get_cards (shop : t) = shop.cards
-let get_gold (shop : t) = shop.gold
 let get_card_removals (shop : t) = shop.card_removal
 let get_removal_cost (shop : t) = shop.removal_cost
 
 let buy_card (shop : t) (card : string) =
-  match List.mem card shop.cards with
-  | false ->
-      raise (InvalidPurchase "The shop isn't selling that card. Too bad!")
-  | true ->
+  match
+    (List.mem card shop.cards, player_gold shop.player - get_value card >= 0)
+  with
+  | false, _ ->
+      raise (InvalidPurchase "The shopkeeper isn't selling that card.")
+  | true, false ->
+      raise
+        (NotEnough
+           "You checked your pockets and realized that you do not have enough \
+            coins.")
+  | true, true ->
       {
         shop with
         cards = remove_card shop.cards card;
-        gold = shop.gold + 1;
-        player = change_gold_player (add_card shop.player card) (-1);
+        player = change_gold_player (add_card shop.player card) (get_value card);
       }
 
 let buy_card_removal (shop : t) (card : string) =
