@@ -43,11 +43,11 @@ let data_dir_prefix = "data" ^ Filename.dir_sep
 let prompts_json = Yojson.Basic.from_file (data_dir_prefix ^ "prompts.json")
 let prompts_data = all_prompts_of_json prompts_json
 
-let generate_random_prompt =
+let generate_random_prompt () =
   List.nth prompts_data (Random.int (List.length prompts_data))
 
 let prompt_desc (p : prompt) = p.description
-let create_chance_event p = { player = p; prompt = generate_random_prompt }
+let create_chance_event p = { player = p; prompt = generate_random_prompt () }
 
 let apply_changes (state : t) (change : change) =
   change_player_menergy

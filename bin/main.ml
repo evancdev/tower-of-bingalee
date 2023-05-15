@@ -253,12 +253,17 @@ let camp (p : Player.t) =
   in
   p |> create_camp |> camp_loop |> get_player_state
 
+let chance p =
+  let open ChanceState in
+  let c = create_chance_event p in
+  apply_prompt c
+
 let encounter p flr dep =
   match door () with
   | "Battle" -> battle p flr
   | "Shop" -> shop p
   | "Camp" -> camp p
-  | "Chance" -> p (*FIX AFTER GETTING MLI*)
+  | "Chance" -> chance p
   | _ -> failwith "not possible"
 
 let rec restart () =
@@ -318,4 +323,5 @@ let main () =
     "Welcome to the World of Bingalee\n";
   adventure_begin ()
 
-let () = ignore (shop (Player.create_player ()))
+let () = ignore (chance (Player.create_player ()))
+(* let () = ignore (shop (Player.create_player ())) *)
