@@ -5,6 +5,7 @@ open Command
 open Printf
 
 exception CardNotInHand of string
+exception NotEnoughEnergy
 
 type t = {
   player : Player.t;
@@ -19,6 +20,8 @@ type t = {
   hand : string list;
   active : string list;
 }
+
+type card = string
 (** The abstract type of values representing the game state. *)
 
 let init_battle (p : Player.t) (enemy_tier : int) =
@@ -64,3 +67,26 @@ let enemy_attacks (state : t) =
 
 let get_healths (state : t) =
   (player_health state.player, enemy_health state.enemy)
+
+let get_card_state (state : t) = (state.active, state.hand)
+
+let activate_card (s : t) (c : card) =
+  let rec pluck_card hand removed =
+    match hand with
+    | [] -> raise (CardNotInHand (removed ^ "not in hand."))
+    | h :: t -> if h = removed then t else h :: pluck_card t removed
+  in
+  let dE = Card.get_energy c in
+  if dE <= s.cur_energy then
+    {
+      s with
+      hand = pluck_card s.hand c;
+      active = c :: s.active;
+      cur_energy = s.cur_energy - dE;
+    }
+  else raise NotEnoughEnergy
+
+let get_player_state (s : t) =
+  Player.player_from s.max_hp s.max_energy
+    (s.deck @ s.used_cards @ s.hand @ s.active)
+    (player_gold s.player) s.cur_hp

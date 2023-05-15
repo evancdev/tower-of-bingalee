@@ -4,11 +4,11 @@ type t
 val create_camp : Player.t -> t
 (**creates a camp based on the current floor and depth*)
 
-val sleep_health : Player.t -> t -> t
+val sleep_health : t -> t
 (* [sleep_health p c] is the health player [p] gets after they choose to sleep
    in camp [c]*)
 
-val gatorade_energy : Player.t -> t -> t
+val gatorade_energy : t -> t
 (* [gatorade_energy p c] is the energy player [p] gets after they choose to
    drink a gatorade in camp [c]*)
 

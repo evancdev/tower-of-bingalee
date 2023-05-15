@@ -1,5 +1,5 @@
-type card_name = string list
-type door = string list
+type card_name = string
+type door = int
 
 type command =
   | Play of card_name
@@ -9,9 +9,10 @@ type command =
   | Quit
   | TryAgain
   | Buy of card_name
-  | Sell of card_name
+  | Remove of card_name
   | Heal
   | Recharge
+  | Leave
 
 exception Empty
 (** Raised when an empty command is parsed. *)

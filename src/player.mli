@@ -1,7 +1,7 @@
 type t
 (** The abstract type of values representing player. *)
 
-val create_player : string -> t
+val create_player : unit -> t
 
 val player_health : t -> int
 (**[player_health] returns the player's maximum health*)
@@ -14,6 +14,8 @@ val player_energy : t -> int
 
 val player_cards : t -> string list
 (**[player_cards] returns all the cards that the player has*)
+
+val player_gold : t -> int
 
 val add_card : t -> string -> t
 (**[add_card] adds card [c] to the player's card collection*)
@@ -29,3 +31,5 @@ val change_gold_player : t -> int -> t
 
 val change_energy_player : t -> int -> bool -> t
 (**modifies player energy*)
+
+val player_from : int -> int -> string list -> int -> int -> t

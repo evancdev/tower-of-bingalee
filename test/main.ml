@@ -18,20 +18,19 @@ let parse_test (name : string) str (expected_output : command) : test =
 let exn_parse_test (name : string) str expected_output : test =
   name >:: fun _ -> assert_raises expected_output (fun _ -> parse str)
 
-let player = create_player "Player1"
+let player = create_player
 let card_tests = []
 
 let command_tests =
   [
-    parse_test "extra spaces with play" "play  clash  "
-      (Play [ "omega"; "attack" ]);
+    parse_test "extra spaces with play" "play  clash  " (Play "omega attack");
     parse_test "testing if checkhand works" "checkhand" CheckHand;
-    parse_test "go command with valid input" "go  1 " (Go [ "1" ]);
+    parse_test "go command with valid input" "go  1 " (Go 1);
     parse_test "endturn command" "end" EndTurn;
     parse_test "quit command" "quit" Quit;
     parse_test "tryagain command" "try again" TryAgain;
-    parse_test "buy command" "buy cleave " (Buy [ "cleave" ]);
-    parse_test "sell command" "sell cleave " (Sell [ "cleave" ]);
+    parse_test "buy command" "buy cleave " (Buy "cleave");
+    parse_test "sell command" "sell cleave " (Remove "cleave");
     parse_test "heal command" "heal" Heal;
     parse_test "recharge command" "recharge" Recharge;
     exn_parse_test "go command with invalid input" "go  omega attack " Malformed;
