@@ -171,7 +171,7 @@ let print_shop s =
     "Card Removal Cost:";
   print_endline (" " ^ string_of_int (ShopState.get_removal_cost s) ^ "\n\n")
 
-let shop (p : Player.t) flr dep =
+let shop (p : Player.t) =
   let open ShopState in
   let rec shop_loop s =
     print_shop s;
@@ -197,7 +197,7 @@ let shop (p : Player.t) flr dep =
     | exception Command.Malformed -> shop_loop s
     | exception Command.Empty -> shop_loop s
   in
-  shop_loop (create_shop flr dep p)
+  shop_loop (create_shop p)
 
 let print_camp c =
   let open CampState in
@@ -256,7 +256,7 @@ let camp (p : Player.t) =
 let encounter p flr dep =
   match door () with
   | "Battle" -> battle p flr
-  | "Shop" -> shop p flr dep
+  | "Shop" -> shop p
   | "Camp" -> camp p
   | "Chance" -> p (*FIX AFTER GETTING MLI*)
   | _ -> failwith "not possible"
