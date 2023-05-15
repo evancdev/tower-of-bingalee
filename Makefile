@@ -25,7 +25,7 @@ finalcheck:
 
 zip:
 	rm -f bingalee.zip
-	zip -r bingalee.zip . -x@exclude.lst
+	zip -r bingalee.zip . 
 
 clean:
 	dune clean
