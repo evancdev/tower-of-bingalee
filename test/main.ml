@@ -7,6 +7,7 @@ open Player
 open Enemy
 open BattleState
 open OUnit2
+open ShopState
 
 let data_dir_prefix = "data" ^ Filename.dir_sep
 let card_json = Yojson.Basic.from_file (data_dir_prefix ^ "card.json")
@@ -64,11 +65,30 @@ let change_player_menergy_test (name : string) (player : Player.t)
   assert_equal expected_output
     (change_player_menergy player amount |> player_max_energy)
 
+let change_player_curhp_test (name : string) (player : Player.t) (amount : int)
+    expected_output : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (change_player_curhp player amount |> player_cur_health)
+
 let enemy_tier_test name tier expected_output : test =
   name >:: fun _ -> assert_equal expected_output (enemy_names (enemy_tier tier))
 
 let enemy_health_test name enemy expected_output : test =
   name >:: fun _ -> assert_equal expected_output (enemy_health enemy)
+
+let get_card_removals_test (name : string) (shop : ShopState.t) expected_output
+    : test =
+  name >:: fun _ -> assert_equal expected_output (get_card_removals shop)
+
+let get_removal_cost_test (name : string) (shop : ShopState.t) expected_output :
+    test =
+  name >:: fun _ -> assert_equal expected_output (get_removal_cost shop)
+
+let buy_first shop = buy_card shop (List.nth (get_cards shop) 0)
+
+let buy_remove_first shop =
+  buy_card_removal shop (List.nth (shop |> get_player_state |> player_cards) 0)
 
 let card_tests = []
 
@@ -115,7 +135,7 @@ let player_tests =
         "strike";
         "strike";
         "strike";
-        "clash";
+        "cleave";
       ];
     player_stage_test "Init Player Stage" player (1, 0);
     add_card_test "Add parry to Player Cards" player "parry"
@@ -129,9 +149,17 @@ let player_tests =
       "NONEXISTENT" (player_cards player);
     change_player_mhp_test "Increase Max HP by 5" player 5 55;
     change_player_mhp_test "Decrease Max HP by 5" player (-5) 45;
-    change_gold_player_test "Give Player 10 Gold" player 10 10;
-    change_gold_player_test "Remove Player 10 Gold" player (-10) (-10);
+    change_gold_player_test "Give Player 10 Gold" player 10 20;
+    change_gold_player_test "Remove Player 10 Gold" player (-10) 0;
     change_player_menergy_test "Increase Max Energy by 1" player 1 4;
+    change_player_menergy_test "Decrease Max Energy by 1" player (-1) 2;
+    change_player_curhp_test "Healing for 10 HP when already full HP" player 10
+      50;
+    change_player_curhp_test "Player takes damage and loses 10 HP" player (-10)
+      40;
+    change_player_curhp_test "Healing for 10 HP when player is at 40 HP"
+      (change_player_curhp player (-10))
+      10 (player_health player);
   ]
 
 let enemy_tests =
@@ -145,6 +173,60 @@ let enemy_tests =
   ]
 
 let state_tests = []
-let shop_tests = []
-let suite = "test suite for Final Project" >::: List.flatten [ player_tests ]
+
+let shop_tests =
+  let player = create_player ()
+  and player2 = change_gold_player (create_player ()) (-100) in
+  let shop = create_shop player and shop2 = create_shop player2 in
+  [
+    get_card_removals_test "Init Shop Number of Card Removals" shop 1;
+    get_removal_cost_test "Init Shop Card Removal Cost" shop 3;
+    ( "Player buys the first card in shop: Gets the card" >:: fun _ ->
+      assert_equal
+        (buy_card shop (List.nth (get_cards shop) 0)
+        |> get_player_state |> player_cards)
+        (List.nth (get_cards shop) 0 |> add_card player |> player_cards) );
+    ( "Player buys the first card in shop: Loses money" >:: fun _ ->
+      assert_equal
+        (buy_first shop |> get_player_state |> player_gold)
+        (List.nth (get_cards shop) 0
+        |> get_value |> ( ~- ) |> change_gold_player player |> player_gold) );
+    ( "Player buys the first card in shop: Shop doesn't have that card anymore"
+    >:: fun _ ->
+      assert_equal (buy_first shop |> get_cards) (get_cards shop |> List.tl) );
+    ( "Player buys an nonexistent card" >:: fun _ ->
+      assert_raises (UnknownCard "Not a valid card.") (fun _ ->
+          buy_card shop "NONEXISTENT") );
+    ( "Player tries to buy a card that the shop does not have" >:: fun _ ->
+      assert_raises (InvalidPurchase "The shopkeeper isn't selling that card.")
+        (fun _ -> buy_card shop "german suplex") );
+    ( "Player cannot afford a card" >:: fun _ ->
+      assert_raises
+        (NotEnough
+           "You checked your pockets and realized that you do not have enough \
+            coins.") (fun _ -> buy_first shop2) );
+    ( "Player buys a card removal: Player removes his first card" >:: fun _ ->
+      assert_equal
+        (buy_remove_first shop |> get_player_state |> player_cards)
+        (player |> player_cards |> List.tl) );
+    ( "Player buys a card removal: Player removes his first card" >:: fun _ ->
+      assert_equal
+        (buy_remove_first shop |> get_player_state |> player_cards)
+        (player |> player_cards |> List.tl) );
+    ( "Player buys a card removal: Player loses money" >:: fun _ ->
+      assert_equal
+        (buy_remove_first shop |> get_player_state |> player_gold)
+        (get_removal_cost shop |> ( ~- )
+        |> change_gold_player (get_player_state shop)
+        |> player_gold) );
+    ( "Player cannot buy multiple card removals in the same shop" >:: fun _ ->
+      assert_raises (CardRemoval "The shop is out of card removals.") (fun _ ->
+          buy_card_removal
+            (buy_card_removal (buy_remove_first shop)
+               (List.nth (shop |> get_player_state |> player_cards) 0))) );
+  ]
+
+let suite =
+  "test suite for Final Project" >::: List.flatten [ player_tests; shop_tests ]
+
 let _ = run_test_tt_main suite
