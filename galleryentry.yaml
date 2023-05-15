@@ -16,7 +16,7 @@ pm:
 # Set to false if you don't want your gallery entry to be public.
 publish: true
 # Pithy title
-title: "The Depths of Bingalee"
+title: "World of Bingalee"
 # OK if this is a Cornell Github link, but public gallery viewers won't be able to see it.
 git-repo: "https://github.coecis.cornell.edu/nf243/cs3110-finalproject"
 # If you have no demo screencast, replace the url string with an empty string ""
