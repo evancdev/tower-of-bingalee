@@ -42,6 +42,13 @@ let enemy_hit (state : BattleState.t) =
         \ PENNYWISE WALKS TOWARDS YOU AND STARTS TURNING INTO YOUR BIGGEST FEAR \n"
   | _ -> failwith "Invalid enemy"
 
+let check_hand s =
+  let active, hand = BattleState.get_card_state s in
+  ANSITerminal.print_string [ ANSITerminal.Bold; ANSITerminal.green ] "Active: ";
+  print_endline (UsefulFunctions.join_slist active ", ");
+  ANSITerminal.print_string [ ANSITerminal.Bold; ANSITerminal.magenta ] "Hand: ";
+  print_endline (UsefulFunctions.join_slist hand ", ")
+
 let print_battlefield (s : BattleState.t) =
   print_endline "\n\n";
   print_string ("  𖨆\t\t" ^ Enemy.enemy_face (BattleState.enemy_battle s));
@@ -49,7 +56,8 @@ let print_battlefield (s : BattleState.t) =
   let ph, eh = BattleState.get_health_strings s in
   print_endline (ph ^ "\t\t" ^ eh);
   print_endline ("Energy: ⚡" ^ string_of_int (BattleState.get_cur_energy s));
-  print_endline ""
+  print_endline "";
+  check_hand s
 
 let read_input () =
   ANSITerminal.print_string [ ANSITerminal.green; ANSITerminal.Bold ] "> ";
@@ -60,17 +68,14 @@ let play_card c s =
   let open BattleState in
   match activate_card s c with
   | exception CardNotInHand msg ->
-      print_endline msg;
+      ANSITerminal.print_string [ ANSITerminal.red; ANSITerminal.Bold ] msg;
       s
   | exception NotEnoughEnergy ->
-      print_endline "Not enough energy.";
+      ANSITerminal.print_string
+        [ ANSITerminal.Bold; ANSITerminal.red ]
+        "Not enough energy.\n";
       s
   | s' -> s'
-
-let check_hand s =
-  let active, hand = BattleState.get_card_state s in
-  print_endline ("Active: " ^ UsefulFunctions.join_slist active ", ");
-  print_endline ("Hand: " ^ UsefulFunctions.join_slist hand ", ")
 
 let check_hand_from_player p =
   print_endline
@@ -90,6 +95,16 @@ let end_turn s =
     if game_state s'' = PlayerDead then (false, true, s'')
     else (false, false, reset_turn s'')
 
+let info c =
+  let open Card in
+  match description c with
+  | s ->
+      ANSITerminal.print_string
+        [ ANSITerminal.magenta; ANSITerminal.Underlined ]
+        (c ^ "\n");
+      print_string s
+  | exception UnknownCard s -> print_endline s
+
 let battle (p : Player.t) (flr : int) =
   let rec battle_loop s =
     print_battlefield s;
@@ -97,15 +112,15 @@ let battle (p : Player.t) (flr : int) =
     | Play c ->
         let s' = play_card c s in
         battle_loop s'
-    | CheckHand ->
-        check_hand s;
-        battle_loop s
     | EndTurn -> (
         match end_turn s with
         | true, _, s' -> s'
         | _, true, s' -> raise Restart
         | _, _, s' -> battle_loop s')
     | Quit -> raise End
+    | Info c ->
+        info c;
+        battle_loop s
     | _ -> battle_loop s
     | exception Command.Malformed -> battle_loop s
     | exception Command.Empty -> battle_loop s
