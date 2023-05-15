@@ -6,6 +6,7 @@ open Command
 open Player
 open Enemy
 open BattleState
+open CampState
 open OUnit2
 
 let data_dir_prefix = "data" ^ Filename.dir_sep
@@ -103,6 +104,34 @@ let change_health_enemy_test name enemy damage expected_output : test =
   name >:: fun _ ->
   assert_equal expected_output (change_health_enemy enemy damage |> enemy_health)
 
+(* camp test functions *)
+let exists_energy_test name camp expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (exists_energy camp)
+
+let exists_hp_test name camp expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (exists_hp camp)
+
+let sleep_health_bool_test name camp expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (sleep_health camp |> exists_hp)
+
+let sleep_health_int_test name camp expected_output : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (sleep_health camp |> get_player_state |> player_cur_health)
+
+let gatorade_energy_bool_test name camp expected_output : test =
+  name >:: fun _ ->
+  assert_equal expected_output (gatorade_energy camp |> exists_energy)
+
+let gatorade_energy_int_test name camp expected_output : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (gatorade_energy camp |> get_player_state |> player_max_energy)
+
+let stats_camp_test name camp expected_output : test =
+  name >:: fun _ ->
+  assert_equal expected_output (stats camp) ~printer:String.escaped
+
 let card_tests = []
 
 let command_tests =
@@ -189,6 +218,21 @@ let enemy_tests =
     enemy_tier_test "tier 6 enemies" 6 [ "clown" ];
   ]
 
+let camp_tests =
+  let player = create_player () in
+  let camp = create_camp player in
+  [
+    exists_energy_test "health available after arrival to camp" camp true;
+    exists_energy_test "energy available after arrival to camp" camp true;
+    sleep_health_bool_test "health unavailable after heal" camp false;
+    gatorade_energy_bool_test "gatorade unavailable after recharge" camp false;
+    sleep_health_int_test "health stays at 50 after heal" camp 50;
+    gatorade_energy_int_test "gatorade increases max energy to 4 after recharge"
+      camp 4;
+    stats_camp_test "stats when you arrive at camp" camp
+      "Health: ♡ 50/50\nEnergy: 3";
+  ]
+
 let state_tests = []
 let shop_tests = []
 
@@ -204,6 +248,6 @@ let synergy_tests =
 
 let suite =
   "test suite for Final Project"
-  >::: List.flatten [ command_tests; player_tests; enemy_tests; synergy_tests ]
+  >::: List.flatten [ command_tests; player_tests; enemy_tests; camp_tests ]
 
 let _ = run_test_tt_main suite
