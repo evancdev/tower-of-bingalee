@@ -8,6 +8,7 @@ let print_battle_instructions () =
     print_string [ green; Underlined ] "\n=== Instructions for Battle ===\n");
   print_endline
     "\n   play <card> : plays the card with name <card> in your hand";
+  print_endline "\n   info <card> : gives the <card> description";
   print_endline
     "\n   end : ends your turn after you have played your desired cards";
   print_endline "\n   quit : quits the game";
@@ -23,7 +24,7 @@ let print_shop_instructions () =
   ANSITerminal.(
     print_string [ green; Underlined ] "\n=== Instructions for Shop ===\n");
   print_endline
-    "\n checkhand : displays cards in your active slot and your\n   hand";
+    "\n   checkhand : displays cards in your active slot and your hand";
   print_endline "\n   buy <card>: buy a <card> available at the shop";
   print_endline "\n   remove <card>: removes a <card> from your hand";
   print_endline "\n   leave : removes you from the shop"
@@ -335,7 +336,7 @@ let rec restart () =
 let rec floor p flr =
   match
     ANSITerminal.print_string [ ANSITerminal.green ]
-      "\n\
+      "\n\n\
       \    You step into a new realm... eager to explore.\n\
       \    It's not long before you're ambushed!";
     let p1 = battle p flr in
@@ -376,9 +377,13 @@ let adventure_begin () =
 
 let main () =
   print_endline "";
+  ANSITerminal.resize 130 130;
   ANSITerminal.print_string
     [ ANSITerminal.Bold; ANSITerminal.cyan ]
     "Welcome to the World of Bingalee\n";
+  ANSITerminal.print_string [ ANSITerminal.yellow ]
+    "The <help> command will give you instuctions on how to play and what \
+     commands are at your disposal";
   adventure_begin ()
 
 let () = main ()

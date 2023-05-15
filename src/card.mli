@@ -12,15 +12,31 @@ exception UnknownCard of string
     identifier of the unknown card. *)
 
 val description : string -> string
-(** [description a c] is the description of the card with identifier [c] in list
-    of cards [a]. Raises [UnknownCard c] if [c] is not a card identifier in [a]. *)
+(** [description s] is the description of the card with identifier [s] in 
+    the cards. Raises [UnknownCard s] if [s] is not a card identifier. *)
 
 val get_card_name : card -> string
+(** [get_card_name c] is the name of [c]. *)
+
 val get_dmg : string -> int
+(** [get_damage s] is the damage of the card with identifier [s] in 
+    the cards. Raises [UnknownCard s] if [s] is not a card identifier. *)
+
 val get_energy : string -> int
+(** [get_energy s] is the energy of the card with identifier [s] in 
+    the cards. Raises [UnknownCard s] if [s] is not a card identifier. *)
+
 val get_block : string -> int
+(** [get_block s] is the block of the card with identifier [s] in 
+    the cards. Raises [UnknownCard s] if [s] is not a card identifier. *)
+
 val get_id : string -> string
+(** [get_id s] is the id of the card with identifier [s] in 
+    the cards. Raises [UnknownCard s] if [s] is not a card identifier. *)
+
 val get_tier : string -> int
+(** [get_tier s] is the description of the card with identifier [s] in 
+    the cards. Raises [UnknownCard s] if [s] is not a card identifier. *)
 val get_bdmg : string -> int
 val get_blck : string -> int
 val get_synergy : string -> string list
