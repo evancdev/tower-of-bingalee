@@ -1,114 +1,139 @@
 {
   "cards": [
     {
-      "id": "cleave",
-      "description": "deals 8 DMG",
-      "damage": 8,
-      "energy": 0,
-      "effect": 0,
-      "block": 0,
-      "value": 7,
-      "tier": 1
-    },
-    {
-      "id": "clash",
-      "description": "Deals 15 DMG your active cards are all deal DMG",
-      "damage": 15,
+      "id": "strike",
+      "description": "Deals 2 DMG",
+      "damage": 2,
       "energy": 1,
       "effect": 0,
-      "block": 3,
-      "value": 10,
-      "tier": 1
+      "block": 0,
+      "value": 1,
+      "tier": 1,
+      "synergy": []
     },
     {
       "id": "block",
-      "description": "Blocks 10 DMG ",
+      "description": "Blocks 7 DMG",
       "damage": 0,
       "energy": 2,
       "effect": 0,
-      "block": 10,
+      "block": 7,
       "value": 2,
-      "tier": 1
+      "tier": 1,
+      "bonusdmg": 0,
+      "bonusblk": 0,
+      "synergy": []
+    },
+    {
+      "id": "cleave",
+      "description": "deals 4 DMG",
+      "damage": 4,
+      "energy": 2,
+      "effect": 0,
+      "block": 0,
+      "value": 7,
+      "tier": 1,
+      "bonusdmg": 6,
+      "bonusblk": 0,
+      "synergy": []
     },
     {
       "id": "clothesline",
-      "description": "Deals 14 DMG",
-      "damage": 14,
-      "energy": 3,
+      "description": "Deals 5 DMG. If you play GERMAN SUPLEX, you deal 12 DMG instead.",
+      "damage": 5,
+      "energy": 1,
       "effect": 0,
       "block": 0,
-      "value": 5,
-      "tier": 1
+      "value": 7,
+      "tier": 1,
+      "bonusdmg": 6,
+      "bonusblk": 0,
+      "synergy": [
+        "german suplex"
+      ]
     },
     {
-      "id": "attack",
-      "description": "Deals 2 DMG",
-      "damage": 2,
-      "energy": 0,
+      "id": "german suplex",
+      "description": "Deals 6 DMG. If you play CLOTHESLINE, you deal 12 DMG instead.",
+      "damage": 6,
+      "energy": 2,
       "effect": 0,
-      "block": 0,
-      "value": 5,
-      "tier": 2
+      "block": 3,
+      "value": 12,
+      "tier": 2,
+      "bonusdmg": 1,
+      "bonusblk": 0,
+      "synergy": [
+        "clothesline"
+      ]
     },
     {
       "id": "parry",
-      "description": "Deals 2 DMG to the enemy and blocks 3 DMG",
-      "damage": 2,
+      "description": "Deals 4 DMG to the enemy and blocks 5 DMG",
+      "damage": 4,
       "energy": 1,
       "effect": 0,
-      "block": 3,
-      "value": 5,
-      "tier": 2
+      "block": 5,
+      "value": 8,
+      "tier": 2,
+      "bonusdmg": 0,
+      "bonusblk": 0,
+      "synergy": []
     },
     {
-      "id": "block",
-      "description": "Blocks 10 DMG ",
+      "id": "sentinel",
+      "description": "Blocks 8 DMG",
       "damage": 0,
       "energy": 2,
       "effect": 0,
       "block": 10,
-      "value": 2,
-      "tier": 2
-    },
-    {
-      "id": "heavy attack",
-      "description": "Deals 5 DMG",
-      "damage": 9,
-      "energy": 2,
-      "effect": 0,
-      "block": 0,
-      "value": 5,
-      "tier": 2
+      "value": 8,
+      "tier": 2,
+      "bonusdmg": 0,
+      "bonusblk": 10,
+      "synergy": [
+        "barricade"
+      ]
     },
     {
       "id": "iron wave",
-      "description": "Block 5 DMG and deal 5 DMG",
-      "damage": 5,
-      "energy": 0,
+      "description": "Block 5 DMG and deal 10 DMG",
+      "damage": 10,
+      "energy": 3,
       "effect": 0,
       "block": 5,
-      "value": 10,
-      "tier": 3
+      "value": 15,
+      "tier": 3,
+      "bonusdmg": 0,
+      "bonusblk": 0
     },
     {
-      "id": "pommel strike",
-      "description": "Deals 10 DMG to the enemy and blocks 3 DMG",
-      "damage": 10,
-      "energy": 1,
+      "id": "heavy blade",
+      "description": "Deals 14 DMG to the enemy",
+      "damage": 14,
+      "energy": 2,
       "effect": 0,
-      "block": 3,
-      "value": 7,
-      "tier": 3
+      "block": 0,
+      "value": 17,
+      "tier": 3,
+      "bonusdmg": 0,
+      "bonusblk": 0,
+      "synergy": []
     },
     {
-      "id": "block",
-      "description": "Blocks 10 DMG ",
+      "id": "barricade",
+      "description": "Blocks 12 DMG. If you play BARRICADE, you block 20 DMG instead.",
       "damage": 0,
       "energy": 2,
       "effect": 0,
       "block": 10,
       "value": 2,
-      "tier": 3
+      "tier": 3,
+      "bonusdmg": 0,
+      "bonusblk": 10,
+      "synergy": [
+        "sentinel"
+      ]
     }
   ]
 }

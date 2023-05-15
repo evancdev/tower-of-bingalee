@@ -39,6 +39,14 @@ let init_battle (p : Player.t) (enemy_tier : int) =
     hold = None;
   }
 
+let rec eval_active (state : t) =
+  match state.active with
+  | [] -> state
+  | h :: t ->
+      if t = [] then
+        { state with enemy = change_health_enemy state.enemy (get_dmg h) }
+      else eval_active state
+
 (**plays the card*)
 (*let play_card (card_database : Card.t) (card_name : string) (state : t) = if
   List.mem card_name (player_hand state.player) then let new_enemy_state =
