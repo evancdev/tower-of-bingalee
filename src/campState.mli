@@ -20,7 +20,7 @@ val gatorade_energy : t -> t
     they choose to recharge in the camp. Repeatedly recharging will raise
     InvalidChoice*)
 
-val get_player_state : t -> Player.t
+val camp_get_player_state : t -> Player.t
 (**gets the player state*)
 
 val exists_energy : t -> bool

@@ -44,6 +44,6 @@ let stats camp =
   ^ "\n\tEnergy: ⚡"
   ^ string_of_int (Player.player_max_energy camp.player)
 
-let get_player_state c = c.player
+let camp_get_player_state c = c.player
 let exists_energy c = c.energy
 let exists_hp c = c.health

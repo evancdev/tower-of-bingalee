@@ -62,9 +62,6 @@ let buy_card (shop : t) (card : string) =
         player =
           change_gold_player (add_card shop.player card) ~-(get_value card);
       }
-  | exception UnknownCard c ->
-      print_endline c;
-      shop
 
 let buy_card_removal (shop : t) (card : string) =
   match (shop.card_removal, player_gold shop.player - !removal_price >= 0) with
@@ -73,8 +70,11 @@ let buy_card_removal (shop : t) (card : string) =
       {
         shop with
         player =
-          change_gold_player (p_remove_card shop.player card) (- !removal_price);
+          change_gold_player
+            (p_remove_card shop.player card)
+            (-shop.removal_cost);
         removal_cost = !removal_price;
+        card_removal = 0;
       }
   | 1, false ->
       raise
