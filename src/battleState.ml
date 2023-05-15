@@ -41,13 +41,15 @@ let rec eval_active_aux (state : t) =
       let synergy_dmg =
         List.fold_left
           (fun acc c ->
-            if List.mem c (get_synergy h) then acc + get_bdmg c else acc)
+            if List.mem c (get_synergy h) then acc + get_bdmg c + get_bdmg h
+            else acc)
           0 t
       in
       let synergy_blk =
         List.fold_left
           (fun acc c ->
-            if List.mem c (get_synergy h) then acc + get_blck c else acc)
+            if List.mem c (get_synergy h) then acc + get_blck c + get_blck h
+            else acc)
           0 t
       in
       let dmg = get_dmg h + synergy_dmg in

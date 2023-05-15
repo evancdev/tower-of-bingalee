@@ -4,11 +4,13 @@
       "choice": "true",
       "changes": [
         {
-          "health_delta": 20,
+          "maxhp_delta": 20,
+          "health_delta": 0,
           "energy_delta": 0,
           "gold_delta": -5
         },
         {
+          "maxhp_delta": 0,
           "health_delta": -10,
           "energy_delta": 0,
           "gold_delta": 0
@@ -20,11 +22,13 @@
       "choice": "true",
       "changes": [
         {
+          "maxhp_delta": 0,
           "health_delta": -10,
           "energy_delta": 0,
           "gold_delta": 0
         },
         {
+          "maxhp_delta": 0,
           "health_delta": 0,
           "energy_delta": 0,
           "gold_delta": 0
@@ -36,11 +40,13 @@
       "choice": "true",
       "changes": [
         {
+          "maxhp_delta": 0,
           "health_delta": -5,
           "energy_delta": 1,
           "gold_delta": 0
         },
         {
+          "maxhp_delta": 0,
           "health_delta": 0,
           "energy_delta": 0,
           "gold_delta": 0
@@ -52,6 +58,7 @@
       "choice": "false",
       "changes": [
         {
+          "maxhp_delta": 10,
           "health_delta": 0,
           "energy_delta": 1,
           "gold_delta": 0
@@ -63,6 +70,7 @@
       "choice": "false",
       "changes": [
         {
+          "maxhp_delta": 0,
           "health_delta": 0,
           "energy_delta": 0,
           "gold_delta": 10
@@ -74,6 +82,7 @@
       "choice": "false",
       "changes": [
         {
+          "maxhp_delta": 0,
           "health_delta": -10,
           "energy_delta": 0,
           "gold_delta": 0
@@ -85,6 +94,7 @@
       "choice": "false",
       "changes": [
         {
+          "maxhp_delta": 5,
           "health_delta": 5,
           "energy_delta": 0,
           "gold_delta": 0
