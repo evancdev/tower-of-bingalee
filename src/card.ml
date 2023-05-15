@@ -114,11 +114,14 @@ let get_block (card : string) = set.cards |> card_block card
 let get_id (card : string) = card_id card set.cards
 let get_tier (card : string) = set.cards |> card_tier card
 let get_bdmg (card : string) = set.cards |> card_bdmg card
-let get_bdmg (card : string) = set.cards |> card_bblk card
+let get_blck (card : string) = set.cards |> card_bblk card
 let get_synergy (card : string) = set.cards |> card_synergy card
 let is_t1 card = if card.tier = 1 then true else false
 let is_t2 card = if card.tier = 2 then true else false
 let is_t3 card = if card.tier = 3 then true else false
+
+let find_card (id : string) =
+  List.find (fun c -> c.id = id) (all_cards_of_json card_json)
 
 let t1_cards =
   all_cards_of_json card_json |> List.filter is_t1 |> List.map get_card_name

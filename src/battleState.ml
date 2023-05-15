@@ -39,13 +39,35 @@ let init_battle (p : Player.t) (enemy_tier : int) =
     hold = None;
   }
 
+(* Old eval_active — KEEP JUST IN CASE NEW DOESN'T WORK *)
+(* let rec eval_active (state : t) = match state.active with | [] -> state | h
+   :: t -> if t = [] then { state with enemy = change_health_enemy state.enemy
+   (get_dmg h) } else eval_active state *)
+
+let change_block (p : t) (nblock : int) = p.block + nblock
+
 let rec eval_active (state : t) =
   match state.active with
   | [] -> state
   | h :: t ->
-      if t = [] then
-        { state with enemy = change_health_enemy state.enemy (get_dmg h) }
-      else eval_active state
+      let synergy_dmg =
+        List.fold_left
+          (fun acc c ->
+            if List.mem c (get_synergy h) then acc + get_bdmg c else acc)
+          0 t
+      in
+      let synergy_blk =
+        List.fold_left
+          (fun acc c ->
+            if List.mem c (get_synergy h) then acc + get_blck c else acc)
+          0 t
+      in
+      let dmg = get_dmg h + synergy_dmg in
+      let blk = get_block h + synergy_blk in
+      let enemy' = change_health_enemy state.enemy dmg in
+      let block' = change_block state blk in
+      let state' = { state with enemy = enemy'; block = block'; active = t } in
+      eval_active state'
 
 (**plays the card*)
 (*let play_card (card_database : Card.t) (card_name : string) (state : t) = if

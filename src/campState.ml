@@ -16,7 +16,7 @@ let create_camp p = {
 let pl_field p camp =
   let sh = Player.player_health p in
   let fh = 1.08 *. float_of_int sh in
-  Player.change_player_mhp p (int_of_float (Float.round fh))
+  change_player_mhp p (int_of_float (Float.round fh))
   
 let sleep_health p camp = match camp.health with 
 | true -> {camp with health = false ; player = pl_field p camp}

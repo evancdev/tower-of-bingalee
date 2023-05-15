@@ -20,10 +20,16 @@ val description : string -> string
 
 val get_card_name : card -> string
 val get_dmg : string -> int
+val description : string -> string
+val get_dmg : string -> int
 val get_energy : string -> int
 val get_block : string -> int
 val get_id : string -> string
-val get_block : string -> int
+val get_tier : string -> int
+val get_bdmg : string -> int
+val get_blck : string -> int
+val get_synergy : string -> string list
 val t1_cards : string list
 val t2_cards : string list
 val t3_cards : string list
+val find_card : string -> card
