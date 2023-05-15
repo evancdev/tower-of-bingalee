@@ -264,27 +264,25 @@ let camp (p : Player.t) =
   let rec camp_loop c =
     print_camp c;
     match read_input () with
-    | Heal ->
-        (match c |> sleep_health with
+    | Heal -> (
+        match c |> sleep_health with
         | c' ->
             ANSITerminal.print_string [ ANSITerminal.green ]
               "You lay down to take a nap. Health increased!";
-            c'
+            camp_loop c'
         | exception CampState.InvalidChoice s ->
             ANSITerminal.print_string [ ANSITerminal.red ] s;
             camp_loop c)
-        |> camp_loop
-    | Recharge ->
-        (match c |> gatorade_energy with
+    | Recharge -> (
+        match c |> gatorade_energy with
         | c' ->
             ANSITerminal.print_string [ ANSITerminal.yellow ]
               "You chug the bottle of gatorade. Electrolytes course through \
                your body! Max energy increased!";
-            c'
+            camp_loop c'
         | exception CampState.InvalidChoice s ->
             ANSITerminal.print_string [ ANSITerminal.red ] s;
             camp_loop c)
-        |> camp_loop
     | Leave ->
         ANSITerminal.print_string [ ANSITerminal.red ]
           "You leave the camp and all it's peacefullness. \n\
