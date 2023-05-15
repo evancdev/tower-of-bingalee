@@ -184,3 +184,7 @@ let init_battle (p : Player.t) (enemy_tier : int) =
 
 let reset_turn (s : t) = { s with cur_energy = s.max_energy; block = 0 }
 let get_cur_energy s = s.cur_energy
+
+let for_player_attack_test enemy active =
+  let b = init_battle (Player.create_player ()) 1 in
+  { b with enemy; active }
