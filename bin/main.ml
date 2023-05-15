@@ -12,7 +12,8 @@ let print_battle_instructions () =
   print_endline
     "\n   end : ends your turn after you have played your desired cards";
   print_endline "\n   quit : quits the game";
-  print_endline "\n   again: allows you to have a second chance and try to win "
+  print_endline "\n   again: allows you to have a second chance and try to win ";
+  print_endline "\n   info <card> : prints a description of the card"
 
 let print_door_instructions () =
   ANSITerminal.print_string
@@ -223,11 +224,17 @@ let shop (p : Player.t) =
         | x -> shop_loop x
         | exception InvalidPurchase m ->
             print_endline m;
+            shop_loop s
+        | exception NotEnough m ->
+            print_endline m;
             shop_loop s)
     | Remove c -> (
         match buy_card_removal s c with
         | x -> shop_loop x
         | exception CardRemoval m ->
+            print_endline m;
+            shop_loop s
+        | exception NotEnough m ->
             print_endline m;
             shop_loop s)
     | Leave -> get_player_state s
