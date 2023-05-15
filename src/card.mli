@@ -17,30 +17,31 @@ exception UnknownCard of string
     identifier of the unknown card. *)
 
 val description : string -> string
-(** [description a c] is the description of the card with identifier [c] in list
-    of cards [a]. Raises [UnknownCard c] if [c] is not a card identifier in [a]. *)
+(** [description s] is the description of the card with identifier [s] in the
+    cards. Raises [UnknownCard s] if [s] is not a card identifier. *)
 
 val get_card_name : card -> string
-(**[get_card_name c] returns the name of a card given the card object*)
+(** [get_card_name c] is the name of [c]. *)
 
 val get_dmg : string -> int
-(**[get_dmg s] returns the damage value of a card given its name*)
-
-val description : string -> string
-(**[description s] returns the description of a card given its name*)
+(** [get_damage s] is the damage of the card with identifier [s] in the cards.
+    Raises [UnknownCard s] if [s] is not a card identifier. *)
 
 val get_energy : string -> int
-(**[get_energy s] returns the energy cost of a card given its name*)
+(** [get_energy s] is the energy of the card with identifier [s] in the cards.
+    Raises [UnknownCard s] if [s] is not a card identifier. *)
 
 val get_block : string -> int
-(**[get_block s] returns the block value of a card given its name*)
+(** [get_block s] is the block of the card with identifier [s] in the cards.
+    Raises [UnknownCard s] if [s] is not a card identifier. *)
 
 val get_id : string -> string
-(**[get_id s] returns the name of a card given its name (which is not that
-   helpful but found some use somewhere alongside all these other accessors)*)
+(** [get_id s] is the id of the card with identifier [s] in the cards. Raises
+    [UnknownCard s] if [s] is not a card identifier. *)
 
 val get_tier : string -> int
-(**[get_tier s] returns the tier of a card given its name*)
+(** [get_tier s] is the description of the card with identifier [s] in the
+    cards. Raises [UnknownCard s] if [s] is not a card identifier. *)
 
 val get_bdmg : string -> int
 (**[get_bdmg s] returns the bonus damage value of a card given its name*)
