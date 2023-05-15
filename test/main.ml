@@ -422,7 +422,7 @@ let shop_tests =
     >:: fun _ ->
       assert_equal (buy_first shop |> get_cards) (get_cards shop |> List.tl) );
     ( "Player buys an nonexistent card" >:: fun _ ->
-      assert_raises raise (UnknownCard "Not a valid card.") (fun _ ->
+      assert_raises (UnknownCard "Not a valid card.") (fun _ ->
           buy_card shop "NONEXISTENT") );
     ( "Player tries to buy a card that the shop does not have" >:: fun _ ->
       assert_raises (InvalidPurchase "The shopkeeper isn't selling that card.")
