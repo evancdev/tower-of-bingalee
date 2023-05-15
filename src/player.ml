@@ -27,7 +27,7 @@ let create_player () =
         "strike";
         "cleave";
       ];
-    gold = 0;
+    gold = 10;
     cur_health = 50;
     stage = (1, 0);
   }
