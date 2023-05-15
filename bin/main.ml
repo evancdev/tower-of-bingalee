@@ -318,5 +318,4 @@ let main () =
     "Welcome to the World of Bingalee\n";
   adventure_begin ()
 
-let () = main ()
-(*ignore (shop (Player.create_player ()) 1 1)*)
+let () = ignore (shop (Player.create_player ()) 1 1)
