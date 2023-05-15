@@ -377,6 +377,7 @@ let main () =
     "Welcome to the World of Bingalee\n";
   adventure_begin ()
 
-let () = ignore (camp (Player.create_player ()))
+let () = main ()
+(* let () = ignore (camp (Player.create_player ())) *)
 (* ignore (chance (Player.create_player ())) *)
 (* let () = ignore (shop (Player.create_player ())) *)

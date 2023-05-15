@@ -37,7 +37,10 @@ let rec enemy_names enemy_list =
 
 let init_enemy (tier : int) =
   let pos_enemies = enemy_tier tier in
-  let n = Random.int (List.length pos_enemies) in
+  let n =
+    Random.self_init ();
+    Random.int (List.length pos_enemies)
+  in
   List.nth pos_enemies n
 
 let change_health_enemy t damage = { t with health = t.health - damage }
