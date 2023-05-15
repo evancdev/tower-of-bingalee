@@ -269,6 +269,7 @@ let camp (p : Player.t) =
         | c' ->
             ANSITerminal.print_string [ ANSITerminal.green ]
               "You lay down to take a nap. Health increased!";
+            print_endline (string_of_int (Player.player_cur_health p));
             camp_loop c'
         | exception CampState.InvalidChoice s ->
             ANSITerminal.print_string [ ANSITerminal.red ] s;
@@ -370,5 +371,5 @@ let main () =
   adventure_begin ()
 
 let () = main ()
-(* ignore (chance (Player.create_player ())) *)
-(* let () = ignore (shop (Player.create_player ())) *)
+
+(* let () = ignore (camp (Player.create_player ())) *)

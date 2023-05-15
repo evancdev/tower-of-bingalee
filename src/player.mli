@@ -32,9 +32,6 @@ val p_remove_card : t -> string -> t
 val change_player_mhp : t -> int -> t
 (**modifies player health*)
 
-val change_health_player : t -> int -> t
-(**modifies player current health*)
-
 val change_gold_player : t -> int -> t
 (**modifies player gold*)
 
@@ -43,5 +40,8 @@ val change_player_menergy : t -> int -> t
 
 val change_player_curhp : t -> int -> t
 (**modifies player current health*)
+
+val crhp_to_max_health : t -> t
+(** [crhp_to_max_health p] modifies [p] current health to its maximum health*)
 
 val player_from : int -> int -> string list -> int -> int -> int * int -> t

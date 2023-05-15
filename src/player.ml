@@ -27,7 +27,7 @@ let create_player () =
         "strike";
         "cleave";
       ];
-    gold = 0;
+    gold = 10;
     cur_health = 50;
     stage = (1, 0);
   }
@@ -53,9 +53,6 @@ let p_remove_card (p : t) (card_name : string) : t =
 let change_player_mhp (p : t) (amount : int) : t =
   { p with max_health = p.max_health + amount }
 
-let change_health_player p damage =
-  { p with cur_health = p.cur_health - damage }
-
 let change_gold_player (p : t) (gold : int) : t =
   { p with gold = p.gold + gold }
 
@@ -64,3 +61,5 @@ let change_player_menergy (p : t) (amount : int) : t =
 
 let change_player_curhp (p : t) (amount : int) : t =
   { p with cur_health = p.cur_health + amount }
+
+let crhp_to_max_health p = { p with cur_health = p.max_health }
