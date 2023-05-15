@@ -52,7 +52,7 @@ let create_chance_event p = { player = p; prompt = generate_random_prompt () }
 let apply_changes (state : t) (change : change) =
   change_player_menergy
     (change_gold_player
-       (change_player_mhp state.player change.health_delta)
+       (change_player_curhp state.player change.health_delta)
        change.gold_delta)
     change.energy_delta
 
