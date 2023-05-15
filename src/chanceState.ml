@@ -62,11 +62,11 @@ let prompts = [ choice_p1; lucky_p1; unlucky_p2 ]
 let generate_random_prompt = List.nth prompts (Random.int (List.length prompts))
 
 let apply_changes (state : t) (change : change) =
-  change_energy_player
+  change_player_menergy
     (change_gold_player
-       (change_health_player state.player change.health_delta false)
+       (change_player_mhp state.player change.health_delta)
        change.gold_delta)
-    change.energy_delta false
+    change.energy_delta
 
 let read_decision (prompt : prompt) =
   let rec loop () =
